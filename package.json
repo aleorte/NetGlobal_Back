@@ -1,0 +1,25 @@
+{
+  "name": "netglobal_back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PauQuiriti/netglobal_back.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PauQuiriti/netglobal_back/issues"
+  },
+  "homepage": "https://github.com/PauQuiriti/netglobal_back#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "pg": "^8.7.3",
+    "postgres": "^3.2.4",
+    "sequelize": "^6.21.0"
+  }
+}
