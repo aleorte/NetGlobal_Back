@@ -7,9 +7,12 @@ const {Guard}= require ('../models')
 const {Admin}= require('../models')
 const loginAuth=require('../controllers/login')
 const guardLogin= require('../controllers/guardLogin')
+const authAdmin = require('../controllers/authAdmin')
 router.post("/login", loginAuth)
 router.post("/login/guard", guardLogin)
+router.post("/auth", authAdmin)
 
+//rutas provisorias : son para usar ahora 
 router.post("/register/admin",async(req, res)=>{
     try{
        const newAdmin= await Admin.create(req.body);
