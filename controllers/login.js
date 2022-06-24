@@ -2,8 +2,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {Guard}= require ('../models')
 const {Admin}= require('../models')
-
-export default const loginAuth = async(res,req )=>{
+ const loginAuth = async(res,req )=>{
+  console.log(req.body)
     try{
      const guard= await Guard.findOne({ where: { email: req.body.email } })
      const admin = await Admin.findOne({ where: { email: req.body.email } })
@@ -35,3 +35,5 @@ export default const loginAuth = async(res,req )=>{
      console.log(err)
     }
 }
+
+module.exports = loginAuth

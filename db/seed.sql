@@ -1,4 +1,27 @@
+ INSERT INTO provinces (name) VALUES ('Buenos Aires');
+ INSERT INTO provinces (name) VALUES ('Chaco');
+ INSERT INTO provinces (name) VALUES ('Cordoba');
+ INSERT INTO provinces (name) VALUES ('La Pampa');
+ INSERT INTO provinces (name) VALUES ('Chubut');
+ INSERT INTO provinces (name) VALUES ('Jujuy');
+ INSERT INTO provinces (name) VALUES ('Salta');
+ INSERT INTO provinces (name) VALUES ('Tucuman');
+ INSERT INTO provinces (name) VALUES ('Formosa');
+ INSERT INTO provinces (name) VALUES ('Catamarca');
+ INSERT INTO provinces (name) VALUES ('Santiago del Estero');
+ INSERT INTO provinces (name) VALUES ('Corrientes');
+ INSERT INTO provinces (name) VALUES ('Mendoza');
+ INSERT INTO provinces (name) VALUES ('Entre Rios');
+ INSERT INTO provinces (name) VALUES ('Santa Fe');
+ INSERT INTO provinces (name) VALUES ('Misiones');
+ INSERT INTO provinces (name) VALUES ('Rio Negro');
+ INSERT INTO provinces (name) VALUES ('San Juan');
+ INSERT INTO provinces (name) VALUES ('San Luis');
+ INSERT INTO provinces (name) VALUES ('Santa Cruz');
+ INSERT INTO provinces (name) VALUES ('Neuquen');
+ INSERT INTO provinces (name) VALUES ('Tierra del Fuego');
+ INSERT INTO provinces (name) VALUES ('La Rioja');
 
- INSERT INTO admins (email,password) VALUES ('admin@admin.com','1234')
- INSERT INTO guards (name, lastName, cuil, email, password, street, number,location,coordinateLatitude,coordinateLength,providenceId) VALUES ('Paula','Quiriti','27-37389294-2','pauquiriti@hotmail.com','12345', 'Valencia',5888,'Mar del Plata', 41.40 , 21.17, 4)
- INSERT INTO guards (name, lastName, cuil, email, password, street, number,location,coordinateLatitude,coordinateLength,provinceId) VALUES ('Paul','Jones','20-3730094-2','paul@hotmail.com','99', 'Tierra del Fuego',1999,'Santa Clara ', 45.25 , 2.17, 1)
+ INSERT INTO admins (email,password) VALUES ('admin@admin.com','1234');
+ INSERT INTO guards (name, "lastName", cuil, email, password, street, number,location,"coordinateLatitude","coordinateLength","provinceId") VALUES ('Paula','Quiriti','27-37389294-2','pauquiriti@hotmail.com','12345', 'Valencia',5888,'Mar del Plata', 41.40 , 21.17, 4);
+ INSERT INTO guards (name, "lastName", cuil, email, password, street, number,location,"coordinateLatitude","coordinateLength","provinceId") VALUES ('Paul','Jones','20-3730094-2','paul@hotmail.com','99', 'Tierra del Fuego',1999,'Santa Clara ', 45.25 , 2.17, 1);
