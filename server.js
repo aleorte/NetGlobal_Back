@@ -13,8 +13,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan("tiny"));
 
-app.use('/api', routes);
-db.sync({ force: false}).then(() => {
+app.use('/', routes);
+db.sync({ force: false }).then(() => {
   app.listen(3001, () => {
     console.log("listening port: 3001");
   });
