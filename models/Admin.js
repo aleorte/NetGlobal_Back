@@ -21,6 +21,16 @@ Admin.init(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    createdAt: {
+      allowNull: false,
+      defaultValue: new Date(),
+      type: Sequelize.DATE,
+    },
+    updatedAt: {
+      allowNull: false,
+      defaultValue: new Date(),
+      type: Sequelize.DATE,
+    },
   },
   { sequelize: db, modelName: "admins" }
 );
