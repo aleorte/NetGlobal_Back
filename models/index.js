@@ -5,6 +5,8 @@ const Company = require("./Company")
 const Guard = require("./Guard")
 const Inactive = require ("./Inactive")
 const Province = require ("./Province")
+const License = require ("./License")
+
 
 Branch.belongsTo(Company, {as:"company"});
 Branch.belongsTo(Province, {as:"province"});
@@ -13,10 +15,9 @@ Assignment.belongsTo(Admin, {as:"admin"})
 Assignment.belongsTo(Guard, {as:"guard"})
 Inactive.belongsTo(Guard, {as:"guard"})
 Guard.belongsTo(Province, {as:"province"})
-Province.belongsTo(Guard,{as:"guard"})
-Province.belongsTo(Branch,{as:"branch"})
 
 
 
 
-module.exports = {Admin,Assignment,Branch,Company,Guard,Inactive,Province}
+
+module.exports = {Admin,Assignment,Branch,Company,Guard,Inactive,Province,License}
