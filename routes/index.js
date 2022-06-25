@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {Guard}= require ('../models')
 const {Admin}= require('../models')
+const companyRouter= require('./company')
 const loginAuth=require('../controllers/login')
 const guardLogin= require('../controllers/guardLogin')
 const authAdmin = require('../controllers/authAdmin')
@@ -12,6 +13,7 @@ router.post("/login", loginAuth)
 router.post("/login/guard", guardLogin)
 router.post("/auth", authAdmin)
 
+router.use("/company", companyRouter)
 //rutas provisorias : son para usar ahora 
 router.post("/register/admin",async(req, res)=>{
     try{

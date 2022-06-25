@@ -19,11 +19,11 @@ Company.init(
       allowNull: false,
     },
     contractStartDate: {
-      type: Sequelize.DATE,
+      type: Sequelize.DATEONLY,
       allowNull: false,
     },
     contractEndDate: {
-      type: Sequelize.DATE,
+      type: Sequelize.DATEONLY,
       allowNull: false,
     },
   },
