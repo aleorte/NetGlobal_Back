@@ -2,24 +2,24 @@ const { Router } = require('express');
 const express = require('express');
 const companyRouter = express.Router();
 const {Company}= require ('../models')
+const findAllActiveCompanies = require('../controllers/findAllActiveCompanies')
+const findAllCompanies = require('../controllers/findAllCompanies')
+const createCompany = require('../controllers/createCompany')
+const findCompany = require('../controllers/findCompany')
+const modifyCompany = require('../controllers/modifyCompany');
+const findInactiveCompanies = require('../controllers/findInactiveCompanies');
 
-companyRouter.get('/', async (req,res)=>{
-    try{
-        const result = await Company.findAll()
-        res.status(200).send(result)  
-    }
-   catch(err){
-    console.log(err)
-   }
-})
-companyRouter.post('/', async(req,res)=>{
-    try{
-        const newCompany = await Company.create(req.body) 
-    }
-    catch(err){
-        console.log(err)
-        res.status(400).send({message:'Failed to create '})
-    }
-})
+//encuentra todas las companies 
+companyRouter.get('/', findAllCompanies)
+//encuentra todas las companies activas 
+companyRouter.get('/active', findAllActiveCompanies)
+// encuentra todas las companies inactivas 
+companyRouter.get('/inactive',findInactiveCompanies)
+// crea una nueva company 
+companyRouter.post('/', createCompany)
+//solo  encuentra la company  y avisa si esta inactiva 
+companyRouter.get('/:id', findCompany)
+//modifica una company
+companyRouter.put('/:id', modifyCompany)
 
 module.exports = companyRouter
