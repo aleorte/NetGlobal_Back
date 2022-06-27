@@ -5,9 +5,9 @@ const {Admin}= require('../models')
  const loginAuth = async( req, res  )=>{
     try{
      const admin = await Admin.findOne({ where: { email: req.body.email } })
-     if (! admin) {res.status(401).send({message: 'invalid email and password!'}) }
+     if (! admin) {res.status(404).send({message: 'invalid email'}) }
      const isAdminValid= await bcrypt.compare(req.body.password, admin.password)
-     if (!isAdminValid) return res.status(401).send( {message: 'invalid email and password!'})
+     if (!isAdminValid) return res.status(401).send( {message: 'invalid password!'})
     
     const adminForToken = {
         id: admin.id,
