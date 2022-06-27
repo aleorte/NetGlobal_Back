@@ -23,5 +23,8 @@
  INSERT INTO provinces (name) VALUES ('La Rioja');
 
  INSERT INTO admins (email,password) VALUES ('admin@admin.com','1234');
- INSERT INTO guards (name, "lastName", cuil, email, password, street, number,location,"coordinateLatitude","coordinateLength","provinceId") VALUES ('Paula','Quiriti','27-37389294-2','pauquiriti@hotmail.com','12345', 'Valencia',5888,'Mar del Plata', 41.40 , 21.17, 4);
- INSERT INTO guards (name, "lastName", cuil, email, password, street, number,location,"coordinateLatitude","coordinateLength","provinceId") VALUES ('Paul','Jones','20-3730094-2','paul@hotmail.com','99', 'Tierra del Fuego',1999,'Santa Clara ', 45.25 , 2.17, 1);
+ INSERT INTO guards (name, "lastName", cuil, email, password, street, number,location,"coordinateLatitude","coordinateLength") VALUES ('Paula','Quiriti',27373892942,'pauquiriti@hotmail.com','12345', 'Valencia',5888,'Mar del Plata', 41.40 , 21.17);
+ INSERT INTO guards (name, "lastName", cuil, email, password, street, number,location,"coordinateLatitude","coordinateLength") VALUES ('Paul','Jones',2037300942,'paul@hotmail.com','99', 'Tierra del Fuego',1999,'Santa Clara ', 45.25 , 2.17);
+
+ INSERT INTO companies (cuit, "legalName", "legalAdress", "contractStartDate","contractEndDate") VALUES (12131311,'la empresa','domicilio 123','2022-01-01','2022-12-01');
+ INSERT INTO branches (name, street,number,location,"coordinateLatitude","coordinateLength","companyId") VALUES ('la sucursal','calle',111,'rio cuarto',55.25 , 22.17,1);

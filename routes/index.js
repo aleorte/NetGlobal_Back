@@ -7,6 +7,13 @@ const {Guard}= require ('../models')
 const {Admin}= require('../models')
 const loginAuth=require('../controllers/login')
 const guardLogin= require('../controllers/guardLogin')
+const guardRoutes = require("./guardRoutes")
+const assignmentRoutes = require("./assignmentRoutes")
+
+
+router.use("/employees",guardRoutes)
+router.use("/assignments",assignmentRoutes)
+
 router.post("/login", loginAuth)
 router.post("/login/guard", guardLogin)
 
