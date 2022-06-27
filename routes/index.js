@@ -10,7 +10,8 @@ const loginAuth=require('../controllers/login')
 const guardLogin= require('../controllers/guardLogin')
 const authAdmin = require('../middleware/authAdmin')
 const guardRoutes = require("./guardRoutes")
-const assignmentRoutes = require("./assignmentRoutes")
+const assignmentRoutes = require("./assignmentRoutes");
+const branchesRouter = require('./branches');
 
 
 router.use("/employees",guardRoutes)
@@ -22,6 +23,8 @@ router.post("/login/guard", guardLogin)
 //router.post("/auth", authAdmin)
 
 router.use("/company", companyRouter)
+router.use("/branch", branchesRouter)
+
 //rutas provisorias : son para usar ahora 
 router.post("/register/admin",async(req, res)=>{
     try{

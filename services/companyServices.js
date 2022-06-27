@@ -1,4 +1,5 @@
 const {Company} = require("../models");
+const {Branch}= require ('../models');
 function padTo2Digits(num) {
     return num.toString().padStart(2, '0');
   }
@@ -77,10 +78,34 @@ class CompanyServices {
             return { error: false, data:active };
         }
         catch(error){
-            console.log(error)
             return { error: true, data: {message:"Coudn't find any inactive companies"}};
         }
       }
+      static async getBranches(companyId){
+        try{const branches = await Branch.findAll({where:{companyId:companyId}})
+        return { error: false, data: branches };}
+        catch(error){
+          return { error: true, data: {message:"Coudn't find any braches for the company"}};
+        }
+      }
+      static async addBranch(body,companyId){
+        try{
+            const branch = await Branch.create({
+              name: body.name,
+              street: body.street,
+              number: body.number,
+              location: body.location,
+              coordinateLatitude: body.coordinateLatitude,
+              coordinateLength: body.coordinateLength,
+             companyId: companyId
+            })
+            return { error: false, data: branch };
+
+        }
+        catch(error){
+            return  { error: true, data: {message:'Failed to create '}}; 
+        }
+    }
 
 
 }

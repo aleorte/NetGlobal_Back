@@ -27,4 +27,7 @@
  INSERT INTO guards (name, "lastName", cuil, email, password, street, number,location,"coordinateLatitude","coordinateLength") VALUES ('Paul','Jones',2037300942,'paul@hotmail.com','99', 'Tierra del Fuego',1999,'Santa Clara ', 45.25 , 2.17);
 
  INSERT INTO companies (cuit, "legalName", "legalAdress", "contractStartDate","contractEndDate") VALUES (12131311,'la empresa','domicilio 123','2022-01-01','2022-12-01');
- INSERT INTO branches (name, street,number,location,"coordinateLatitude","coordinateLength","companyId") VALUES ('la sucursal','calle',111,'rio cuarto',55.25 , 22.17,1);
+ INSERT INTO branches (name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES ('la sucursal','calle',111,'rio cuarto',55.25 , 22.17,1,1);
+INSERT INTO branches (name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES ('la sucursal 2 ','calle',222,'rio cuarto',55.20 , 22.18,1,1);
+INSERT INTO guards_provinces ("provinceId","guardId") VALUES (1,1);
+INSERT INTO guards_provinces ("provinceId","guardId") VALUES (1,2);
