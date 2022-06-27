@@ -56,7 +56,6 @@ class GuardController {
     res.status(201).send(data);
   }
   static async getWorkedHours(req, res) {
-    console.log(req.query)
     const { error, data } = await GuardServices.getWorkedHours(
         req.params.id,
         req.query.month

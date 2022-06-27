@@ -11,10 +11,14 @@ const guardLogin= require('../controllers/guardLogin')
 const authAdmin = require('../middleware/authAdmin')
 const guardRoutes = require("./guardRoutes")
 const assignmentRoutes = require("./assignmentRoutes")
+const inactiveRoutes = require("./inactiveRoutes")
+
 
 
 router.use("/employees",guardRoutes)
 router.use("/assignments",assignmentRoutes)
+router.use("/inactivities",inactiveRoutes)
+
 
 router.post("/login", loginAuth)
 router.post("/login/guard", guardLogin)
