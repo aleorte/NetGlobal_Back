@@ -6,7 +6,7 @@ class Company extends Sequelize.Model {}
 Company.init(
   {
     cuit: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.BIGINT,
       allowNull: false,
       unique: true,
     },
@@ -25,6 +25,16 @@ Company.init(
     contractEndDate: {
       type: Sequelize.DATEONLY,
       allowNull: false,
+    },
+    createdAt: {
+      allowNull: false,
+      defaultValue: new Date(),
+      type: Sequelize.DATE,
+    },
+    updatedAt: {
+      allowNull: false,
+      defaultValue: new Date(),
+      type: Sequelize.DATE,
     },
   },
   { sequelize: db, modelName: "companies" }

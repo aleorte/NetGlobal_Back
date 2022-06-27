@@ -9,6 +9,12 @@ const companyRouter= require('./company')
 const loginAuth=require('../controllers/login')
 const guardLogin= require('../controllers/guardLogin')
 const authAdmin = require('../middleware/authAdmin')
+const guardRoutes = require("./guardRoutes")
+const assignmentRoutes = require("./assignmentRoutes")
+
+
+router.use("/employees",guardRoutes)
+router.use("/assignments",assignmentRoutes)
 
 router.post("/login", loginAuth)
 router.post("/login/guard", guardLogin)

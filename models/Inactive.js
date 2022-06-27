@@ -14,7 +14,7 @@ Province.init(
         allowNull: false,
       },
   },
-  { sequelize: db, modelName: "inactives" }
+  { sequelize: db, modelName: "inactivities" }
 );
 
 module.exports = Province;

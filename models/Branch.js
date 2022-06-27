@@ -27,9 +27,24 @@ Branch.init(
       allowNull: false,
     },
     coordinateLength: {
-        type: Sequelize.DECIMAL,
-        allowNull: false,
-      },
+      type: Sequelize.DECIMAL,
+      allowNull: false,
+    },
+    active: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
+    createdAt: {
+      allowNull: false,
+      defaultValue: new Date(),
+      type: Sequelize.DATE,
+    },
+    updatedAt: {
+      allowNull: false,
+      defaultValue: new Date(),
+      type: Sequelize.DATE,
+    },
   },
   { sequelize: db, modelName: "branches" }
 );
