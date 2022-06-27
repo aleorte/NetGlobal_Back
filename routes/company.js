@@ -3,8 +3,7 @@ const express = require('express');
 const companyRouter = express.Router();
 const {Company}= require ('../models')
 const CompanyController = require('../controllers/companyController')
-const findAllActiveCompanies = require('../controllers/findAllActiveCompanies')
-const findInactiveCompanies = require('../controllers/findInactiveCompanies');
+
 
 
 //encuentra todas las companies 
@@ -19,5 +18,9 @@ companyRouter.post('/', CompanyController.addOne)
 companyRouter.get('/:id', CompanyController.getOne)
 //modifica una company
 companyRouter.put('/:id', CompanyController.updateOne)
+//encuentra las sucursal de una company
+companyRouter.get('/:id/branches', CompanyController.getBranches)
+//agrega una sucursal 
+companyRouter.post('/:id', CompanyController.addBranch)
 
 module.exports = companyRouter

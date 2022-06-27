@@ -46,5 +46,19 @@ class CompanyController {
           }
           res.status(200).send(data);
       }
+      static async getBranches(req,res){
+        const {error,data} = await CompanyServices.getBranches(req.params.id)
+        if (error) {
+          return res.status(500).send(data);
+        }
+        res.status(200).send(data);
+      }
+      static async addBranch(req,res){
+        const {error,data} = await CompanyServices.addBranch(req.body, req.params.id)
+        if (error) {
+          return res.status(500).send(data);
+        }
+        return res.status(201).send(data);
+      }
 }
 module.exports = CompanyController;
