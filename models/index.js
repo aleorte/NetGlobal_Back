@@ -8,7 +8,7 @@ const Province = require("./Province");
 
 Company.hasMany(Branch, { as: 'branches', foreignKey: "companyId" });
 Branch.belongsTo(Company, { as: 'company' });
-Province.hasMany(Branch, { as: 'branches', foreignKey: "companyId" });
+Province.hasMany(Branch, { as: 'branches', foreignKey: "provinceId" });
 Branch.belongsTo(Province, { as: 'province' });
 
 Branch.hasMany(Assignment, { as: "assignments", foreignKey: "branchId" });
