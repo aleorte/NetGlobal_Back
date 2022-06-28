@@ -1,9 +1,9 @@
 const Sequelize = require("sequelize");
 const db = require("../db/index");
 
-class Province extends Sequelize.Model {}
+class Inactive extends Sequelize.Model {}
 
-Province.init(
+Inactive.init(
   {
     startDate: {
       type: Sequelize.DATEONLY,
@@ -21,4 +21,4 @@ Province.init(
   { sequelize: db, modelName: "inactivities" }
 );
 
-module.exports = Province;
+module.exports = Inactive;
