@@ -14,8 +14,8 @@ const {Admin}= require('../models')
         email: admin.email,
       }
               //sign toma un usuario y una clave y devuelve un token de autenticacion 
-     const token = jwt.sign(adminForToken, process.env.TOKEN_SECRET,{expiresIn: "1m"});
-     res.status(200).send({id:admin.id , email:admin.email, token}) 
+     const token = jwt.sign(adminForToken, process.env.TOKEN_SECRET,{expiresIn: "24h"});
+     res.status(200).send({id:admin.id , email:admin.email, token ,superAdmin: admin.superAdmin }) 
     } 
     catch(err){
      console.log(err)
