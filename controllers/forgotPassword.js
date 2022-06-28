@@ -9,16 +9,16 @@ const forgotPassword = async (req, res) => {
   const { email } = req.body; 
   if (!email) return res.status(400).send({message: 'invalid email and password!'})
   const guard = await Guard.findOne({ where: { email } });
-//                   Generates a random token
+
   let token = [];         
-  function tokenGenerator(){
-    for (let i=1; i<=4; i++) { 
-     token.push(Math.floor(Math.random()*10))
+  function tokenGenerator(){  //<== Generates the random token
+    for (let i=1; i<=4; i++) {  
+     token.push(Math.floor(Math.random()*10)) 
     }
     token = token.join('')
   }
-//                   Email sending right...*   
-  try {                                   
+   
+  try {                       // Email sending right...*                                 
     tokenGenerator()
     guard.recoveryKey = token;
     
@@ -31,7 +31,7 @@ const forgotPassword = async (req, res) => {
         pass: 'exxyryzyvodidxcz', 
       },
     });
-//                     *...Here:
+//                                           *...Here:
     let info = await transporter.sendMail({
       from: 'Net-Global@gmail.ar', 
       to: `${ email }`,
@@ -41,7 +41,7 @@ const forgotPassword = async (req, res) => {
       <h1> ${ token } </h1>`
     }); 
     
-    await guard.save()  // token saved
+    await guard.save()              // token saved
     return res.status(200).send('Email sent');
 
   } catch (error) {

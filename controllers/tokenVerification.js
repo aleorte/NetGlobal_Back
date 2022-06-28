@@ -2,7 +2,7 @@ const {Guard}= require ('../models')
 
 const tokenVerification = async (req, res) => {
     const { token } = req.body;
-    
+
     try {
         const guard = await Guard.findOne({ where: { recoveryKey: token } });
         const {password,...guardInfo} = guard.dataValues 

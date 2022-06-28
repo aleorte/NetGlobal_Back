@@ -17,8 +17,6 @@ const assignmentRoutes = require("./assignmentRoutes");
 const branchesRouter = require('./branches');
 const inactiveRoutes = require("./inactiveRoutes")
 
-
-
 router.use("/employees",guardRoutes)
 router.use("/assignments",assignmentRoutes)
 router.use("/inactivities",inactiveRoutes)
@@ -53,9 +51,9 @@ router.post("/register/guard",async(req, res)=>{
         res.sendStatus(500)
     }
 })
-
-router.post('/forgot-password', forgotPassword);
-router.post('/token', tokenVerification);
-router.put('/new-password', createNewPassword);
-
+//                       ****"I Forgot my Password"****                                            
+router.post('/forgot-password', forgotPassword);  /* Send Email with recovery Token  */        
+router.post('/token', tokenVerification);         /* verify if token matches         */
+router.put('/new-password', createNewPassword);   /* re-write User-password          */
+                                                       
 module.exports = router
