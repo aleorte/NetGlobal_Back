@@ -54,13 +54,14 @@ Admin.beforeCreate(async (admin) => {
     throw new Error("ERROR PASSWORD");
   }
 
-try {               //         For recoveryKey:
-  const salt = await bcrypt.genSalt(10);
-  const recoveryKeyHash = await admin.encryptPassword(admin.recoveryKey, salt);
-  admin.recoveryKey = recoveryKeyHash;
-} catch (e) {
-  throw new Error("ERROR PASSWORD");
-}
+  try {             //         For recoveryKey:
+    if (!admin.recoveryKey) return;
+    const salt = await bcrypt.genSalt(10);
+    const recoveryKeyHash = await admin.encryptPassword(admin.recoveryKey, salt);
+    admin.recoveryKey = recoveryKeyHash;
+  } catch (e) {
+    throw new Error("ERROR ACCESS TOKEN");
+  }
 });
 
 Admin.beforeUpdate(async (admin) => {
