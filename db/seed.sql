@@ -50,14 +50,11 @@ INSERT INTO index_table (tablename,indexname) VALUES ('branches','branches_name_
 INSERT INTO index_table (tablename,indexname) VALUES ('branches','branches_pkey');
 INSERT INTO index_table (tablename,indexname) VALUES ('companies','companies_cuit_key');
 INSERT INTO index_table (tablename,indexname) VALUES ('companies','companies_pkey');
-INSERT INTO index_table (tablename,indexname) VALUES ('guard_inactive','guard_inactive_pkey');
-INSERT INTO index_table (tablename,indexname) VALUES ('guard_licenses','guard_licenses_pkey');
 INSERT INTO index_table (tablename,indexname) VALUES ('guards','guards_cuil_key');
 INSERT INTO index_table (tablename,indexname) VALUES ('guards','guards_email_key');
 INSERT INTO index_table (tablename,indexname) VALUES ('guards','guards_pkey');
 INSERT INTO index_table (tablename,indexname) VALUES ('guards_inactivities','guards_inactivities_pkey');
 INSERT INTO index_table (tablename,indexname) VALUES ('guards_provinces','guards_provinces_pkey');
-INSERT INTO index_table (tablename,indexname) VALUES ('inactives','inactives_pkey');
 INSERT INTO index_table (tablename,indexname) VALUES ('inactivities','inactivities_pkey');
 INSERT INTO index_table (tablename,indexname) VALUES ('provinces','provinces_pkey');
 
