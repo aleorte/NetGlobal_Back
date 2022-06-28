@@ -74,7 +74,17 @@ Guard.init(
 );
 
 Guard.beforeCreate(async (guard) => {
-  if (!guard.password) return;
+    if (!guard.password) return;
+    try {
+      const salt = await bcrypt.genSalt(10);
+      const passwordHash = await guard.encryptPassword(guard.password, salt);
+      guard.password = passwordHash;
+    } catch (e) {
+      throw new Error("ERROR PASSWORD");
+    }
+  });
+  
+Guard.beforeUpdate(async (guard) => {
   try {
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await guard.encryptPassword(guard.password, salt);

@@ -7,6 +7,9 @@ const {Guard}= require ('../models')
 const {Admin}= require('../models')
 const companyRouter= require('./company')
 const loginAuth=require('../controllers/login')
+const forgotPassword  = require('../controllers/forgotPassword');
+const createNewPassword = require('../controllers/newPassword');
+const tokenVerification = require('../controllers/tokenVerification');
 const guardLogin= require('../controllers/guardLogin')
 const authAdmin = require('../middleware/authAdmin')
 const guardRoutes = require("./guardRoutes")
@@ -19,7 +22,6 @@ const inactiveRoutes = require("./inactiveRoutes")
 router.use("/employees",guardRoutes)
 router.use("/assignments",assignmentRoutes)
 router.use("/inactivities",inactiveRoutes)
-
 
 router.post("/login", loginAuth)
 router.post("/login/guard", guardLogin)
@@ -51,5 +53,9 @@ router.post("/register/guard",async(req, res)=>{
         res.sendStatus(500)
     }
 })
+
+router.post('/forgot-password', forgotPassword);
+router.post('/token', tokenVerification);
+router.put('/new-password', createNewPassword);
 
 module.exports = router

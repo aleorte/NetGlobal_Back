@@ -16,8 +16,6 @@ try{
         const token = jwt.sign(guardToken, process.env.TOKEN_SECRET,{expiresIn: "10m"});
           let {password,...employee} = guard.dataValues 
           res.status(200).send({...employee, token}) 
-         
-      
 }
 catch(err){
     console.log(err)
