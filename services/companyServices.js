@@ -1,5 +1,6 @@
 const {Company} = require("../models");
 const {Branch}= require ('../models');
+const{Guard}= require('../models')
 function padTo2Digits(num) {
     return num.toString().padStart(2, '0');
   }
@@ -24,8 +25,9 @@ class CompanyServices {
           const company = await Company.findByPk(companyId);
           const contractEnd = company.contractEndDate.split('-').join('') 
           const currentDate = formatDate(new Date()).split('-').join('')
-          if (currentDate > contractEnd ) {  return { error: false, data: {message:"The contract ended", company:company} }; }
-          return { error: false, data: company };
+          const branches = await Branch.findAll({where:{companyId:company.id}})
+          if (currentDate > contractEnd ) {  return { error: false, data: {message:"The contract ended", company:company , branches:branches }  }; }
+          return { error: false, data: {company:company , branches:branches} };
         } catch (error) {
           return { error: true, data: error };
         }
