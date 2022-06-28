@@ -11,8 +11,7 @@ const  createNewPassword = async (req, res) => {
 
   try { 
     guard.password = password; 
-    await guard.save() // new password saved
-    console.log('everything works good (:')
+    await guard.save()    // new password saved
     res.status(200).send('new password has been set correctly')   
      
   } catch {
