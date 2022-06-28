@@ -6,6 +6,7 @@ const cors = require("cors");
 const helmet = require("helmet")
 const models = require("./models/index");
 const routes = require('./routes');
+require('dotenv').config()
 
 app.use(helmet())
 app.use(cors());

@@ -21,6 +21,15 @@ Admin.init(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    superAdmin: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    recoveryKey: {
+      type: Sequelize.INTEGER,
+      defaultValue: null,
+    },
     createdAt: {
       allowNull: false,
       defaultValue: new Date(),

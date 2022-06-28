@@ -1,27 +1,37 @@
-const Admin = require("./Admin")
-const Assignment = require("./Assingment")
-const Branch = require("./Branch")
-const Company = require("./Company")
-const Guard = require("./Guard")
-const Inactive = require ("./Inactive")
-const Province = require ("./Province")
+const Admin = require("./Admin");
+const Assignment = require("./Assignment");
+const Branch = require("./Branch");
+const Company = require("./Company");
+const Guard = require("./Guard");
+const Inactive = require("./Inactive");
+const Province = require("./Province");
 
+Company.hasMany(Branch, { as: 'branches', foreignKey: "companyId" });
+Branch.belongsTo(Company, { as: 'company' });
+Province.hasMany(Branch, { as: 'branches', foreignKey: "companyId" });
+Branch.belongsTo(Province, { as: 'province' });
 
-Company.hasMany(Branch,{as:"company"});
-Branch.belongsTo(Company, {as:"company"});
-Assignment.belongsTo(Branch, {as:"branch"})
-Branch.hasMany(Assignment,{as:"branch"})
-Assignment.belongsTo(Admin, {as:"admin"})
-Admin.hasMany(Assignment,{as:"admin"})
-Assignment.belongsTo(Guard, {as:"guard"})
-Guard.hasMany(Assignment,{as:"guard"})
-Inactive.belongsToMany(Guard, {through:"guard_inactive"})
-Guard.belongsToMany(Inactive,{through:"guard_inactive"})
-Province.belongsToMany(Guard, {through:"guard_licenses"})
-Guard.belongsToMany(Province,{through:"guard_licenses"})
+Branch.hasMany(Assignment, { as: "assignments", foreignKey: "branchId" });
+Assignment.belongsTo(Branch, { as: "branch" });
 
+Admin.hasMany(Assignment, { as: "assignments", foreignKey: "adminId" });
+Assignment.belongsTo(Admin, { as: "admin" });
 
+Guard.hasMany(Assignment, { as: "assignments", foreignKey: "guardId" });
+Assignment.belongsTo(Guard, { as: "guard" });
 
+Guard.belongsToMany(Inactive, { through: "guards_inactivities" });
+Inactive.belongsToMany(Guard, { through: "guards_inactivities" });
 
+Province.belongsToMany(Guard, { through: "guards_provinces" });
+Guard.belongsToMany(Province, { through: "guards_provinces" });
 
-module.exports = {Admin,Assignment,Branch,Company,Guard,Inactive,Province}
+module.exports = {
+  Admin,
+  Assignment,
+  Branch,
+  Company,
+  Guard,
+  Inactive,
+  Province,
+};
