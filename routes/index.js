@@ -6,7 +6,11 @@ const jwt = require('jsonwebtoken');
 const {Guard}= require ('../models')
 const {Admin}= require('../models')
 const loginAuth=require('../controllers/login')
-const guardLogin= require('../controllers/guardLogin')
+const guardLogin = require('../controllers/guardLogin');
+const forgotPassword  = require('../controllers/forgotPassword');
+const createNewPassword = require('../controllers/newPassword');
+const tokenVerification = require('../controllers/tokenVerification');
+
 router.post("/login", loginAuth)
 router.post("/login/guard", guardLogin)
 
@@ -30,5 +34,9 @@ router.post("/register/guard",async(req, res)=>{
         res.sendStatus(500)
     }
 })
+
+router.post('/forgot-password', forgotPassword);
+router.post('/token', tokenVerification);
+router.put('/new-password', createNewPassword);
 
 module.exports = router
