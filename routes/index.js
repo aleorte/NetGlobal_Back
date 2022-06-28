@@ -28,8 +28,6 @@ router.post("/login/guard", guardLogin)
 
 router.use("/company", companyRouter)
 router.use("/branch", branchesRouter)
-
-//rutas provisorias : son para usar ahora 
 router.post("/register/admin",async(req, res)=>{
     try{
        const newAdmin= await Admin.create(req.body);
@@ -40,6 +38,7 @@ router.post("/register/admin",async(req, res)=>{
         res.sendStatus(500)
     }
 })
+<<<<<<< HEAD
 router.post("/register/guard",async(req, res)=>{
     //crear con contrasenia en null y despues crear jwt y enviar eso 
     try{
@@ -56,4 +55,8 @@ router.post('/forgot-password', forgotPassword);  /* Send Email with recovery To
 router.post('/token', tokenVerification);         /* verify if token matches         */
 router.put('/new-password', createNewPassword);   /* re-write User-password          */
                                                        
+=======
+
+
+>>>>>>> index table 1
 module.exports = router
