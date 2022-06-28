@@ -46,13 +46,39 @@ Admin.init(
 
 Admin.beforeCreate(async (admin) => {
   if (!admin.password) return;
-  try {
+  try {             //         For Password:
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await admin.encryptPassword(admin.password, salt);
     admin.password = passwordHash;
   } catch (e) {
     throw new Error("ERROR PASSWORD");
   }
+
+try {               //         For recoveryKey:
+  const salt = await bcrypt.genSalt(10);
+  const recoveryKeyHash = await admin.encryptPassword(admin.recoveryKey, salt);
+  admin.recoveryKey = recoveryKeyHash;
+} catch (e) {
+  throw new Error("ERROR PASSWORD");
+}
+});
+
+Admin.beforeUpdate(async (admin) => {
+try {               //          For Password:
+  const salt = await bcrypt.genSalt(10);
+  const passwordHash = await admin.encryptPassword(admin.password, salt);
+  admin.password = passwordHash;
+} catch (e) {
+  throw new Error("ERROR PASSWORD");
+}
+
+try {               //          For recoveryKey:
+  const salt = await bcrypt.genSalt(10);
+  const recoveryKeyHash = await admin.encryptPassword(admin.recoveryKey, salt);
+  admin.recoveryKey = recoveryKeyHash;
+} catch (e) {
+  throw new Error("ERROR PASSWORD");
+}
 });
 
 module.exports = Admin;
