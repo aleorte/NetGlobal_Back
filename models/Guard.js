@@ -65,6 +65,9 @@ Guard.init(
           defaultValue: new Date(),
           type: Sequelize.DATE,
         },
+        recoveryKey : {
+          type: Sequelize.STRING,
+        }
   },
   { sequelize: db, modelName: "guards" }
 );
@@ -79,6 +82,15 @@ Guard.beforeCreate(async (guard) => {
       throw new Error("ERROR PASSWORD");
     }
   });
+Guard.beforeUpdate(async (guard) => {
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await guard.encryptPassword(guard.password, salt);
+    guard.password = passwordHash;
+  } catch (e) {
+    throw new Error("ERROR PASSWORD");
+  }
+});
 
   
 module.exports = Guard;
