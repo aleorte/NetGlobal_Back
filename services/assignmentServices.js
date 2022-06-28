@@ -30,6 +30,12 @@ class AssignmentServices {
     try {
       await Assignment.update(body, { where: { id: assignmentId } });
       const assignment = await Assignment.findByPk(assignmentId);
+      if(assignment.realStartTime && !assignment.realEndTime){
+        await Assignment.update(
+          {state: "IN PROCESS" },
+          { where: { id: assignmentId } }
+        );
+      }
       if (assignment.realStartTime && assignment.realEndTime) {
         let workedHours =
           (assignment.realEndTime - assignment.realStartTime) / 1000 / 60 / 60;

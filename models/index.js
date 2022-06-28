@@ -23,8 +23,8 @@ Assignment.belongsTo(Guard, { as: "guard" });
 Guard.belongsToMany(Inactive, { through: "guards_inactivities" });
 Inactive.belongsToMany(Guard, { through: "guards_inactivities" });
 
-Province.belongsToMany(Guard, { through: "guards_provinces" });
-Guard.belongsToMany(Province, { through: "guards_provinces" });
+Province.belongsToMany(Guard, { through: "guards_licenses" });
+Guard.belongsToMany(Province, { through: "guards_licenses" });
 
 module.exports = {
   Admin,

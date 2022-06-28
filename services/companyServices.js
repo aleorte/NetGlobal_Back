@@ -12,10 +12,17 @@ function formatDate(date) {
     ].join('-');
   }
 class CompanyServices {
-    static async getAll() {
+    static async getAll(page) {
         try {
-          const companies = await Company.findAll();
-          return { error: false, data: companies };
+          let companies;
+          let totalPages = Math.ceil(await Company.count()/30);
+
+          if (page >= 2) {
+            companies = await Company.findAll({ offset: (page - 1) * 30, limit: 30 });
+          } else {
+            companies = await Company.findAll({ limit: 30 });
+          }
+          return { error: false, data: {companies:companies,totalPages:totalPages} };
         } catch (error) {
           return { error: true, data: error };
         }
