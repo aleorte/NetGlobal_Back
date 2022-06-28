@@ -55,9 +55,17 @@ Guard.init(
       type: Sequelize.DECIMAL,
       allowNull: false,
     },
+    province:{
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
     recoveryKey: {
       type: Sequelize.INTEGER,
       defaultValue: null,
+    },
+    active: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: true,
     },
     createdAt: {
       allowNull: false,

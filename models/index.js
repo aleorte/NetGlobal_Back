@@ -8,7 +8,7 @@ const Province = require("./Province");
 
 Company.hasMany(Branch, { as: 'branches', foreignKey: "companyId" });
 Branch.belongsTo(Company, { as: 'company' });
-Province.hasMany(Branch, { as: 'branches', foreignKey: "companyId" });
+Province.hasMany(Branch, { as: 'branches', foreignKey: "provinceId" });
 Branch.belongsTo(Province, { as: 'province' });
 
 Branch.hasMany(Assignment, { as: "assignments", foreignKey: "branchId" });
@@ -23,8 +23,8 @@ Assignment.belongsTo(Guard, { as: "guard" });
 Guard.belongsToMany(Inactive, { through: "guards_inactivities" });
 Inactive.belongsToMany(Guard, { through: "guards_inactivities" });
 
-Province.belongsToMany(Guard, { through: "guards_provinces" });
-Guard.belongsToMany(Province, { through: "guards_provinces" });
+Province.belongsToMany(Guard, { through: "guards_licenses" });
+Guard.belongsToMany(Province, { through: "guards_licenses" });
 
 module.exports = {
   Admin,

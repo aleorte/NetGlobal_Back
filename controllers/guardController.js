@@ -2,7 +2,7 @@ const GuardServices = require("../services/guardServices");
 
 class GuardController {
   static async getAll(req, res) {
-    const { error, data } = await GuardServices.getAll();
+    const { error, data } = await GuardServices.getAll(req.query.page);
     if (error) {
       return res.status(500).send(data);
     }
@@ -23,13 +23,7 @@ class GuardController {
     }
     return res.status(201).send(data);
   }
-  static async deleteOne(req, res) {
-    const { error, data } = await GuardServices.deleteOne(req.params.id);
-    if (error) {
-      return res.status(500).send(data);
-    }
-    return res.sendStatus(204);
-  }
+
   static async updateOne(req, res) {
     const { error, data } = await GuardServices.updateOne(
       req.body,

@@ -1,11 +1,19 @@
 const { Op } = require("sequelize");
-const { Guard, Province } = require("../models");
+const { Guard, Province, Assignment } = require("../models");
 
 class GuardServices {
-  static async getAll() {
+  static async getAll(page) {
     try {
-      const users = await Guard.findAll();
-      return { error: false, data: users };
+      let users;
+      let totalPages = Math.ceil(await Guard.count()/30);
+
+      if(page>=2){
+        users = await Guard.findAll({ offset: (page-1)*30, limit: 30 });
+      }
+      else{
+        users= await Guard.findAll({limit: 30});
+      }
+      return { error: false, data: {users:users,totalPages:totalPages} };
     } catch (error) {
       return { error: true, data: error };
     }
@@ -13,19 +21,19 @@ class GuardServices {
   static async getOne(guardId) {
     try {
       const user = await Guard.findByPk(guardId);
-      return { error: false, data: user };
+      return { error: false, data: user};
     } catch (error) {
       return { error: true, data: error };
     }
   }
   static async addOne(body) {
     try {
-      const provincesData = body.provinces;
-      delete body.provinces;
+      const licenses = body.licenses;
+      delete body.licenses;
       const user = await Guard.create(body);
       const provinces = await Province.findAll({
         where: {
-          id: { [Op.in]: provincesData },
+          id: { [Op.in]: licenses },
         },
       });
       await user.addProvinces(provinces);
@@ -34,24 +42,35 @@ class GuardServices {
       return { error: true, data: error };
     }
   }
-  static async deleteOne(guardId) {
-    try {
-      await Guard.destroy({ where: { id: guardId } });
-      return { error: false };
-    } catch (error) {
-      return { error: true, data: error };
-    }
-  }
+
   static async updateOne(body, guardId) {
     try {
+
       await Guard.update(body, { where: { id: guardId } });
       const user = await Guard.findByPk(guardId);
+      if(user.active ===false)
+      { console.log("entro")
+
+        const today = new Date();
+        console.log(today)
+        await Assignment.destroy({
+            where: {
+              guardId: guardId,
+              state: "PENDING",
+              startTime: {
+                [Op.gte]: today,
+              },
+            },
+          });
+      }
       const provinces = await Province.findAll({
         where: {
           id: { [Op.in]: body.provinces },
         },
       });
       await user.setProvinces(provinces);
+
+
       return { error: false };
     } catch (error) {
       return { error: true, data: error };
