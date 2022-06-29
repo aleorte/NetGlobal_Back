@@ -23,4 +23,6 @@ companyRouter.get('/:id/branches', CompanyController.getBranches)
 //agrega una sucursal 
 companyRouter.post('/:id', CompanyController.addBranch)
 
+
+
 module.exports = companyRouter

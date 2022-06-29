@@ -10,7 +10,17 @@ class IndexTable extends Sequelize.Model {
      },
      indexname:{
       type:Sequelize.STRING
-     }
+     },
+     createdAt: {
+      allowNull: false,
+      defaultValue: new Date(),
+      type: Sequelize.DATE,
+    },
+    updatedAt: {
+      allowNull: false,
+      defaultValue: new Date(),
+      type: Sequelize.DATE,
+    }
     },
     { sequelize: db, modelName: "index_table" }
   );

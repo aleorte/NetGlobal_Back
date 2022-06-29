@@ -60,5 +60,12 @@ class CompanyController {
         }
         return res.status(201).send(data);
       }
+      static async search(req,res){
+        const {error,data} = await CompanyServices.search(req.body)
+        if (data[0]) {
+          return res.status(200).send(data);
+        }
+        return res.status(500).send({message:'Not found'});
+      }
 }
 module.exports = CompanyController;

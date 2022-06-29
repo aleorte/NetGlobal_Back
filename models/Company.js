@@ -14,8 +14,24 @@ Company.init(
       type: Sequelize.STRING,
       allowNull: false,
     },
-    legalAdress: {
+    street: {
       type: Sequelize.STRING,
+      allowNull: false,
+    },
+    number: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    location: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    coordinateLatitude: {
+      type: Sequelize.DECIMAL,
+      allowNull: false,
+    },
+    coordinateLength: {
+      type: Sequelize.DECIMAL,
       allowNull: false,
     },
     contractStartDate: {
@@ -32,7 +48,6 @@ Company.init(
         isUrl: true,
       },
     },
-    
     createdAt: {
       allowNull: false,
       defaultValue: new Date(),

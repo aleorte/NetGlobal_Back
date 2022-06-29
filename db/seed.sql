@@ -1,4 +1,4 @@
- TRUNCATE TABLE index_table; 
+ TRUNCATE TABLE index_tables; 
  TRUNCATE admins RESTART IDENTITY CASCADE;
  TRUNCATE companies RESTART IDENTITY CASCADE;
  TRUNCATE branches RESTART IDENTITY CASCADE;
@@ -29,33 +29,33 @@
  INSERT INTO provinces (name) VALUES ('Tierra del Fuego');
  INSERT INTO provinces (name) VALUES ('La Rioja');
 
- INSERT INTO admins (email,password,"superAdmin") VALUES ('admin@admin.com','1234',true);
- INSERT INTO admins (email,password) VALUES ('admin2@admin.com','12345');
+ INSERT INTO admins (email,password,"superAdmin", image) VALUES ('admin@admin.com','1234',true, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmAZyAY5an-SsWZ3Fmn8Its60O6crAe8_h-w&usqp=CAU');
+ INSERT INTO admins (email,password, image) VALUES ('admin2@admin.com','12345', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsTVw6wiRk0YkLWlfHe8WJnTJiI5qsQZeNEA&usqp=CAU');
 
-INSERT INTO companies (cuit, "legalName", "legalAdress", "contractStartDate","contractEndDate") VALUES (12131311, 'la empresa','domicilio 123','2022-01-01','2022-12-01');
-INSERT INTO companies (cuit, "legalName", "legalAdress", "contractStartDate","contractEndDate") VALUES (12131011,'la empresa 2','domicilio 1234','2022-01-01','2022-12-01');
-INSERT INTO companies (cuit, "legalName", "legalAdress", "contractStartDate","contractEndDate") VALUES (121310011, 'la empresa 2','domicilio 1234','2022-01-01','2022-12-01');
-INSERT INTO companies (cuit, "legalName", "legalAdress", "contractStartDate","contractEndDate") VALUES (12131511, 'la empresa 3','domicilio 1235','2022-01-01','2022-05-01');
+INSERT INTO companies ("coordinateLatitude", "coordinateLength",street, number, location, cuit, "legalName", "contractStartDate","contractEndDate",logo) VALUES ( 22.5 , 11.34 ,'Peatonal San Martin',1500,'Mar del Plata',12131311, 'Havanna','2022-01-01','2022-12-01' ,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx1kLfvpglz9ro0HJsI4VoNw3CEGVlrZnXJw&usqp=CAU');
+INSERT INTO companies ("coordinateLatitude", "coordinateLength", street, number, location,cuit, "legalName", "contractStartDate","contractEndDate",logo) VALUES (20.5, 30.4,'Av de los Trabajadores',1500,'Mar del Plata', 12131011,'Moscuzza','2022-01-01','2022-12-01','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ5SX2cr-TiW1nODI8mV-_1XMDa5ApmnUNVw&usqp=CAU');
+INSERT INTO companies ("coordinateLatitude", "coordinateLength", street, number, location,cuit, "legalName", "contractStartDate","contractEndDate",logo) VALUES (22.8 , 15.34,'Constitucion',1500,'Mar del Plata',121310011,'Lucianos','2022-01-01','2022-12-01','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxMliX-s96Pnop4CDgkDHjxlxjJx24aUK_6A&usqp=CAU');
+
 
 INSERT INTO branches (name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES ('la sucursal','calle',111,'Mar del PLata ',55.25 , 22.17,1,1);
 INSERT INTO branches (name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES ('la sucursal 2 ','calle',222,'Mar del Plata',55.20 , 22.18,2,1);
 INSERT INTO branches (name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES ('la sucursal de la empresa 2','calle',111,'chubut',55.25 , 22.17,1,2);
 INSERT INTO branches (name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES ('la sucursal 2 de la empresa 2 ','calle',222,'chubut',55.20 , 22.18,2,2);
 
-INSERT INTO index_table (tablename,indexname) VALUES ('admins','admins_email_key');
-INSERT INTO index_table (tablename,indexname) VALUES ('admins','admins_pkey');
-INSERT INTO index_table (tablename,indexname) VALUES ('assignments','assignments_pkey');
-INSERT INTO index_table (tablename,indexname) VALUES ('branches','branches_name_key');
-INSERT INTO index_table (tablename,indexname) VALUES ('branches','branches_pkey');
-INSERT INTO index_table (tablename,indexname) VALUES ('companies','companies_cuit_key');
-INSERT INTO index_table (tablename,indexname) VALUES ('companies','companies_pkey');
-INSERT INTO index_table (tablename,indexname) VALUES ('guards','guards_cuil_key');
-INSERT INTO index_table (tablename,indexname) VALUES ('guards','guards_email_key');
-INSERT INTO index_table (tablename,indexname) VALUES ('guards','guards_pkey');
-INSERT INTO index_table (tablename,indexname) VALUES ('guards_inactivities','guards_inactivities_pkey');
-INSERT INTO index_table (tablename,indexname) VALUES ('guards_licenses','guards_licenses_pkey');
-INSERT INTO index_table (tablename,indexname) VALUES ('inactivities','inactivities_pkey');
-INSERT INTO index_table (tablename,indexname) VALUES ('provinces','provinces_pkey');
+INSERT INTO index_tables (tablename,indexname) VALUES ('admins','admins_email_key');
+INSERT INTO index_tables (tablename,indexname) VALUES ('admins','admins_pkey');
+INSERT INTO index_tables (tablename,indexname) VALUES ('assignments','assignments_pkey');
+INSERT INTO index_tables (tablename,indexname) VALUES ('branches','branches_name_key');
+INSERT INTO index_tables (tablename,indexname) VALUES ('branches','branches_pkey');
+INSERT INTO index_tables (tablename,indexname) VALUES ('companies','companies_cuit_key');
+INSERT INTO index_tables (tablename,indexname) VALUES ('companies','companies_pkey');
+INSERT INTO index_tables (tablename,indexname) VALUES ('guards','guards_cuil_key');
+INSERT INTO index_tables (tablename,indexname) VALUES ('guards','guards_email_key');
+INSERT INTO index_tables (tablename,indexname) VALUES ('guards','guards_pkey');
+INSERT INTO index_tables (tablename,indexname) VALUES ('guards_inactivities','guards_inactivities_pkey');
+INSERT INTO index_tables (tablename,indexname) VALUES ('guards_licenses','guards_licenses_pkey');
+INSERT INTO index_tables (tablename,indexname) VALUES ('inactivities','inactivities_pkey');
+INSERT INTO index_tables (tablename,indexname) VALUES ('provinces','provinces_pkey');
 
 
 
