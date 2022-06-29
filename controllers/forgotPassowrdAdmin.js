@@ -1,14 +1,11 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const {Guard}= require ('../models');
+const {Admin}= require ('../models');
 const nodemailer = require("nodemailer");
 
 
-const forgotPassword = async (req, res) => {
-
+const forgotPasswordAdmin = async (req, res) => {
   const { email } = req.body; 
   if (!email) return res.status(400).send({message: 'invalid email and password!'})
-  const guard = await Guard.findOne({ where: { email } });
+  const admin = await Admin.findOne({ where: { email } });
 
   let token = [];         
   function tokenGenerator(){  //<== Generates the random token
@@ -17,11 +14,11 @@ const forgotPassword = async (req, res) => {
     }
     token = token.join('')
   }
-  
+   
   try {                       // Email sending right...*                                 
     tokenGenerator()
-    guard.recoveryKey = token;
-    
+    admin.recoveryKey = token;
+
     let transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 465,
@@ -32,19 +29,18 @@ const forgotPassword = async (req, res) => {
       },
     });
 //                                           *...Here:
-let info = await transporter.sendMail({
-  from: 'Net-Global@gmail.ar', 
-  to: `${ email }`,
-  subject: 'Generate New Password', 
+    let info = await transporter.sendMail({
+      from: 'Net-Global@gmail.ar', 
+      to: 'javi11_97@hotmail.com',//`${ email }`, 
+      subject: 'Generate New Password', 
       text: 'This is your personal token so as to create your new password',
       html: `<p> This is your personal token key which will allow yu to create a new password. Please, make sure you will not share it to anybody. </p> 
       <h1> ${ token } </h1>`
     }); 
-    const { password, recoveryKey, ...guardInfo } = guard.dataValues // avoid sensitive data from being sent
-    await guard.save()    // token saved
-    //res.status(202).send("Authirized with Token Key")
-    return res.status(200).send( guardInfo );
     
+    await admin.save() // token saved
+    const { password, recoveryKey, ...adminInfo } = admin.dataValues  // avoid sensitive data from being sent
+    return res.status(200).send(adminInfo);
 
   } catch (error) {
     console.error(error);
@@ -52,7 +48,7 @@ let info = await transporter.sendMail({
   };
 };
 
-module.exports =  forgotPassword;
+module.exports =  forgotPasswordAdmin;
 
 
 

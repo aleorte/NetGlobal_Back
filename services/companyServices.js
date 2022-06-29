@@ -1,7 +1,8 @@
-const {Company} = require("../models");
+const {Company, Assignment} = require("../models");
 const {Branch}= require ('../models');
 const{Guard}= require('../models')
 const{Province}= require('../models')
+
 
 function padTo2Digits(num) {
     return num.toString().padStart(2, '0');
@@ -51,8 +52,17 @@ class CompanyServices {
           const contractEnd = company.contractEndDate.split('-').join('') 
           const currentDate = formatDate(new Date()).split('-').join('')
           const branches = await Branch.findAll({where:{companyId:company.id}})
+          let guard=[]
+           for (let i =0 ; i <branches.length ; i++){
+             const assignments = await branches[i].getAssignments({attributes:["guardId","date", "state"]})
+             for (let j=0 ; j < assignments.length  ; j++){
+                if (assignments[j].dataValues.state === 'PENDING') {guard.push(assignments[j].dataValues.guardId)}
+            } 
+            }
+            let uniq = [...new Set(guard)];
+      
           if (currentDate > contractEnd ) {  return { error: false, data: {message:"The contract ended", company:company , branches:branches }  }; }
-          return { error: false, data: {company:company , branches:branches} };
+          return { error: false, data: {company:company , branches:branches , guards: uniq.length } };
         } catch (error) {
           return { error: true, data: error };
         }

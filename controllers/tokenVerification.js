@@ -1,12 +1,13 @@
-const {Guard}= require ('../models')
+const bcrypt = require('bcrypt');
+const { Guard }= require ('../models')
 
 const tokenVerification = async (req, res) => {
-    const { token } = req.body;
-
+    const { email, recoveryKey: token } = req.body;
+    
     try {
-        const guard = await Guard.findOne({ where: { recoveryKey: token } });
-        const {password,...guardInfo} = guard.dataValues 
-        res.status(202).send(guardInfo)
+        const guard = await Guard.findOne({ where: { email } });
+        const isGuardValidWithToken = await bcrypt.compare(token , guard.recoveryKey)
+        res.status(202).send("Authirized with Token Key")
     } catch {
         res.status(401).send('Unauthorized')
     }

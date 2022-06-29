@@ -27,7 +27,7 @@ Admin.init(
       defaultValue: false,
     },
     recoveryKey: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       defaultValue: null,
     },
     createdAt: {
@@ -40,6 +40,12 @@ Admin.init(
       defaultValue: new Date(),
       type: Sequelize.DATE,
     },
+    image: { 
+      type: Sequelize.STRING,
+      validate: {
+        isUrl: true
+      },
+    } 
   },
   { sequelize: db, modelName: "admins" }
 );

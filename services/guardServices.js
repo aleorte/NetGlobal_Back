@@ -1,5 +1,7 @@
 const { Op } = require("sequelize");
 const { Guard, Province, Assignment } = require("../models");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 class GuardServices {
   static async getAll(page) {
@@ -104,6 +106,26 @@ class GuardServices {
       return { error: false, data: `${workedHours}` };
     } catch (error) {
       return { error: true, data: error };
+    }
+  }
+  static async login(body){
+    try{
+      const guard= await Guard.findOne({ where: { email: body.email } })
+      if (!guard) return { error: true, data:{code:404,message:"La cuenta no se encuentra registada"}}
+      const isValid= await bcrypt.compare( body.password, guard.password)
+      if (!isValid) return { error: true, data: {code:401,message:"Contraseña incorrecta"}}
+            const guardToken = {
+               id: guard.id,
+               email: guard.email,
+             } 
+                     //sign toma un usuario y una clave y devuelve un token de autenticacion 
+          const token = jwt.sign(guardToken, process.env.TOKEN_SECRET,{expiresIn: "720m"});
+            let {password,...employee} = guard.dataValues 
+            return { error: false, data: {...employee, token} };
+
+    }
+    catch(error){
+      return { error: true, data: {code:500 , message: 'Failed to login '} };
     }
   }
 }
