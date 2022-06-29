@@ -8,6 +8,6 @@ router.post("/",GuardController.addOne)
 router.put("/:id",GuardController.updateOne)
 router.get("/:id/licenses",GuardController.getLicenses)
 router.get("/hours/:id",GuardController.getWorkedHours)
-
+router.post("/login", GuardController.login)
 
 module.exports = router;

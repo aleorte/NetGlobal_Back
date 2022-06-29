@@ -60,6 +60,13 @@ class GuardController {
     }
     res.status(201).send(data);
   }
+  static async login(req, res){
+    const {error,data} = await GuardServices.login(req.body)
+    if (error) {
+      return res.status(500).send(data);
+    }
+    res.send(data)
+  }
 }
 
 module.exports = GuardController;

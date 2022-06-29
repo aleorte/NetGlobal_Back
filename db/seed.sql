@@ -1,3 +1,10 @@
+ TRUNCATE TABLE index_table; 
+ TRUNCATE admins RESTART IDENTITY CASCADE;
+ TRUNCATE companies RESTART IDENTITY CASCADE;
+ TRUNCATE branches RESTART IDENTITY CASCADE;
+ TRUNCATE provinces RESTART IDENTITY CASCADE;
+ TRUNCATE guards RESTART IDENTITY CASCADE;
+ 
  INSERT INTO provinces (name) VALUES ('Buenos Aires');
  INSERT INTO provinces (name) VALUES ('Chaco');
  INSERT INTO provinces (name) VALUES ('Cordoba');
@@ -25,24 +32,15 @@
  INSERT INTO admins (email,password,"superAdmin") VALUES ('admin@admin.com','1234',true);
  INSERT INTO admins (email,password) VALUES ('admin2@admin.com','12345');
 
- INSERT INTO guards (name, "lastName", cuil, email, password, street, number,location,province,"coordinateLatitude","coordinateLength") VALUES ('Paula','Quiriti',27373892942,'pauquiriti@hotmail.com','12345', 'Valencia',5888,'Mar del Plata','Buenos Aires', 41.40 , 21.17);
- INSERT INTO guards (name, "lastName", cuil, email, password, street, number,location,province,"coordinateLatitude","coordinateLength") VALUES ('Paul','Jones',2037300942,'paul@hotmail.com','99', 'Tierra del Fuego',1999,'Chubut ','Chubut ', 45.25 , 2.17);
- INSERT INTO guards (name, "lastName", cuil, email, password, street, number,location,province,"coordinateLatitude","coordinateLength") VALUES ('Alejandro','Quiriti',23407943309,'alequiriti@hotmail.com','1', 'Valencia',5888,'Mar del Plata','Buenos Aires', 41.40 , 21.17);
- INSERT INTO guards (name, "lastName", cuil, email, password, street, number,location,province,"coordinateLatitude","coordinateLength") VALUES ('Michael','Jones',2031300942,'micky@hotmail.com','999', 'Tierra del Fuego',1999,'Chubut ','Chubut ', 45.25 , 2.17);
-  INSERT INTO guards (name, "lastName", cuil, email, password, street, number,location,province,"coordinateLatitude","coordinateLength") VALUES ('Gabriela','Quiriti',27388286348,'gabyquiriti@hotmail.com','123456', 'Valencia',5888,'Mar del Plata','Buenos Aires', 41.40 , 21.17);
- INSERT INTO guards (name, "lastName", cuil, email, password, street, number,location,province,"coordinateLatitude","coordinateLength") VALUES ('Ben','Jones',2036300942,'ben@hotmail.com','9', 'Tierra del Fuego',1999,'Chubut ','Chubut ', 45.25 , 2.17);
-
 INSERT INTO companies (cuit, "legalName", "legalAdress", "contractStartDate","contractEndDate") VALUES (12131311, 'la empresa','domicilio 123','2022-01-01','2022-12-01');
 INSERT INTO companies (cuit, "legalName", "legalAdress", "contractStartDate","contractEndDate") VALUES (12131011,'la empresa 2','domicilio 1234','2022-01-01','2022-12-01');
-INSERT INTO companies (cuit, "legalName", "legalAdress", "contractStartDate","contractEndDate") VALUES (12131011, 'la empresa 2','domicilio 1234','2022-01-01','2022-12-01');
+INSERT INTO companies (cuit, "legalName", "legalAdress", "contractStartDate","contractEndDate") VALUES (121310011, 'la empresa 2','domicilio 1234','2022-01-01','2022-12-01');
 INSERT INTO companies (cuit, "legalName", "legalAdress", "contractStartDate","contractEndDate") VALUES (12131511, 'la empresa 3','domicilio 1235','2022-01-01','2022-05-01');
 
 INSERT INTO branches (name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES ('la sucursal','calle',111,'Mar del PLata ',55.25 , 22.17,1,1);
 INSERT INTO branches (name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES ('la sucursal 2 ','calle',222,'Mar del Plata',55.20 , 22.18,2,1);
 INSERT INTO branches (name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES ('la sucursal de la empresa 2','calle',111,'chubut',55.25 , 22.17,1,2);
-INSERT INTO branches (name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES ('la sucursal 2 de la empresa 2 ','calle',222,'chubut',55.20 , 22.18,3,2);
- 
-//Tabla indice 
+INSERT INTO branches (name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES ('la sucursal 2 de la empresa 2 ','calle',222,'chubut',55.20 , 22.18,2,2);
 
 INSERT INTO index_table (tablename,indexname) VALUES ('admins','admins_email_key');
 INSERT INTO index_table (tablename,indexname) VALUES ('admins','admins_pkey');
@@ -60,17 +58,6 @@ INSERT INTO index_table (tablename,indexname) VALUES ('inactivities','inactiviti
 INSERT INTO index_table (tablename,indexname) VALUES ('provinces','provinces_pkey');
 
 
-//QUERY para saber que indeces tenemos en NETGLOBAL
- SELECT  
-      tablename,  
-      indexname  
-  FROM  
-      pg_indexes  
-  WHERE  
-      schemaname = 'public'  
-  ORDER BY  
-      tablename,  
-      indexname; 
 
 
 
