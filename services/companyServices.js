@@ -1,6 +1,8 @@
 const {Company} = require("../models");
 const {Branch}= require ('../models');
 const{Guard}= require('../models')
+const{Province}= require('../models')
+
 function padTo2Digits(num) {
     return num.toString().padStart(2, '0');
   }
@@ -14,15 +16,31 @@ function formatDate(date) {
 class CompanyServices {
     static async getAll(page) {
         try {
-          let companies;
+          let companies
+          let result = [];
           let totalPages = Math.ceil(await Company.count()/30);
 
           if (page >= 2) {
-            companies = await Company.findAll({ offset: (page - 1) * 30, limit: 30 });
+            companies = await Company.findAll({ 
+              offset: (page - 1) * 30, 
+              limit: 30,
+             });
+             result = await Promise.all(companies.map(async(company)=>{
+              const company2 = {...company.dataValues}
+              company2.branches = await company.getBranches()
+              return company2
+            }))
           } else {
-            companies = await Company.findAll({ limit: 30 });
+            companies = await Company.findAll({ 
+              limit: 30,
+            });
+            result = await Promise.all(companies.map(async(company)=>{
+              const company2 = {...company.dataValues}
+              company2.branches = await company.getBranches()
+              return company2
+            }))
           }
-          return { error: false, data: {companies:companies,totalPages:totalPages} };
+          return { error: false, data: {companies:result,totalPages:totalPages} };
         } catch (error) {
           return { error: true, data: error };
         }
