@@ -33,7 +33,6 @@ Guard.init(
     },
     password: {
       type: Sequelize.STRING,
-      allowNull: false,
     },
     street: {
       type: Sequelize.STRING,

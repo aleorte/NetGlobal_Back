@@ -19,7 +19,6 @@ Admin.init(
     },
     password: {
       type: Sequelize.STRING,
-      allowNull: false,
     },
     superAdmin: {
       type: Sequelize.BOOLEAN,
