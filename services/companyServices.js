@@ -1,9 +1,5 @@
-const {Company, Assignment} = require("../models");
-const {Branch}= require ('../models');
-const{Guard}= require('../models')
-const{Province}= require('../models')
-
-
+const { Op, Sequelize } = require("sequelize")
+const {Branch,Guard,Company,Assignment,Province}= require ('../models');
 function padTo2Digits(num) {
     return num.toString().padStart(2, '0');
   }
@@ -82,7 +78,7 @@ class CompanyServices {
             return { error: false, data: company };
         }
         catch(error){
-            return { error: true, data: {message:'Failed to create '}}; 
+            return { error: true, data: {message:'Failed to create a new company'}}; 
         }
       }
       static async getActiveOnes(){
@@ -127,6 +123,7 @@ class CompanyServices {
       }
       static async addBranch(body,companyId){
         try{
+            const province = await Province.findOne({where:{name: body.provinceName}})
             const branch = await Branch.create({
               name: body.name,
               street: body.street,
@@ -134,16 +131,26 @@ class CompanyServices {
               location: body.location,
               coordinateLatitude: body.coordinateLatitude,
               coordinateLength: body.coordinateLength,
-             companyId: companyId
+              companyId: companyId,
+              provinceId: province.id
             })
             return { error: false, data: branch };
 
         }
         catch(error){
-            return  { error: true, data: {message:'Failed to create '}}; 
+            return  { error: true, data: {message:'Failed to create a new branch '}}; 
         }
     }
-
+    static async search(body){
+      try{
+        if (body.cuit) { const result = await Company.findAll({where:{cuit:body.cuit}})}
+      const result = await Company.findAll({ where: {legalName: {[Op.like]: `%${body.legalName}%`} }})
+        return { error: false , data: result}; 
+      }
+      catch(error){
+        return { error: true, data: {message:'Not found '}}; 
+      }
+    }
 
 }
 
