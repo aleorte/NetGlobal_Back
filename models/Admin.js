@@ -27,7 +27,7 @@ Admin.init(
       defaultValue: false,
     },
     recoveryKey: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       defaultValue: null,
     },
     createdAt: {

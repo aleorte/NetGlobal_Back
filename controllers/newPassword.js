@@ -1,12 +1,9 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const {Guard}= require ('../models')
 
 const  createNewPassword = async (req, res) => {
 
-  const { password, email, token } = req.body; // CHECK ALL FILDS ARE BEING SENT FROM FRONTEND 
-  if(!password) res.status(400).send({ message: 'All fields are required' });
-
+  const { password, email } = req.body; 
+    if(!password) res.status(400).send({ message: 'All fields are required' });
   const guard = await Guard.findOne({ where: { email } });  
 
   try { 

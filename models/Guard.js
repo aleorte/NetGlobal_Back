@@ -56,7 +56,7 @@ Guard.init(
       allowNull: false,
     },
     recoveryKey: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       defaultValue: null,
     },
     createdAt: {
@@ -82,15 +82,6 @@ Guard.beforeCreate(async (guard) => {
     } catch (e) {
       throw new Error("ERROR PASSWORD");
     }
-  
-  try {               //         For recoveryKey:
-    if (!guard.recoveryKey) return;
-    const salt = await bcrypt.genSalt(10);
-    const recoveryKeyHash = await guard.encryptPassword(guard.recoveryKey, salt);
-    guard.recoveryKey = recoveryKeyHash;
-  } catch (e) {
-    throw new Error("ERROR ACCESS TOKEN");
-  }
 });
   
 Guard.beforeUpdate(async (guard) => {
