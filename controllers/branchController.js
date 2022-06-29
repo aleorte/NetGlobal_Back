@@ -2,7 +2,7 @@ const BranchServices = require('../services/branchServices')
 
 class BranchController {
     static async getAll(req, res) {
-        const { error, data } = await BranchServices.getAll();
+        const { error, data } = await BranchServices.getAll(req.query.page);
         if (error) {
           return res.status(500).send(data);
         }

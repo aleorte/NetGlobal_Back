@@ -47,6 +47,10 @@ Guard.init(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    province:{
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
     coordinateLatitude: {
       type: Sequelize.DECIMAL,
       allowNull: false,
@@ -58,6 +62,10 @@ Guard.init(
     recoveryKey: {
       type: Sequelize.STRING,
       defaultValue: null,
+    },
+    active: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: true,
     },
     createdAt: {
       allowNull: false,

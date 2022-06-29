@@ -26,6 +26,13 @@ Company.init(
       type: Sequelize.DATEONLY,
       allowNull: false,
     },
+    logo: {
+      type: Sequelize.STRING,
+      validate: {
+        isUrl: true,
+      },
+    },
+    
     createdAt: {
       allowNull: false,
       defaultValue: new Date(),

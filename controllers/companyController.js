@@ -2,7 +2,7 @@ const CompanyServices = require('../services/companyServices')
 
 class CompanyController {
       static async getAll(req, res) {
-        const { error, data } = await CompanyServices.getAll();
+        const { error, data } = await CompanyServices.getAll(req.query.page);
         if (error) {
           return res.status(500).send(data);
         }
