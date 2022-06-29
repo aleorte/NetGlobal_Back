@@ -13,6 +13,9 @@ const guardRoutes = require("./guardRoutes")
 const assignmentRoutes = require("./assignmentRoutes");
 const branchesRouter = require('./branches');
 const inactiveRoutes = require("./inactiveRoutes")
+const forgotPasswordAdmin = require('../controllers/forgotPassowrdAdmin');
+const tokenVerificationAdmin = require('../controllers/tokenVerificationAdmin');
+const createNewPasswordAdmin = require('../controllers/newPasswordAdmin');
 const GuardController = require("../controllers/guardController");
 const AdminLoginController = require ('../controllers/adminLoginController')
 
@@ -34,9 +37,15 @@ router.post("/register/admin",async(req, res)=>{
         res.sendStatus(500)
     }
 })
-//                       ****"I Forgot my Password"****                                            
-router.post('/forgot-password', forgotPassword);  /* Send Email with recovery Token  */        
-router.post('/token', tokenVerification);         /* verify if token matches         */
-router.put('/new-password', createNewPassword);   /* re-write User-password          */
-                                                       
+
+//         ****"I Forgot my Password" for Guards****                                            
+router.post('/forgot-password', forgotPassword);  //1° Send Email with recovery Token         
+router.post('/token', tokenVerification);         //2° verify if token matches        
+router.put('/new-password', createNewPassword);   //3° re-write User-password        
+//         ****"I Forgot my Password" for Admins****                                       
+router.post('/admin/forgot-password', forgotPasswordAdmin);        
+router.post('/admin/token', tokenVerificationAdmin);         
+router.put('/admin/new-password', createNewPasswordAdmin); 
+
 module.exports = router
+ 
