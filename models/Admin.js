@@ -40,6 +40,12 @@ Admin.init(
       defaultValue: new Date(),
       type: Sequelize.DATE,
     },
+    image: { 
+      type: Sequelize.STRING,
+      validate: {
+        isUrl: true
+      },
+    } 
   },
   { sequelize: db, modelName: "admins" }
 );
