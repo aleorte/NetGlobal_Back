@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 
 const forgotPasswordAdmin = async (req, res) => {
   const { email } = req.body; 
-  if (!email) return res.status(400).send({message: 'invalid email and password!'})
+    if (!email) return res.status(400).send({message: 'invalid email and password!'})
   const admin = await Admin.findOne({ where: { email } });
 
   let token = [];         
@@ -31,7 +31,7 @@ const forgotPasswordAdmin = async (req, res) => {
 //                                           *...Here:
     let info = await transporter.sendMail({
       from: 'Net-Global@gmail.ar', 
-      to: 'javi11_97@hotmail.com',//`${ email }`, 
+      to: `${ email }`, 
       subject: 'Generate New Password', 
       text: 'This is your personal token so as to create your new password',
       html: `<p> This is your personal token key which will allow yu to create a new password. Please, make sure you will not share it to anybody. </p> 
