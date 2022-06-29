@@ -53,7 +53,7 @@ INSERT INTO index_table (tablename,indexname) VALUES ('guards','guards_cuil_key'
 INSERT INTO index_table (tablename,indexname) VALUES ('guards','guards_email_key');
 INSERT INTO index_table (tablename,indexname) VALUES ('guards','guards_pkey');
 INSERT INTO index_table (tablename,indexname) VALUES ('guards_inactivities','guards_inactivities_pkey');
-INSERT INTO index_table (tablename,indexname) VALUES ('guards_provinces','guards_provinces_pkey');
+INSERT INTO index_table (tablename,indexname) VALUES ('guards_licenses','guards_licenses_pkey');
 INSERT INTO index_table (tablename,indexname) VALUES ('inactivities','inactivities_pkey');
 INSERT INTO index_table (tablename,indexname) VALUES ('provinces','provinces_pkey');
 
