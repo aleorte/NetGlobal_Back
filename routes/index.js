@@ -18,13 +18,14 @@ const tokenVerificationAdmin = require('../controllers/tokenVerificationAdmin');
 const createNewPasswordAdmin = require('../controllers/newPasswordAdmin');
 const GuardController = require("../controllers/guardController");
 const AdminLoginController = require ('../controllers/adminLoginController')
-
+const CompanyController = require('../controllers/companyController')
 router.use("/employees",guardRoutes)
 router.use("/assignments",assignmentRoutes)
 router.use("/inactivities",inactiveRoutes)
 router.post("/login", AdminLoginController.login)
 //ruta para testear autorizacion 
 router.post("/auth", authAdmin)
+router.post("/search/company", CompanyController.search)
 router.use("/company", companyRouter)
 router.use("/branch", branchesRouter)
 router.post("/register/admin",async(req, res)=>{
