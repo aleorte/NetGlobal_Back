@@ -5,6 +5,7 @@ const Company = require("./Company");
 const Guard = require("./Guard");
 const Inactive = require("./Inactive");
 const Province = require("./Province");
+const IndexTable = require("./IndexTable")
 
 Company.hasMany(Branch, { as: 'branches', foreignKey: "companyId" });
 Branch.belongsTo(Company, { as: 'company' });
@@ -34,4 +35,5 @@ module.exports = {
   Guard,
   Inactive,
   Province,
+  IndexTable
 };
