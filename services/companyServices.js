@@ -143,9 +143,13 @@ class CompanyServices {
     }
     static async search(body){
       try{
-        if (body.cuit) { const result = await Company.findAll({where:{cuit:body.cuit}})}
-      const result = await Company.findAll({ where: {legalName: {[Op.like]: `%${body.legalName}%`} }})
-        return { error: false , data: result}; 
+        if (body.legalName){
+         const result = await Company.findAll({ where: {legalName: {[Op.like]: `%${body.legalName}%`}}})
+        return { error: false , data: result}}; 
+        if (body.cuit){
+          const  result = await Company.findAll({where:{cuit:body.cuit}})
+          return { error: false , data: result}
+        }
       }
       catch(error){
         return { error: true, data: {message:'Not found '}}; 

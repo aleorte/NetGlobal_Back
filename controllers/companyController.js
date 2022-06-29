@@ -62,10 +62,10 @@ class CompanyController {
       }
       static async search(req,res){
         const {error,data} = await CompanyServices.search(req.body)
-        if (error) {
-          return res.status(500).send(data);
+        if (data[0]) {
+          return res.status(200).send(data);
         }
-        return res.status(200).send(data);
+        return res.status(500).send({message:'Not found'});
       }
 }
 module.exports = CompanyController;
