@@ -5,9 +5,9 @@ const {Admin}= require('../models')
  const loginAuth = async( req, res  )=>{
     try{
      const admin = await Admin.findOne({ where: { email: req.body.email } })
-     if (! admin) {res.status(404).send({message: 'invalid email'}) }
+     if (! admin) {res.status(404).send({code:404,message:"La cuenta no se encuentra registada"}) }
      const isAdminValid= await bcrypt.compare(req.body.password, admin.password)
-     if (!isAdminValid) return res.status(401).send( {message: 'invalid password!'})
+     if (!isAdminValid) return res.status(401).send( {code:401,message:"Contraseña incorrecta"})
     
     const adminForToken = {
         id: admin.id,
