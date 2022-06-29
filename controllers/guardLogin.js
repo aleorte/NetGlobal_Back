@@ -5,9 +5,9 @@ const {Guard}= require ('../models')
 const guardLogin = async(req,res)=>{
 try{
     const guard= await Guard.findOne({ where: { email: req.body.email } })
-    if (!guard) {res.status(401).send({message: 'invalid email and password!'}) }
+    if (!guard) {res.status(401).send({code:401,message:"Contraseña incorrecta"}) }
     const isValid= await bcrypt.compare(req.body.password, guard.password)
-    if (!isValid) return res.status(401).send({message: 'invalid email and password!'})
+    if (!isValid) return res.status(401).send({code:404,message:"La cuenta no se encuentra registada"})
           const guardToken = {
              id: guard.id,
              email: guard.email,
