@@ -44,9 +44,6 @@ Company.init(
     },
     logo: {
       type: Sequelize.STRING,
-      validate: {
-        isUrl: true,
-      },
     },
     createdAt: {
       allowNull: false,
