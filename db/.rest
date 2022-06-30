@@ -1,42 +1,41 @@
-POST http://localhost:3001/employees HTTP/1.1
-Content-Type: application/json
-
-{
-    "name": "Freddie",
-    "lastName": "Mercury",
-    "email": "freddy@mail.com",
-    "password": "queen",
-    "coordinateLatitude": 24.6,
-    "coordinateLength":   25.4,
-    "cuil": 12345678,
-    "street": "Av Band",
-    "number": 3,
-    "location": "Londres",
-    "companyId": 1, 
-    "province": "Chaco",
-    "licenses": [1,2,3],
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU6A86TAZdCrAHAWYn_aFhsJlzga7pcRKa3XfSh8DQknt1LMBThWcnsa_WT__4MCrlpgo&usqp=CAU"
-}
-
 # POST http://localhost:3001/employees HTTP/1.1
 # Content-Type: application/json
 
 # {
-#     "name": "Indio",
-#     "lastName": "Solari",
-#     "email": "indio@mail.com",
-#     "password": "ricotero",
+#     "name": "Freddie",
+#     "lastName": "Mercury",
+#     "email": "freddy@mail.com",
+#     "password": "queen",
 #     "coordinateLatitude": 24.6,
 #     "coordinateLength":   25.4,
-#     "cuil": 1234,
-#     "street": "Av Vaca Cubana",
-#     "number": 4,
-#     "location": "Buenos Aires",
-#     "companyId": 1, 
+#     "cuil": 12345678,
+#     "street": "Av Band",
+#     "number": 3,
+#     "location": "Londres",
 #     "province": "Buenos Aires",
 #     "licenses": [1,2,3],
-#     "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIolOXxNF7Hq8v-ZNSlE8eWBPdcgfPa0ojwgx5yUCAYMy1NSZFusHvwv8sFFEU9IeYBYQ&usqp=CAU"
+#     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU6A86TAZdCrAHAWYn_aFhsJlzga7pcRKa3XfSh8DQknt1LMBThWcnsa_WT__4MCrlpgo&usqp=CAU"
+# }
 
+ POST http://localhost:3001/employees HTTP/1.1
+ Content-Type: application/json
+
+ {
+     "name": "Indio",
+     "lastName": "Solari",
+          "email": "indio@mail.com",
+     "password": "ricotero",
+     "coordinateLatitude": 24.6,
+     "coordinateLength":   25.4,
+     "cuil": 1234,
+     "street": "Av Vaca Cubana",
+     "number": 4,
+     "location": "Buenos Aires",
+     "companyId": 1, 
+     "province": "Buenos Aires",
+     "licenses": [1,2,3],
+     "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIolOXxNF7Hq8v-ZNSlE8eWBPdcgfPa0ojwgx5yUCAYMy1NSZFusHvwv8sFFEU9IeYBYQ&usqp=CAU"
+ }
 
 # POST http://localhost:3001/employees HTTP/1.1
 # Content-Type: application/json
