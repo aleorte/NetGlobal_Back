@@ -12,3 +12,6 @@ QUERY para saber que indeces tenemos en NETGLOBAL:
   ORDER BY  
       tablename,  
       indexname; 
+
+//PASSWORD DEL SUPERADMIN es Kobe (primera en mayusc.)
+//PASSWORD DE POLLY ADMIN es "peaky blinders"

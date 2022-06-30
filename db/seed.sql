@@ -29,8 +29,9 @@
  INSERT INTO provinces (name) VALUES ('Tierra del Fuego');
  INSERT INTO provinces (name) VALUES ('La Rioja');
 
- INSERT INTO admins (email,password,"superAdmin", image) VALUES ('admin@admin.com','1234',true, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmAZyAY5an-SsWZ3Fmn8Its60O6crAe8_h-w&usqp=CAU');
- INSERT INTO admins (email,password, image) VALUES ('admin2@admin.com','12345', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsTVw6wiRk0YkLWlfHe8WJnTJiI5qsQZeNEA&usqp=CAU');
+ INSERT INTO admins (email,password,"superAdmin", image) VALUES ('cris@admin.com','$2b$10$zF21WMEseWVWg7s5dIIZhOHsEaK6a81JopzJ.URjAlD1Wm9SYPhSO',true, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmAZyAY5an-SsWZ3Fmn8Its60O6crAe8_h-w&usqp=CAU');
+  INSERT INTO admins (email,password, image) VALUES ('polly@admin.com','$2b$10$8YbIW/tqp8SOjKq28uRh3.9IO3KBE/IlAAI1oTAwZdaZY2mhUXtCS', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmAZyAY5an-SsWZ3Fmn8Its60O6crAe8_h-w&usqp=CAU');
+
 
 INSERT INTO companies ("coordinateLatitude", "coordinateLength",street, number, location, cuit, "legalName", "contractStartDate","contractEndDate",logo) VALUES ( 22.5 , 11.34 ,'Peatonal San Martin',1500,'Mar del Plata',12131311, 'Havanna','2022-01-01','2022-12-01' ,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx1kLfvpglz9ro0HJsI4VoNw3CEGVlrZnXJw&usqp=CAU');
 INSERT INTO companies ("coordinateLatitude", "coordinateLength", street, number, location,cuit, "legalName", "contractStartDate","contractEndDate",logo) VALUES (20.5, 30.4,'Av de los Trabajadores',1500,'Mar del Plata', 12131011,'Moscuzza','2022-01-01','2022-12-01','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ5SX2cr-TiW1nODI8mV-_1XMDa5ApmnUNVw&usqp=CAU');
