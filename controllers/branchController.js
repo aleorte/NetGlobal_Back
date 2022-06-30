@@ -30,7 +30,13 @@ class BranchController {
         }
        return res.status(200).send(data);  
       }
-      
+      static async search(req,res){
+        const {error,data} = await BranchServices.search(req.body)
+        if (data[0]) {
+          return res.status(200).send(data);
+        }
+        return res.status(500).send({message:'Not found'});
+      }
 }
 
 module.exports = BranchController
