@@ -34,6 +34,15 @@ class CompanyServices {
             result = await Promise.all(companies.map(async(company)=>{
               const company2 = {...company.dataValues}
               company2.branches = await company.getBranches()
+              let guard=[]
+              for (let i =0 ; i <company2.branches.length ; i++){
+                const assignments = await company2.branches[i].getAssignments({attributes:["guardId","date", "state"]})
+                for (let j=0 ; j < assignments.length  ; j++){
+                   if (assignments[j].dataValues.state === 'PENDING' && assignments[j].dataValues.guardId) {guard.push(assignments[j].dataValues.guardId)}
+               } 
+               }
+               let uniq = [...new Set(guard)];
+               company2.guards=uniq.length
               return company2
             }))
           }
