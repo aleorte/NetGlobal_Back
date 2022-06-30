@@ -2,14 +2,12 @@ const AdminLoginServices = require("../services/adminLoginServices");
 
 class AdminLoginController{
 static async login(req,res){
-    try{
         const {error,data} = await AdminLoginServices.login(req.body)
-          if (error) res.status(data.code).send(data)
-          res.status(200).send(data)
-    }
-    catch(error){
-      res.status(500).send(error)
-    }
+          if (error) {
+            if(data.code === 404) return res.status(404).send(data)
+             return res.status(401).send(data)
+          }
+         return  res.status(200).send(data)
 }
 }
 
