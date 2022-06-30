@@ -1,5 +1,6 @@
 const { Branch } = require("../models");
 const { Province } = require("../models");
+const { Op, Sequelize } = require("sequelize")
 class BranchServices {
   static async getAll(page) {
     try {
@@ -50,6 +51,23 @@ class BranchServices {
       return { error: false, data: guards };
     } catch (error) {
       return { error: true, data: { message: "No Guards " } };
+    }
+  }
+  static async search(body){
+    try{
+      if (body.name){
+        const result = await Branch.findAll({ where: {name: {[Op.like]: `%${body.name}%`}}})
+       return { error: false , data: result}}; 
+       if (body.location){
+        const result = await Branch.findAll({ where: {location: {[Op.like]: `%${body.location}%`}}})
+       return { error: false , data: result}}; 
+       if (body.province){
+        const province = await Province.findOne({where:{name: body.province}})
+        const result = await province.getBranches()
+       return { error: false , data: result}}; 
+   }
+    catch(e){
+      return {error:true , data:{message:e}}
     }
   }
 }

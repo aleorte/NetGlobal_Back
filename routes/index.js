@@ -19,6 +19,7 @@ const createNewPasswordAdmin = require('../controllers/newPasswordAdmin');
 const GuardController = require("../controllers/guardController");
 const AdminLoginController = require ('../controllers/adminLoginController');
 const CompanyController = require('../controllers/companyController')
+const BranchController = require('../controllers/branchController')
 const adminRegister = require('../controllers/adminRegister');
 const guardRegister = require('../controllers/guardRegister');
 
@@ -29,6 +30,7 @@ router.post("/login", AdminLoginController.login)
 //ruta para testear autorizacion 
 router.post("/auth", authAdmin)
 router.post("/search/company", CompanyController.search)
+router.post("/search/branch", BranchController.search)
 router.use("/company", companyRouter)
 router.use("/branch", branchesRouter)
 //register routes
