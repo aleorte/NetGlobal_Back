@@ -15,7 +15,7 @@ class AdminLoginServices{
            superAdmin:admin.superAdmin
          }
         const token = jwt.sign(adminForToken, process.env.TOKEN_SECRET,{expiresIn: "24h"});
-        return {error: false, data:{id:admin.id , email:admin.email, token ,superAdmin: admin.superAdmin}} 
+        return {error: false, data:{id:admin.id , name:admin.name, lastName:admin.lastName ,  email:admin.email, image:admin.image, token ,superAdmin: admin.superAdmin}} 
 
     }
     catch(error){
