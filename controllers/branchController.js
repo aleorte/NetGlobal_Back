@@ -35,7 +35,7 @@ class BranchController {
         if (data[0]) {
           return res.status(200).send(data);
         }
-        return res.status(500).send({message:'Not found'});
+        return res.status(404).send({message:'Not found'});
       }
 }
 

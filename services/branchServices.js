@@ -62,7 +62,7 @@ class BranchServices {
         const result = await Branch.findAll({ where: {location: {[Op.like]: `%${body.location}%`}}})
        return { error: false , data: result}}; 
        if (body.province){
-        const province = await Province.findOne({where:{name: body.province}})
+        const province = await Province.findOne({where:{name: {[Op.like]: `%${body.province}%`}}})
         const result = await province.getBranches()
        return { error: false , data: result}}; 
    }
