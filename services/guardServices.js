@@ -68,7 +68,7 @@ class GuardServices {
       }
       const provinces = await Province.findAll({
         where: {
-          id: { [Op.in]: body.provinces },
+          id: { [Op.in]: body.licenses },
         },
       });
       await user.setProvinces(provinces);
