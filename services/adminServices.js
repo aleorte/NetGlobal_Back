@@ -22,7 +22,7 @@ class AdminServices{
                 superAdmin:admin.superAdmin
             }
             const token = jwt.sign(adminForToken, process.env.TOKEN_SECRET,{expiresIn: "24h"});
-            return {error: false, data:{id:admin.id , email:admin.email ,superAdmin: admin.superAdmin }} 
+            return {error: false, data:{id:admin.id , name:admin.name, lastName:admin.lastName ,  email:admin.email, image:admin.image, token ,superAdmin: admin.superAdmin }} 
 
         }
         catch( err ){
@@ -156,6 +156,52 @@ class AdminServices{
 
 
     }
+    static async getAll(page){
+        let admins;
+        let totalPages = Math.ceil(await Admin.count()/30);
+  
+        if(page>=2){
+          admins = await Admin.findAll({ offset: (page-1)*30, limit: 30 });
+        }
+        else{
+          admins= await Admin.findAll({limit: 30});
+        }
+        return { error: false, data: {admins:admins,totalPages:totalPages} };
+  
+      } catch (error) {
+        return { error: true, data: {error:error} };
+      }
+      static async getOne(id) {
+          try {
+            const admin = await Admin.findByPk(id);
+            if(admin) return { error: false, data: admin};
+            return {error:true , data: {code:404}}
+          } catch (error) {
+            return { error: true, data: error };
+          }
+        }
+        static async deleteOne(adminId) {
+          try {
+            await Admin.destroy({ where: { id: adminId } });
+            return { error: false };
+          } catch (error) {
+            return { error: true, data: error };
+          }
+        }
+        static async updateOne(body, adminId) {
+          try{
+              await Admin.update(body, { where: { id: adminId } });
+              return { error: false};
+          }
+          catch(error){
+              return { error: true, data: error };
+          }
+        }
+     
 }
+
+
+
+
 
 module.exports = AdminServices
