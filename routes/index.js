@@ -28,12 +28,15 @@ router.use("/employees",guardRoutes)
 router.use("/assignments",assignmentRoutes)
 router.use("/inactivities",inactiveRoutes)
 router.post("/login", AdminController.login)
-//ruta para testear autorizacion 
-router.post("/auth", authAdmin)
-router.post("/search/company", CompanyController.search)
-router.post("/search/branch", BranchController.search)
 router.use("/company", companyRouter)
 router.use("/branch", branchesRouter)
+router.use("/admin", adminRoutes)
+
+//ruta para testear autorizacion 
+router.post("/auth", authAdmin)
+//search routes 
+router.post("/search/company", CompanyController.search)
+router.post("/search/branch", BranchController.search)
 //register routes
 router.post("/register/admin", AdminController.register)
 router.post("/register/guard", GuardController.register)
