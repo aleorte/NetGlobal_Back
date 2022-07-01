@@ -1,29 +1,16 @@
 const express = require('express');
 const router = express.Router();
-// const bcrypt = require('bcrypt');
-// const jwt = require('jsonwebtoken');
-// const {Guard}= require ('../models')
-// const {Admin}= require('../models')
 const companyRouter= require('./company')
-// const forgotPassword  = require('../controllers/forgotPassword');
-// const createNewPassword = require('../controllers/newPassword');
-// const tokenVerification = require('../controllers/tokenVerification');
 const authAdmin = require('../middleware/authAdmin')
 const guardRoutes = require("./guardRoutes")
 const assignmentRoutes = require("./assignmentRoutes");
 const branchesRouter = require('./branches');
 const inactiveRoutes = require("./inactiveRoutes")
-// const forgotPasswordAdmin = require('../controllers/forgotPassowrdAdmin');
-// const tokenVerificationAdmin = require('../controllers/tokenVerificationAdmin');
-// const createNewPasswordAdmin = require('../controllers/newPasswordAdmin');
 const GuardController = require("../controllers/guardController");
-// const AdminLoginController = require ('../controllers/adminLoginController');
 const CompanyController = require('../controllers/companyController')
 const BranchController = require('../controllers/branchController')
-// const adminRegister = require('../controllers/adminRegister');
-// const guardRegister = require('../controllers/guardRegister');
 const AdminController = require('../controllers/AdminController')
-
+const adminRoutes = require('./adminRoutes')
 router.use("/employees",guardRoutes)
 router.use("/assignments",assignmentRoutes)
 router.use("/inactivities",inactiveRoutes)
