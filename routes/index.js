@@ -40,7 +40,7 @@ router.post("/register/guard", GuardController.register)
 //routes of "I Forgot my Password" for Guards                                            
 router.post('/forgot-password', GuardController.forgotPassword);  //1° Send Email with recovery Token         
 router.post('/token', GuardController.tokenVerification);         //2° verify if token matches        
-router.put('/new-password', GuardController.newPassword);   //3° re-write User-password        
+router.put('/new-password', GuardController.newPassword);   //3° re-write User-password    
 //routes of "I Forgot my Password" for Admins                                     
 router.post('/admin/forgot-password', AdminController.forgotPassword);        
 router.post('/admin/token', AdminController.tokenVerification);         
