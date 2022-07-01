@@ -1,4 +1,4 @@
-const AdminLoginServices = require("../services/adminLoginServices");
+const AdminLoginServices = require("../services/adminServices");
 
 class AdminLoginController{
 static async login(req,res){
@@ -12,3 +12,4 @@ static async login(req,res){
 }
 
 module.exports = AdminLoginController
+
