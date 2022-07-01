@@ -1,6 +1,6 @@
 const AdminServices = require("../services/adminServices");
 
-class AdminController {
+class AdministratorController {
   static async getAll(req, res) {
     const { error, data } = await AdminServices.getAll(req.query.page);
     if (error) {
@@ -40,4 +40,4 @@ class AdminController {
 
 }
 
-module.exports = AdminController;
+module.exports = AdministratorController;
