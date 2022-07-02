@@ -9,8 +9,10 @@ class Admin extends Sequelize.Model {
 }
 Admin.init(
   {
-    name:{type: Sequelize.STRING,
-      allowNull: false},
+    name:{
+      type: Sequelize.STRING,
+      allowNull: false
+    },
     lastName:{
       type: Sequelize.STRING,
       allowNull: false,

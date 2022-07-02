@@ -146,9 +146,8 @@ static async register ( body ) {
 
   try {
       const password = "123"  // passwordGenerator() should go here instead of "123"
+      body.password = password
       const newGuard = await Guard.create( body )
-      newGuard.password = password
-      newGuard.save()
 
     //  Nodemailer config:
       let transporter = nodemailer.createTransport({
@@ -184,8 +183,6 @@ static async register ( body ) {
    };
 
   static async forgotPassword ( body ) {
-    console.log("token")
-
     const { email } = body; 
      if (!email) return { error: true, data: { code: 400 , message: 'invalid Email!' } };
     const guard = await Guard.findOne({ where: { email } });
@@ -197,15 +194,12 @@ static async register ( body ) {
       }
      return token.join('')
     }
-    console.log("token")
 
     try {                              
       const token = tokenGenerator()
       guard.recoveryKey = token;
-      console.log("token = "+ token)
-      console.log(guard)
+      console.log("Token:",token)
       await guard.save() // token saved
-      console.log("hola") // aca ya falló el código
 
     //  Nodemailer config:
       let transporter = nodemailer.createTransport({
@@ -227,7 +221,6 @@ static async register ( body ) {
         html: `<p> This is your personal token key which will allow yu to create a new password. Please, make sure you will not share it to anybody. </p> 
         <h1> ${ token } </h1>`
       }); 
-      console.log("token = "+ token)
 
       
       const { password, recoveryKey, ...guardInfo } = guard.dataValues // avoid sensitive data from being sent
@@ -243,7 +236,6 @@ static async register ( body ) {
 
     try {
       const guard = await Guard.findOne({ where: { email } });
-      console.log(token)
       const isGuardValid = await bcrypt.compare(token , guard.recoveryKey)
       return { error: false, data: { code: 202, message: "Authirized with Token Key" } }
 
@@ -259,9 +251,7 @@ static async register ( body ) {
 
     try { 
       guard.password = password; 
-      console.log("hola")
       await guard.save()    // new password saved
-      console.log("hola")
       return { error: false, data: { code: 200, message: 'new password has been set correctly' } }
 
     } catch {
