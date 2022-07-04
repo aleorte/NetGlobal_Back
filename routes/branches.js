@@ -8,6 +8,7 @@ branchesRouter.get("/", BranchController.getAll )
 branchesRouter.get("/:id", BranchController.getOne )
 branchesRouter.get("/:id/guards", BranchController.getGuards )
 branchesRouter.put("/:id", BranchController.updateOne )
+branchesRouter.get("/:id/tasks", BranchController.getTasks )
 
 
 
