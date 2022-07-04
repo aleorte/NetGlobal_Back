@@ -40,6 +40,26 @@ Admin.init(
       type: Sequelize.STRING,
       defaultValue: null,
     },
+    street: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    number: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    location: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    coordinateLatitude: {
+      type: Sequelize.DECIMAL,
+      allowNull: false,
+    },
+    coordinateLength: {
+      type: Sequelize.DECIMAL,
+      allowNull: false,
+    },
     createdAt: {
       allowNull: false,
       defaultValue: new Date(),

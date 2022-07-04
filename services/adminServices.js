@@ -20,7 +20,7 @@ class AdminServices{
                 superAdmin:admin.superAdmin
             }
             const token = jwt.sign(adminForToken, process.env.TOKEN_SECRET,{expiresIn: "24h"});
-            return {error: false, data:{ id:admin.id , cuil:admin.cuil, email:admin.email ,superAdmin: admin.superAdmin, name: admin.name, lastName: admin.lastName, image: admin.image, recoveryKey: admin.recoveryKey }} 
+            return {error: false, data:{ id:admin.id , cuil:admin.cuil, email:admin.email ,superAdmin: admin.superAdmin, name: admin.name, lastName: admin.lastName, image: admin.image, recoveryKey: admin.recoveryKey, number:admin.number,street:admin.street, location:admin.location, coordinateLatitude: admin.coordinateLatitude, coordinateLength:admin.coordinateLength  }} 
 
         }
         catch( err ){
