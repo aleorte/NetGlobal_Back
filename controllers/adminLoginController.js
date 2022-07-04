@@ -11,5 +11,5 @@ static async login(req,res){
 }
 }
 
-module.exports = AdminLoginController
+module.exports = AdminLoginController;
 
