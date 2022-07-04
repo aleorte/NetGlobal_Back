@@ -8,6 +8,4 @@ adminRouter.get('/:id', AdminController.getOne)
 adminRouter.put('/:id', AdminController.updateOne)
 adminRouter.delete('/:id', AdminController.deleteOne)
 
-
-
 module.exports = adminRouter

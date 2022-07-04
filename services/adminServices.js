@@ -19,7 +19,7 @@ class AdminServices{
                 email: admin.email,
                 superAdmin:admin.superAdmin
             }
-            const token = jwt.sign(adminForToken, process.env.TOKEN_SECRET,{expiresIn: "24h"});
+            const token = jwt.sign(adminForToken, process.env.TOKEN_SECRET,{expiresIn: "24h"}); 
             return {error: false, data:{ id:admin.id , cuil:admin.cuil, email:admin.email ,superAdmin: admin.superAdmin, name: admin.name, lastName: admin.lastName, image: admin.image, recoveryKey: admin.recoveryKey, number:admin.number,street:admin.street, location:admin.location, coordinateLatitude: admin.coordinateLatitude, coordinateLength:admin.coordinateLength ,token:token }} 
 
         }
@@ -171,10 +171,10 @@ class AdminServices{
       static async getOne(id) {
           try {
             const admin = await Admin.findByPk(id);
-            if(admin) return { error: false, data:{ id:admin.id , cuil:admin.cuil, email:admin.email ,superAdmin: admin.superAdmin, name: admin.name, lastName: admin.lastName, image: admin.image, recoveryKey: admin.recoveryKey }};
-            return {error:true , data: {code:404}}
+            let {password,...employee} = admin.dataValues 
+            if(admin) return { error: false, data: employee}
           } catch (error) {
-            return { error: true, data: error };
+            return { error: true , data: {code:404}};
           }
         }
         static async deleteOne(adminId) {

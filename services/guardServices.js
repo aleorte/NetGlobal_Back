@@ -25,9 +25,10 @@ class GuardServices {
   static async getOne(guardId) {
     try {
       const guard = await Guard.findByPk(guardId);
-      return { error: false, data: guard};
+      let {password,...employee} = guard.dataValues 
+      return { error: false, data: employee};
     } catch (error) {
-      return { error: true, data: error };
+      return { error: true, data:{message: 'No guard found'} };
     }
   }
   static async addOne(body) {
