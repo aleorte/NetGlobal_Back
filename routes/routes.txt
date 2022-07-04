@@ -85,7 +85,7 @@ Rutas de sucursales: Modelo Branch.
 *GET /branch/1 : Muestra los datos de la sucursal con id 1. 
 *GET /branch/1/guards : Muestra los datos de los guardias con licencia en la provincia de la sucursal.
 *PUT /branch/1 : Modifica los datos de la sucursal con id 1. Debo pasarle en el body los campos a modificar. 
-
+*GET /branch/1/tasks : Muestra los datos de las tareas pertenecientes a la sucursal con el id 1. 
 --------------------xxxxx----------------------------xxxx------------------------
 
 Rutas de admin : Modelo Admin. 
