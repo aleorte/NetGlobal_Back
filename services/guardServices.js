@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
 const axios = require('axios')
-
+const getDistanceInKM  = require('../functions/getDistanceInKm')
 class GuardServices {
   static async getAll(page) {
     try {
@@ -39,8 +39,8 @@ class GuardServices {
       let geoloc = await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=Hi8xaDQPxjO4mTdYh4yk4sfa5ewyjKcd&street=${body.number}+${body.street}&city=${city}&country=AR`)
       let coordinates = geoloc.data.results[0].locations[0].latLng
       let reverseGeoloc = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${coordinates.lat}&lon=${coordinates.lng}&zoom=18&addressdetails=1`)
-      console.log(reverseGeoloc.data.address.road)
-      if (reverseGeoloc.data.address.road == body.street){
+      let d = getDistanceInKM(Number(coordinates.lat), Number(coordinates.lng),Number(reverseGeoloc.data.lat),Number(reverseGeoloc.data.lon))
+      if (d<=0,1){
       body.coordinateLatitude = Number(coordinates.lat)
       body.coordinateLength = Number(coordinates.lng)
       const user = await Guard.create(body);
