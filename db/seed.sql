@@ -29,8 +29,8 @@
  INSERT INTO provinces (name) VALUES ('Tierra del Fuego');
  INSERT INTO provinces (name) VALUES ('La Rioja');
 
-INSERT INTO admins (cuil, name, "lastName", email,password,"superAdmin", image) VALUES (1,'Kobe','Bryant','nba@admin.com','$2b$10$zF21WMEseWVWg7s5dIIZhOHsEaK6a81JopzJ.URjAlD1Wm9SYPhSO',true, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMaLMskWLOR8ab_Iu1WpWbLU2_ByqbEWbnQQ&usqp=CAU');
-INSERT INTO admins (cuil, name, "lastName",email,password, image) VALUES (2,'Polly', 'Grey','polly@admin.com','$2b$10$8YbIW/tqp8SOjKq28uRh3.9IO3KBE/IlAAI1oTAwZdaZY2mhUXtCS', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBPyfsmGacVFw6JLFhwtcxYO-2qHF269JNLmpFFsK1w63kEBE1xKBORXkG3xA2Oa-zGyU&usqp=CAU');
+INSERT INTO admins (number,street,location, "coordinateLatitude", "coordinateLength",cuil, name, "lastName", email,password,"superAdmin", image) VALUES (4400, 'Gascón','Mar del Plata', -37.99692 , -57.570185, 1,'Kobe','Bryant','nba@admin.com','$2b$10$zF21WMEseWVWg7s5dIIZhOHsEaK6a81JopzJ.URjAlD1Wm9SYPhSO',true, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMaLMskWLOR8ab_Iu1WpWbLU2_ByqbEWbnQQ&usqp=CAU');
+INSERT INTO admins (number,street,location,"coordinateLatitude", "coordinateLength",cuil, name, "lastName",email,password, image) VALUES (2400,'Chaco','Mar del Plata', -37.99598  ,-57.56958 ,2,'Polly', 'Grey','polly@admin.com','$2b$10$8YbIW/tqp8SOjKq28uRh3.9IO3KBE/IlAAI1oTAwZdaZY2mhUXtCS', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBPyfsmGacVFw6JLFhwtcxYO-2qHF269JNLmpFFsK1w63kEBE1xKBORXkG3xA2Oa-zGyU&usqp=CAU');
 
 
 INSERT INTO companies ("coordinateLatitude", "coordinateLength",street, number, location, cuit, "legalName", "contractStartDate","contractEndDate",logo) VALUES ( -37.99692 , -57.570185,'Gascón',4400,'Mar del Plata',12131311, 'Havanna','2022-01-01','2022-12-01' ,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx1kLfvpglz9ro0HJsI4VoNw3CEGVlrZnXJw&usqp=CAU');
