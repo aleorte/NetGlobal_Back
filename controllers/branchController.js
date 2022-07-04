@@ -37,6 +37,13 @@ class BranchController {
         }
         return res.status(404).send({message:'Not found'});
       }
+      static async getTasks(req,res){
+        const {error,data} = await BranchServices.getTasks(req.params.id)
+        if (error) {
+          return res.status(500).send(data);
+        }
+       return res.status(200).send(data);  
+      }
 }
 
 module.exports = BranchController

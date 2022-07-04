@@ -89,6 +89,17 @@ class BranchServices {
       return {error:true , data:{message:e}}
     }
   }
+  static async getTasks(branchId){
+    try{
+      const branch = await Branch.findByPk(branchId)
+      const tasks = await branch.getAssignments()
+      if(tasks[0]) return { error: false , data: tasks}
+     return { error: true , data: 'No tasks found'}
+    }
+    catch(error){
+        return {error:true , data:{message:error}}
+    }
+  }
 }
 
 module.exports = BranchServices;
