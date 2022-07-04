@@ -12,12 +12,12 @@ class AdminController {
     }  
 
     static async login(req,res) {           
-        try{
-            const { error, data } = await AdminServices.login( req.body )
-            if (data) res.status(202).send(data)
-        } catch(error) {
-            res.status(500).send(data)
-        }
+            const {error,data} = await AdminServices.login(req.body)
+              if (error) {
+                if(data.code === 404) return res.status(404).send(data)
+                 return res.status(401).send(data)
+              }
+             return  res.status(200).send(data)
     }   
 
     static async forgotPassword (req, res) {
