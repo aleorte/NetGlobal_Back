@@ -86,13 +86,12 @@ class GuardController {
   };
   
   static async forgotPassword (req, res) { // CHEQUEAR
-    try {
-      const { error,data } = await GuardServices.forgotPassword( req.body )
-       if (data) res.status(200).send(data)
 
-    } catch ( error ) {
+      const { error,data } = await GuardServices.forgotPassword( req.body )
+       if (data) return res.status(200).send(data)
+
       res.status(400).send({ message: 'Something went wrong' })
-    }
+    
   };
 
   static async tokenVerification (req, res) {

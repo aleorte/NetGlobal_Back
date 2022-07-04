@@ -238,7 +238,7 @@ static async register ( body ) {
       return { error: false, data: guardInfo  }
 
     } catch ( err ) {
-      return { error: true, data: { code: 400, message: 'Something went wrong' } }
+      return { error: true, data: false}
     }
   };
 
