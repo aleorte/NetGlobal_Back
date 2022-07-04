@@ -3,6 +3,7 @@ const { Guard, Province, Assignment } = require("../models");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
+const axios = require('axios')
 
 class GuardServices {
   static async getAll(page) {
@@ -33,6 +34,12 @@ class GuardServices {
     try {
       const licenses = body.licenses;
       delete body.licenses;
+      let city; 
+      city = body.location.split(" ").join("+")
+      let geoloc = await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=Hi8xaDQPxjO4mTdYh4yk4sfa5ewyjKcd&street=${body.number}+${body.street}&city=${city}&country=AR`)
+      let coordinates = geoloc.data.results[0].locations[0].latLng
+      body.coordinateLatitude = Number(coordinates.lat)
+      body.coordinateLength = Number(coordinates.lng)
       const user = await Guard.create(body);
       const provinces = await Province.findAll({
         where: {
@@ -68,7 +75,7 @@ class GuardServices {
       }
       const provinces = await Province.findAll({
         where: {
-          id: { [Op.in]: body.provinces },
+          id: { [Op.in]: body.licenses },
         },
       });
       await user.setProvinces(provinces);

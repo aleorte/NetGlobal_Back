@@ -1,5 +1,6 @@
 const { Op, Sequelize } = require("sequelize")
 const {Branch,Guard,Company,Assignment,Province}= require ('../models');
+const axios = require('axios')
 function padTo2Digits(num) {
     return num.toString().padStart(2, '0');
   }
@@ -83,11 +84,18 @@ class CompanyServices {
       }
       static async addOne(body) {
         try{
-            const company = await Company.create(body);
+        
+            let city; 
+            city = body.location.split(" ").join("+")
+            let geoloc = await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=Hi8xaDQPxjO4mTdYh4yk4sfa5ewyjKcd&street=${body.number}+${body.street}&city=${city}&country=AR`)
+            let coordinates = geoloc.data.results[0].locations[0].latLng
+            body.coordinateLatitude = Number(coordinates.lat)
+            body.coordinateLength = Number(coordinates.lng)
+             const company = await Company.create(body);
             return { error: false, data: company };
         }
         catch(error){
-            return { error: true, data: {message:'Failed to create a new company'}}; 
+            return { error: true, data: {message:'Failed to create a new company' , error: error}}; 
         }
       }
       static async getActiveOnes(){
@@ -131,15 +139,19 @@ class CompanyServices {
         }
       }
       static async addBranch(body,companyId){
-        try{
-            const province = await Province.findOne({where:{name: body.provinceName}})
-            const branch = await Branch.create({
+        try{ 
+          let city; 
+             city = body.location.split(" ").join("+")
+             let geoloc = await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=Hi8xaDQPxjO4mTdYh4yk4sfa5ewyjKcd&street=${body.number}+${body.street}&city=${city}&country=AR`)
+             let coordinates = geoloc.data.results[0].locations[0].latLng
+          const province = await Province.findOne({where:{name: body.provinceName}})
+          const branch = await Branch.create({
               name: body.name,
               street: body.street,
               number: body.number,
               location: body.location,
-              coordinateLatitude: body.coordinateLatitude,
-              coordinateLength: body.coordinateLength,
+              coordinateLatitude: Number(coordinates.lat),
+              coordinateLength: Number(coordinates.lng),
               companyId: companyId,
               provinceId: province.id
             })
@@ -147,7 +159,7 @@ class CompanyServices {
 
         }
         catch(error){
-            return  { error: true, data: {message:'Failed to create a new branch '}}; 
+            return  { error: true, data: {message:'Failed to create a new branch ', error:error}}; 
         }
     }
     static async search(body){
