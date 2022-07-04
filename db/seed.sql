@@ -33,15 +33,14 @@ INSERT INTO admins (cuil, name, "lastName", email,password,"superAdmin", image) 
 INSERT INTO admins (cuil, name, "lastName",email,password, image) VALUES (2,'Polly', 'Grey','polly@admin.com','$2b$10$8YbIW/tqp8SOjKq28uRh3.9IO3KBE/IlAAI1oTAwZdaZY2mhUXtCS', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBPyfsmGacVFw6JLFhwtcxYO-2qHF269JNLmpFFsK1w63kEBE1xKBORXkG3xA2Oa-zGyU&usqp=CAU');
 
 
-INSERT INTO companies ("coordinateLatitude", "coordinateLength",street, number, location, cuit, "legalName", "contractStartDate","contractEndDate",logo) VALUES ( 22.5 , 11.34 ,'Peatonal San Martin',1500,'Mar del Plata',12131311, 'Havanna','2022-01-01','2022-12-01' ,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx1kLfvpglz9ro0HJsI4VoNw3CEGVlrZnXJw&usqp=CAU');
-INSERT INTO companies ("coordinateLatitude", "coordinateLength", street, number, location,cuit, "legalName", "contractStartDate","contractEndDate",logo) VALUES (20.5, 30.4,'Av de los Trabajadores',1500,'Mar del Plata', 12131011,'Moscuzza','2022-01-01','2022-12-01','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ5SX2cr-TiW1nODI8mV-_1XMDa5ApmnUNVw&usqp=CAU');
-INSERT INTO companies ("coordinateLatitude", "coordinateLength", street, number, location,cuit, "legalName", "contractStartDate","contractEndDate",logo) VALUES (22.8 , 15.34,'Constitucion',1500,'Mar del Plata',121310011,'Lucianos','2022-01-01','2022-12-01','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxMliX-s96Pnop4CDgkDHjxlxjJx24aUK_6A&usqp=CAU');
+INSERT INTO companies ("coordinateLatitude", "coordinateLength",street, number, location, cuit, "legalName", "contractStartDate","contractEndDate",logo) VALUES ( -37.99692 , -57.570185,'Gascón',4400,'Mar del Plata',12131311, 'Havanna','2022-01-01','2022-12-01' ,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx1kLfvpglz9ro0HJsI4VoNw3CEGVlrZnXJw&usqp=CAU');
+INSERT INTO companies ("coordinateLatitude", "coordinateLength", street, number, location,cuit, "legalName", "contractStartDate","contractEndDate",logo) VALUES (-37.96201 , -57.56317 ,'Valencia',5888,'Mar del Plata', 12131011,'Moscuzza','2022-01-01','2022-12-01','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ5SX2cr-TiW1nODI8mV-_1XMDa5ApmnUNVw&usqp=CAU');
+INSERT INTO companies ("coordinateLatitude", "coordinateLength", street, number, location,cuit, "legalName", "contractStartDate","contractEndDate",logo) VALUES (-37.99598  ,-57.56958 ,'Chaco',2400,'Mar del Plata',121310011,'Lucianos','2022-01-01','2022-12-01','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxMliX-s96Pnop4CDgkDHjxlxjJx24aUK_6A&usqp=CAU');
 
 
-INSERT INTO branches (cuit,name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES (1,'la sucursal','calle',111,'Mar del PLata ',55.25 , 22.17,1,1);
-INSERT INTO branches (cuit,name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES (2,'la sucursal 2 ','calle',222,'Mar del Plata',55.20 , 22.18,2,1);
-INSERT INTO branches (cuit,name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES (3,'la sucursal de la empresa 2','calle',111,'chubut',55.25 , 22.17,1,2);
-INSERT INTO branches (cuit,name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES (4,'la sucursal 2 de la empresa 2 ','calle',222,'chubut',55.20 , 22.18,2,2);
+INSERT INTO branches (cuit,name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES (1,'la sucursal','Valencia',5868,'Mar del PLata ', -37.96201 , -57.56317 ,1,1);
+INSERT INTO branches (cuit,name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES (2,'la sucursal 2 ','San Juan',2400,'Mar del Plata',-37.99698 , -57.56757,1,1);
+
 
 INSERT INTO index_tables (tablename,indexname) VALUES ('admins','admins_email_key');
 INSERT INTO index_tables (tablename,indexname) VALUES ('admins','admins_pkey');

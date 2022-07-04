@@ -1,6 +1,7 @@
 const { Op, Sequelize } = require("sequelize")
 const {Branch,Guard,Company,Assignment,Province}= require ('../models');
 const axios = require('axios')
+const getDistanceInKM  = require('../functions/getDistanceInKm')
 function padTo2Digits(num) {
     return num.toString().padStart(2, '0');
   }
@@ -90,7 +91,8 @@ class CompanyServices {
             let geoloc = await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=Hi8xaDQPxjO4mTdYh4yk4sfa5ewyjKcd&street=${body.number}+${body.street}&city=${city}&country=AR`)
             let coordinates = geoloc.data.results[0].locations[0].latLng
             let reverseGeoloc = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${coordinates.lat}&lon=${coordinates.lng}&zoom=18&addressdetails=1`)
-            if (reverseGeoloc.data.address.road == body.street){
+            let d = getDistanceInKM(Number(coordinates.lat), Number(coordinates.lng),Number(reverseGeoloc.data.lat),Number(reverseGeoloc.data.lon))
+            if (d<=0,1){
             body.coordinateLatitude = Number(coordinates.lat)
             body.coordinateLength = Number(coordinates.lng)
             const company = await Company.create(body);
@@ -150,7 +152,8 @@ class CompanyServices {
              let coordinates = geoloc.data.results[0].locations[0].latLng
              let reverseGeoloc = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${coordinates.lat}&lon=${coordinates.lng}&zoom=18&addressdetails=1`)
              const province = await Province.findOne({where:{name: body.provinceName}})
-          if (reverseGeoloc.data.address.road == body.street){
+             let d = getDistanceInKM(Number(coordinates.lat), Number(coordinates.lng),Number(reverseGeoloc.data.lat),Number(reverseGeoloc.data.lon))
+             if (d<=0,1){
           const branch = await Branch.create({
               name: body.name,
               cuit: body.cuit,
