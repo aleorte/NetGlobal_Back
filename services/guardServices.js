@@ -52,7 +52,7 @@ class GuardServices {
       });
       await user.addProvinces(provinces);
       return { error: false, data: user }};
-      return { error: true, data:"Not a valid address"};  
+      return { error: true, data:{code:404, message:"Not a valid address"}};  
     } catch (error) {
       return { error: true, data: error };
     }
