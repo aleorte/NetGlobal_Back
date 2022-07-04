@@ -7,7 +7,4 @@ router.put("/:id",AssignmentController.updateOne)
 router.delete("/:id",AssignmentController.deleteOne)
 router.get("/",AssignmentController.getAll)
 
-
-
-
 module.exports = router;
