@@ -8,24 +8,24 @@ const getDistanceInKM  = require('../functions/getDistanceInKm')
 class GuardServices {
   static async getAll(page) {
     try {
-      let users;
+      let guards;
       let totalPages = Math.ceil(await Guard.count()/30);
 
       if(page>=2){
-        users = await Guard.findAll({ offset: (page-1)*30, limit: 30 });
+        guards = await Guard.findAll({ offset: (page-1)*30, limit: 30 });
       }
       else{
-        users= await Guard.findAll({limit: 30});
+        guards= await Guard.findAll({limit: 30});
       }
-      return { error: false, data: {users:users,totalPages:totalPages} };
+     if(guards[0]) {return { error: false, data: {guards:guards,totalPages:totalPages} }};
     } catch (error) {
       return { error: true, data: error };
     }
   }
   static async getOne(guardId) {
     try {
-      const user = await Guard.findByPk(guardId);
-      return { error: false, data: user};
+      const guard = await Guard.findByPk(guardId);
+      return { error: false, data: guard};
     } catch (error) {
       return { error: true, data: error };
     }
@@ -61,12 +61,10 @@ class GuardServices {
     try {
 
       await Guard.update(body, { where: { id: guardId } });
-      const user = await Guard.findByPk(guardId);
-      if(user.active ===false)
+      const guard = await Guard.findByPk(guardId);
+      if(guard.active ===false)
       { console.log("entro")
-
         const today = new Date();
-        console.log(today)
         await Assignment.destroy({
             where: {
               guardId: guardId,
@@ -82,7 +80,7 @@ class GuardServices {
           id: { [Op.in]: body.licenses },
         },
       });
-      await user.setProvinces(provinces);
+      await guard.setProvinces(provinces);
 
 
       return { error: false };
