@@ -35,6 +35,9 @@ Assignment.init(
     state:{
       type: Sequelize.STRING,
       defaultValue:"PENDING",
+    }, 
+    notes:{
+      type: Sequelize.STRING,
     }
   },
   { sequelize: db, modelName: "assignments" }
