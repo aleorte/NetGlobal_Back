@@ -9,12 +9,17 @@ class Admin extends Sequelize.Model {
 }
 Admin.init(
   {
-    name:{type: Sequelize.STRING,
-      allowNull: false},
+    cuil: {
+      type: Sequelize.BIGINT,
+      allowNull: false,
+      unique: true,
+    },
     lastName:{
       type: Sequelize.STRING,
       allowNull: false,
     },
+    name:{type: Sequelize.STRING,
+      allowNull: false},
     email: {
       type: Sequelize.STRING,
       allowNull: false,

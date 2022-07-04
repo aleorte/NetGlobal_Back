@@ -10,18 +10,18 @@ class Guard extends Sequelize.Model {
 
 Guard.init(
   {
-    name: {
-      type: Sequelize.STRING,
+    cuil: {
+      type: Sequelize.BIGINT,
       allowNull: false,
+      unique: true,
     },
     lastName: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    cuil: {
-      type: Sequelize.BIGINT,
+    name: {
+      type: Sequelize.STRING,
       allowNull: false,
-      unique: true,
     },
     email: {
       type: Sequelize.STRING,

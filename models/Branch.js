@@ -5,6 +5,11 @@ class Branch extends Sequelize.Model {}
 
 Branch.init(
   {
+    cuit: {
+      type: Sequelize.BIGINT,
+      allowNull: false,
+      unique: true,
+    },
     name: {
       type: Sequelize.STRING,
       allowNull: false,
