@@ -1,12 +1,12 @@
 const { Router } = require('express');
 const express = require('express');
 const adminRouter = express.Router();
-const AdministratorController = require('../controllers/administratorController')
+const AdminController = require('../controllers/AdminController')
 
-adminRouter.get('/', AdministratorController.getAll)
-adminRouter.get('/:id', AdministratorController.getOne)
-adminRouter.put('/:id', AdministratorController.updateOne)
-adminRouter.delete('/:id', AdministratorController.deleteOne)
+adminRouter.get('/', AdminController.getAll)
+adminRouter.get('/:id', AdminController.getOne)
+adminRouter.put('/:id', AdminController.updateOne)
+adminRouter.delete('/:id', AdminController.deleteOne)
 
 
 

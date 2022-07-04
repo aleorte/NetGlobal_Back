@@ -38,10 +38,10 @@ INSERT INTO companies ("coordinateLatitude", "coordinateLength", street, number,
 INSERT INTO companies ("coordinateLatitude", "coordinateLength", street, number, location,cuit, "legalName", "contractStartDate","contractEndDate",logo) VALUES (22.8 , 15.34,'Constitucion',1500,'Mar del Plata',121310011,'Lucianos','2022-01-01','2022-12-01','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxMliX-s96Pnop4CDgkDHjxlxjJx24aUK_6A&usqp=CAU');
 
 
-INSERT INTO branches (name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES ('la sucursal','calle',111,'Mar del PLata ',55.25 , 22.17,1,1);
-INSERT INTO branches (name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES ('la sucursal 2 ','calle',222,'Mar del Plata',55.20 , 22.18,2,1);
-INSERT INTO branches (name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES ('la sucursal de la empresa 2','calle',111,'chubut',55.25 , 22.17,1,2);
-INSERT INTO branches (name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES ('la sucursal 2 de la empresa 2 ','calle',222,'chubut',55.20 , 22.18,2,2);
+INSERT INTO branches (cuit,name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES (1,'la sucursal','calle',111,'Mar del PLata ',55.25 , 22.17,1,1);
+INSERT INTO branches (cuit,name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES (2,'la sucursal 2 ','calle',222,'Mar del Plata',55.20 , 22.18,2,1);
+INSERT INTO branches (cuit,name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES (3,'la sucursal de la empresa 2','calle',111,'chubut',55.25 , 22.17,1,2);
+INSERT INTO branches (cuit,name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES (4,'la sucursal 2 de la empresa 2 ','calle',222,'chubut',55.20 , 22.18,2,2);
 
 INSERT INTO index_tables (tablename,indexname) VALUES ('admins','admins_email_key');
 INSERT INTO index_tables (tablename,indexname) VALUES ('admins','admins_pkey');
