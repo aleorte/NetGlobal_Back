@@ -10,8 +10,6 @@ class AdminServices{
 
         try{
             const admin = await Admin.findOne({ where: { email } })
-            console.log(email)
-            console.log(password)
              if (!admin) return { error: true, data: { code:404, message: "Unauthorized" }}
             const isAdminValid = await bcrypt.compare(password, admin.password)
              if (!isAdminValid) return { error: true,  data: {code:401, message:" Unauthorized" }}
@@ -22,7 +20,7 @@ class AdminServices{
                 superAdmin:admin.superAdmin
             }
             const token = jwt.sign(adminForToken, process.env.TOKEN_SECRET,{expiresIn: "24h"});
-            return {error: false, data:{id:admin.id , name:admin.name, lastName:admin.lastName ,  email:admin.email, image:admin.image, token ,superAdmin: admin.superAdmin }} 
+            return {error: false, data:{ id:admin.id , email:admin.email ,superAdmin: admin.superAdmin, name: admin.name, lastName: admin.lastName, image: admin.image, recoveryKey: admin.recoveryKey }} 
 
         }
         catch( err ){
@@ -44,8 +42,9 @@ class AdminServices{
         }
 
         try {
-            const password = "123"  // passwordGenerator() should go here instead of "123"
-            const newAdmin = await Admin.create({ email, password })
+            const password = passwordGenerator()
+            body.password = password 
+            const newAdmin = await Admin.create( body )
             //  Nodemailer config:
             let transporter = nodemailer.createTransport({
                 host: "smtp.gmail.com",
@@ -90,13 +89,11 @@ class AdminServices{
             }
            return token.join('')
         }
-
         try {                              
             const token = tokenGenerator()
             admin.recoveryKey = token;
-            console.log(token)
             await admin.save() // token saved
-            
+
             //  Nodemailer config:
             let transporter = nodemailer.createTransport({
               host: "smtp.gmail.com",
@@ -111,7 +108,7 @@ class AdminServices{
             //  Mail sending here:
             let info = await transporter.sendMail({
               from: 'Net-Global@gmail.ar', 
-              to: `${ email }`, 
+              to: 'javi11_97@hotmail.com',  //`${ email }`, 
               subject: 'Generate New Password', 
               text: 'This is your personal token so as to create your new password',
               html: `<p> This is your personal token key which will allow yu to create a new password. Please, make sure you will not share it to anybody. </p> 
