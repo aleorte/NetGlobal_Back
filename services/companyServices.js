@@ -90,7 +90,7 @@ class CompanyServices {
             const company = await Company.create(body);
             return { error: false, data: company };  
             }
-            return { error: true, data:"Not a valid address"};
+            return { error: true, data:{code:404, message:"Not a valid address"}};
         }
         catch(error){
             return { error: true, data: {message:'Failed to create a new company' , error: error}}; 
@@ -158,7 +158,7 @@ class CompanyServices {
               provinceId: province.id
             })
             return { error: false, data: branch }}
-            return { error: true, data:"Not a valid address"};  
+            return { error: true, data:{code:404, message:"Not a valid address"}};  
 
         }
         catch(error){
