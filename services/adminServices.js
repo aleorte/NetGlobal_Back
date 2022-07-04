@@ -10,9 +10,9 @@ class AdminServices{
 
         try{
             const admin = await Admin.findOne({ where: { email } })
-             if (!admin) return { error: true, data: { code:404, message: "Unauthorized" }}
+             if (!admin) return { error: true, data: { code:404, message: "Email not found" }}
             const isAdminValid = await bcrypt.compare(password, admin.password)
-             if (!isAdminValid) return { error: true,  data: {code:401, message:" Unauthorized" }}
+             if (!isAdminValid) return { error: true,  data: {code:401, message:" Unauthorized ,incorrect password" }}
         
             const adminForToken = {
                 id: admin.id,
@@ -20,7 +20,7 @@ class AdminServices{
                 superAdmin:admin.superAdmin
             }
             const token = jwt.sign(adminForToken, process.env.TOKEN_SECRET,{expiresIn: "24h"});
-            return {error: false, data:{ id:admin.id , email:admin.email ,superAdmin: admin.superAdmin, name: admin.name, lastName: admin.lastName, image: admin.image, recoveryKey: admin.recoveryKey }} 
+            return {error: false, data:{ id:admin.id , cuil:admin.cuil, email:admin.email ,superAdmin: admin.superAdmin, name: admin.name, lastName: admin.lastName, image: admin.image, recoveryKey: admin.recoveryKey }} 
 
         }
         catch( err ){
@@ -163,7 +163,7 @@ class AdminServices{
         else{
           admins= await Admin.findAll({limit: 30});
         }
-        return { error: false, data: {admins:admins,totalPages:totalPages} };
+        return { error: false, data: {admins:admins, totalPages:totalPages} };
   
       } catch (error) {
         return { error: true, data: {error:error} };
@@ -171,7 +171,7 @@ class AdminServices{
       static async getOne(id) {
           try {
             const admin = await Admin.findByPk(id);
-            if(admin) return { error: false, data: admin};
+            if(admin) return { error: false, data:{ id:admin.id , cuil:admin.cuil, email:admin.email ,superAdmin: admin.superAdmin, name: admin.name, lastName: admin.lastName, image: admin.image, recoveryKey: admin.recoveryKey }};
             return {error:true , data: {code:404}}
           } catch (error) {
             return { error: true, data: error };

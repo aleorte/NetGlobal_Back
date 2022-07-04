@@ -38,6 +38,9 @@ class GuardServices {
       city = body.location.split(" ").join("+")
       let geoloc = await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=Hi8xaDQPxjO4mTdYh4yk4sfa5ewyjKcd&street=${body.number}+${body.street}&city=${city}&country=AR`)
       let coordinates = geoloc.data.results[0].locations[0].latLng
+      let reverseGeoloc = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${coordinates.lat}&lon=${coordinates.lng}&zoom=18&addressdetails=1`)
+      console.log(reverseGeoloc.data.address.road)
+      if (reverseGeoloc.data.address.road == body.street){
       body.coordinateLatitude = Number(coordinates.lat)
       body.coordinateLength = Number(coordinates.lng)
       const user = await Guard.create(body);
@@ -47,7 +50,8 @@ class GuardServices {
         },
       });
       await user.addProvinces(provinces);
-      return { error: false, data: user };
+      return { error: false, data: user }};
+      return { error: true, data:"Not a valid address"};  
     } catch (error) {
       return { error: true, data: error };
     }

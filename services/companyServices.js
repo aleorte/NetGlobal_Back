@@ -89,10 +89,14 @@ class CompanyServices {
             city = body.location.split(" ").join("+")
             let geoloc = await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=Hi8xaDQPxjO4mTdYh4yk4sfa5ewyjKcd&street=${body.number}+${body.street}&city=${city}&country=AR`)
             let coordinates = geoloc.data.results[0].locations[0].latLng
+            let reverseGeoloc = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${coordinates.lat}&lon=${coordinates.lng}&zoom=18&addressdetails=1`)
+            if (reverseGeoloc.data.address.road == body.street){
             body.coordinateLatitude = Number(coordinates.lat)
             body.coordinateLength = Number(coordinates.lng)
-             const company = await Company.create(body);
-            return { error: false, data: company };
+            const company = await Company.create(body);
+            return { error: false, data: company };  
+            }
+            return { error: true, data:"Not a valid address"};
         }
         catch(error){
             return { error: true, data: {message:'Failed to create a new company' , error: error}}; 
@@ -144,9 +148,12 @@ class CompanyServices {
              city = body.location.split(" ").join("+")
              let geoloc = await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=Hi8xaDQPxjO4mTdYh4yk4sfa5ewyjKcd&street=${body.number}+${body.street}&city=${city}&country=AR`)
              let coordinates = geoloc.data.results[0].locations[0].latLng
-          const province = await Province.findOne({where:{name: body.provinceName}})
+             let reverseGeoloc = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${coordinates.lat}&lon=${coordinates.lng}&zoom=18&addressdetails=1`)
+             const province = await Province.findOne({where:{name: body.provinceName}})
+          if (reverseGeoloc.data.address.road == body.street){
           const branch = await Branch.create({
               name: body.name,
+              cuit: body.cuit,
               street: body.street,
               number: body.number,
               location: body.location,
@@ -155,7 +162,8 @@ class CompanyServices {
               companyId: companyId,
               provinceId: province.id
             })
-            return { error: false, data: branch };
+            return { error: false, data: branch }}
+            return { error: true, data:"Not a valid address"};  
 
         }
         catch(error){
