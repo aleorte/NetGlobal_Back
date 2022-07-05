@@ -23,7 +23,7 @@ Assignment.init(
     },
     realStartTime: {
       type: Sequelize.DATE,
-      default: null,
+      defaultValue: null,
     },
     realEndTime: {
       type: Sequelize.DATE,
@@ -38,7 +38,17 @@ Assignment.init(
     }, 
     notes:{
       type: Sequelize.STRING,
-    }
+    },
+    createdAt: {
+      allowNull: false,
+      defaultValue: new Date(),
+      type: Sequelize.DATE,
+    },
+    updatedAt: {
+      allowNull: false,
+      defaultValue: new Date(),
+      type: Sequelize.DATE,
+    },
   },
   { sequelize: db, modelName: "assignments" }
 );
