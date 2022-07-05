@@ -4,7 +4,8 @@
  TRUNCATE branches RESTART IDENTITY CASCADE;
  TRUNCATE provinces RESTART IDENTITY CASCADE;
  TRUNCATE guards RESTART IDENTITY CASCADE;
- 
+  TRUNCATE assignments RESTART IDENTITY CASCADE;
+
  INSERT INTO provinces (name) VALUES ('Buenos Aires');
  INSERT INTO provinces (name) VALUES ('Chaco');
  INSERT INTO provinces (name) VALUES ('Cordoba');
@@ -40,6 +41,9 @@ INSERT INTO companies ("coordinateLatitude", "coordinateLength", street, number,
 
 INSERT INTO branches (cuit,name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES (1,'la sucursal','Valencia',5868,'Mar del PLata ', -37.96201 , -57.56317 ,1,1);
 INSERT INTO branches (cuit,name, street,number,location,"coordinateLatitude","coordinateLength","companyId","provinceId") VALUES (2,'la sucursal 2 ','San Juan',2400,'Mar del Plata',-37.99698 , -57.56757,1,1);
+
+INSERT INTO assignments (date, month,  "startTime",  "endTime", "realStartTime", "realEndTime", "workedHours", state, notes,"branchId", "adminId", "guardId") VALUES ('2022-10-21',10, '2022-10-21T18:27:50.000Z','2022-10-22T18:27:50.000Z', '2022-10-21T18:27:50.000Z','2022-10-22T18:27:50.000Z', 24.0,'PENDING','Abrir ventanas', 2, 1, 1);
+INSERT INTO assignments (date, month,  "startTime",  "endTime", "realStartTime", "realEndTime", "workedHours", state, notes,"branchId", "adminId", "guardId") VALUES ('2022-10-21',10, '2022-10-21T18:27:50.000Z','2022-10-22T18:27:50.000Z', '2022-10-21T18:27:50.000Z','2022-10-22T18:27:50.000Z', 24.0,'PENDING','Abrir ventanas', 1, 1, 2);
 
 
 INSERT INTO index_tables (tablename,indexname) VALUES ('admins','admins_email_key');
