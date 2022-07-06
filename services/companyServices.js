@@ -80,6 +80,10 @@ class CompanyServices {
             body.coordinateLatitude = Number(coordinates.lat)
             body.coordinateLength = Number(coordinates.lng)
           }
+          if (body.state){
+            const province = await Province.findOne({where:{name: body.state}})
+            body.provinceId = province.id
+          }
             await Company.update( body,{ where: { id:companyId }});
             return { error: false};
         }
@@ -91,6 +95,8 @@ class CompanyServices {
         try{
         
             let city; 
+            const province = await Province.findOne({where:{name: body.state}})
+            body.provinceId = province.id
             city = body.location.split(" ").join("+")
             let geoloc = await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=Hi8xaDQPxjO4mTdYh4yk4sfa5ewyjKcd&street=${body.number}+${body.street}&city=${city}&country=AR`)
             let coordinates = geoloc.data.results[0].locations[0].latLng
