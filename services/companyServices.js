@@ -37,7 +37,9 @@ class CompanyServices {
                }
                let uniq = [...new Set(guard)];
                company2.guards=uniq.length
-              return company2
+               const province = await Province.findByPk(company2.provinceId)
+               company2.state= province.name
+               return company2
             }))
           }
           return { error: false, data: {companies:result,totalPages:totalPages} };
@@ -51,6 +53,8 @@ class CompanyServices {
           const contractEnd = company.contractEndDate.split('-').join('') 
           const currentDate = formatDate(new Date()).split('-').join('')
           const branches = await Branch.findAll({where:{companyId:company.id}})
+          const province = await Province.findByPk(company.provinceId)
+
           let guard=[]
            for (let i =0 ; i <branches.length ; i++){
              const assignments = await branches[i].getAssignments({attributes:["guardId","date", "state"]})
@@ -61,7 +65,7 @@ class CompanyServices {
             let uniq = [...new Set(guard)];
       
           if (currentDate > contractEnd ) {  return { error: false, data: {message:"The contract ended", company:company , branches:branches }  }; }
-          return { error: false, data: {company:company , branches:branches , guards: uniq.length } };
+          return { error: false, data: {...company.dataValues , state:province.name ,branches:branches , guards: uniq.length } };
         } catch (error) {
           return { error: true, data: error };
         }
