@@ -29,16 +29,22 @@ class CompanyServices {
               const company2 = {...company.dataValues}
               company2.branches = await company.getBranches()
               let guard=[]
+              let hs = 0
               for (let i =0 ; i <company2.branches.length ; i++){
-                const assignments = await company2.branches[i].getAssignments({attributes:["guardId","date", "state"]})
+                const assignments = await company2.branches[i].getAssignments({attributes:["guardId","date", "state","workedHours"]})
                 for (let j=0 ; j < assignments.length  ; j++){
                    if (assignments[j].dataValues.state === 'PENDING' && assignments[j].dataValues.guardId) {guard.push(assignments[j].dataValues.guardId)}
-               } 
+                   if (assignments[j].dataValues.workedHours){
+                    let n = Number(assignments[j].dataValues.workedHours)
+                    hs= hs + n
+                   }
+                  } 
                }
                let uniq = [...new Set(guard)];
                company2.guards=uniq.length
                const province = await Province.findByPk(company2.provinceId)
                company2.state= province.name
+               company2.hours = hs
                return company2
             }))
           }
@@ -56,16 +62,21 @@ class CompanyServices {
           const province = await Province.findByPk(company.provinceId)
 
           let guard=[]
+          let hs = 0
            for (let i =0 ; i <branches.length ; i++){
-             const assignments = await branches[i].getAssignments({attributes:["guardId","date", "state"]})
+             const assignments = await branches[i].getAssignments({attributes:["guardId","date", "state","workedHours"]})
              for (let j=0 ; j < assignments.length  ; j++){
                 if (assignments[j].dataValues.state === 'PENDING') {guard.push(assignments[j].dataValues.guardId)}
-            } 
+                if (assignments[j].dataValues.workedHours){
+                  let n = Number(assignments[j].dataValues.workedHours)
+                  hs= hs + n
+                 }
+              } 
             }
             let uniq = [...new Set(guard)];
       
           if (currentDate > contractEnd ) {  return { error: false, data: {message:"The contract ended", company:company , branches:branches }  }; }
-          return { error: false, data: {...company.dataValues , state:province.name ,branches:branches , guards: uniq.length } };
+          return { error: false, data: {...company.dataValues , state:province.name , hours:hs,branches:branches , guards: uniq.length } };
         } catch (error) {
           return { error: true, data: error };
         }
