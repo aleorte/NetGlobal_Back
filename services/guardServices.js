@@ -256,7 +256,7 @@ static async register ( body ) {
       return { error: false, data: { code: 202, message: "Authirized with Token Key" } }
 
     } catch {
-      return { error: true, data: { code: 401, message: 'Unauthorized' } }
+      return { error: true, data: false }
     }
   };
 
