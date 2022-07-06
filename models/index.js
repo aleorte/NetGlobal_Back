@@ -11,7 +11,8 @@ Company.hasMany(Branch, { as: 'branches', foreignKey: "companyId" });
 Branch.belongsTo(Company, { as: 'company' });
 Province.hasMany(Branch, { as: 'branches', foreignKey: "provinceId" });
 Branch.belongsTo(Province, { as: 'province' });
-
+Province.hasMany(Company, { as: 'companies', foreignKey: "provinceId" });
+Company.belongsTo(Province, { as: 'province' });
 Branch.hasMany(Assignment, { as: "assignments", foreignKey: "branchId" });
 Assignment.belongsTo(Branch, { as: "branch" });
 
