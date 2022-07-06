@@ -1,19 +1,16 @@
 Rutas de guardias: corresponden al Modelo Guard.
 
-*POST /employees/login : requiere pasarle en el body un email(STRING)y password(STRING) devuelve todos los datos y un token (menos la password) 
-*GET /employees?page=3 : devuelve todos los guardias de la página 3 (pagination de a 30 guardias).
-*GET /employees/1 : devuelte el guardia con id 1. 
-*POST /employees : añade un guardia. Requiere los siguientes parametros :
+*POST /guards/login : requiere pasarle en el body un email(STRING)y password(STRING) devuelve todos los datos y un token (menos la password) 
+*GET /guards?page=3 : devuelve todos los guardias de la página 3 (pagination de a 30 guardias).
+*GET /guards/1 : devuelte el guardia con id 1. 
+*POST /register/guard : añade un guardia. Requiere los siguientes parametros :
 {name (STRING)
 lastName (STRING) 
 cuil (STRING)
 email (STRING)
-password (STRING) 
 street (STRING) 
 number (INTEGER)
 location (STRING) 
-coordinateLatitude (DECIMAL) 
-coordinateLength (DECIMAL) 
 province (STRING)
 licenses (array con el id de cada provincia)}
 *PUT /employees/1 : actualiza el guardia con id 1 en el campo que le envio. 
@@ -91,9 +88,14 @@ Rutas de sucursales: Modelo Branch.
 Rutas de admin : Modelo Admin. 
 
 *POST /login : Login de admin , devulve token , id , si es superAdmin , name, lastName  y mail. Debo pasarle en el body email(STRING) y password(STRING).
+*POST /register/admin:Crea un nuevo admin asignandole una contraseña aleatoria y enviando esta info a su mail.Recibe en el body {cuil(BIGINT), name(STRING), lastname(STRING), email(STRING), street(STRING), number(INTEGER), location(STRING), image(STRING)}
 *GET /admin : Muestra todos los administardores ; 
 *GET /admin/1: Muestra los datos del administrador con el id 1. 
 *DELETE /admin/1: elimina el admin con id 1. 
+*POST /admin/forgot-password : Envia al Mail del Admin el Token de 4 digitos para recuperar la contraseña, debe recibir en el body el email(STRING) del admin.
+*POST /admin/token : Verifica que el codigo ingresado (token) coincida con el campo "recoveryKey" del Admin. En el body debe recibir el email(STRING) y la recoveryKey  = token (STRING) del admin.Permite al usuario ingresar su nueva contraseña.
+*PUT /admin/new-password : Debo pasarle en el body la nueva password(STRING) y el  email(STRING) del admin.
+
 
 --------------------xxxxx----------------------------xxxx------------------------
 
