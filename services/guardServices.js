@@ -31,33 +31,7 @@ class GuardServices {
       return { error: true, data:{message: 'No guard found'} };
     }
   }
-  static async addOne(body) {
-    try {
-      const licenses = body.licenses;
-      delete body.licenses;
-      let city; 
-      city = body.location.split(" ").join("+")
-      let geoloc = await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=Hi8xaDQPxjO4mTdYh4yk4sfa5ewyjKcd&street=${body.number}+${body.street}&city=${city}&country=AR`)
-      let coordinates = geoloc.data.results[0].locations[0].latLng
-      let reverseGeoloc = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${coordinates.lat}&lon=${coordinates.lng}&zoom=18&addressdetails=1`)
-      let street = geoloc.data.results[0].locations[0].street
-      let d = getDistanceInKM(Number(coordinates.lat), Number(coordinates.lng),Number(reverseGeoloc.data.lat),Number(reverseGeoloc.data.lon))
-      if (d<=0,1 & (street.length >=2)){
-      body.coordinateLatitude = Number(coordinates.lat)
-      body.coordinateLength = Number(coordinates.lng)
-      const user = await Guard.create(body);
-      const provinces = await Province.findAll({
-        where: {
-          id: { [Op.in]: licenses },
-        },
-      });
-      await user.addProvinces(provinces);
-      return { error: false, data: user }};
-      return { error: true, data:{code:400, message:"Not a valid address"}};  
-    } catch (error) {
-      return { error: true, data: error };
-    }
-  }
+
 
   static async updateOne(body, guardId) {
     try {
@@ -142,7 +116,7 @@ class GuardServices {
   };
 
 static async register ( body ) {
-
+    
     const { email } = body
      if (!email) return res.status(400).send({ message: 'invalid email or password!' })
    
@@ -158,8 +132,27 @@ static async register ( body ) {
   try {
       const password = "123"  // passwordGenerator() should go here instead of "123"
       body.password = password
-      const newGuard = await Guard.create( body )
-
+      const licenses = body.licenses;
+      delete body.licenses;
+      let city; 
+      city = body.location.split(" ").join("+")
+      let geoloc = await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=Hi8xaDQPxjO4mTdYh4yk4sfa5ewyjKcd&street=${body.number}+${body.street}&city=${city}&country=AR`)
+      let coordinates = geoloc.data.results[0].locations[0].latLng
+      let reverseGeoloc = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${coordinates.lat}&lon=${coordinates.lng}&zoom=18&addressdetails=1`)
+      let street = geoloc.data.results[0].locations[0].street
+      let d = getDistanceInKM(Number(coordinates.lat), Number(coordinates.lng),Number(reverseGeoloc.data.lat),Number(reverseGeoloc.data.lon))
+      if (!(d<=0,1 && (street.length >=2))) {return { error: true, data:{code:400, message:"Not a valid address"}}};  
+     if (d<=0,1 && (street.length >=2)){
+      body.coordinateLatitude = Number(coordinates.lat)
+      body.coordinateLength = Number(coordinates.lng)
+      const user = await Guard.create(body);
+      const provinces = await Province.findAll({
+        where: {
+          id: { [Op.in]: licenses },
+        },
+      })
+      await user.addProvinces(provinces)};  
+      
     //  Nodemailer config:
       let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
@@ -174,22 +167,22 @@ static async register ( body ) {
       let info = await transporter.sendMail({
         from: 'Net-Global@gmail.ar', 
         to: `${ email }`, 
-        subject: 'New Guard Creation', 
+        subject: 'Nueva cuenta Net Global', 
         text: 'New Guard has been successfully created',
         html: `
-        <h1>   ¡Net Global New Guard Account! </h1>
-        <p> Hi! Net Global Staff has created for you a new Guard account. A Security password has been automatically set, however you are able to modify it to what you most prefer. Regardless you can change your password in case you forget it, we extremely recommend not to delete this massage unless you have already modified your password to another one</p> 
-        <h2 >Guard Email: <span style="color: #B51313; font-size: 33px;"> ${ email }</span> </h2>
+        <h1>   ¡Nueva cuenta Net Global! </h1>
+        <p> ¡Hola! Net Global ha creado para ti una nueva cuenta de guardia. Se ha generado una contraseña de seguridad de manera automática, sin embargo usted puede modificarla si asi lo desea. Recomendamos no borrar este mensaje hasta haber modificado la contraseña por una de su agrado.</p> 
+        <h2 > email: <span style="color: #B51313; font-size: 33px;"> ${ email }</span> </h2>
         <h2> Password:  <span style="color: #B51313; font-size: 33px;"> ${ password }</span> </h2>
-        <h4> SHARING THIS INFORMATION IS COMPLETELY PROHIBITED. </h4>
-        <p> Cordially, Net Global. </p>
+        <h4> Queda terminantemente prohibido compartir esta información. </h4>
+        <p> Atentamente, Net Global. </p>
         `  
       }); 
 
-      return { error: false, data: { code: 201, message: "New Guard Account has been successfully created" } }
+      return { error: false, data: { code: 201, message: "New Guard Account has been successfully created"} }
 
     } catch ( err ) {
-      return { error: true, data: { code: 500, message: "Register failed" } }
+      return { error: true, data: { code: 500, message: "Register failed" , error: err} }
     };
    };
 
@@ -227,9 +220,9 @@ static async register ( body ) {
       let info = await transporter.sendMail({
         from: 'Net-Global@gmail.ar', 
         to: `${ email }`,
-        subject: 'Generate New Password', 
-        text: 'This is your personal token so as to create your new password',
-        html: `<p> This is your personal token key which will allow yu to create a new password. Please, make sure you will not share it to anybody. </p> 
+        subject: 'Generar nueva contraseña', 
+        text: 'Este es su token , lo necesitarás para generar una nueva contraseña. ',
+        html: `<p> Este es su token de seguridad , el mismo le  permitirá generar una nueva contraseña.Por favor no comparta esta información con terceros.</p>
         <h1> ${ token } </h1>`
       }); 
 

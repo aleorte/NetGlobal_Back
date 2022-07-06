@@ -18,14 +18,6 @@ class GuardController {
     return res.status(200).send(data);
   };
 
-  static async addOne(req, res) {
-    const { error, data } = await GuardServices.addOne(req.body);
-    if(data.code){return res.status(400).send(data.message)}
-    if (error) {
-      return res.status(500).send(data);
-    }
-    return res.status(201).send(data);
-  };
 
   static async updateOne(req, res) {
     const { error, data } = await GuardServices.updateOne(
@@ -79,7 +71,9 @@ class GuardController {
   static async register (req, res) {
     try{ 
       const { error,data } = await GuardServices.register( req.body )
-      if (data) res.send(data)
+      if(data.code === 201) {res.status(201).send(data)}
+      if(data.code === 400) {res.status(400).send(data)}
+      if (data.code === 500) res.status(500).send(data)
 
     } catch (error) {
         res.status(500).send(error)
