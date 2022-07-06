@@ -62,13 +62,14 @@ class GuardServices {
             },
           });
       }
-      const provinces = await Province.findAll({
-        where: {
-          id: { [Op.in]: body.licenses },
-        },
-      });
-      await guard.setProvinces(provinces);
-
+      if(body.licenses){
+        const provinces = await Province.findAll({
+          where: {
+            id: { [Op.in]: body.licenses },
+          },
+        });
+        await guard.setProvinces(provinces);
+      }
 
       return { error: false };
     } catch (error) {
