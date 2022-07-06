@@ -24,7 +24,7 @@ class AdminServices{
 
         }
         catch( err ){
-            return { error: true, data: {code:500 , message: 'Failed to login '} };
+            return { error: true, data: false };
         }
     };
 
@@ -73,7 +73,7 @@ class AdminServices{
             return { error: false, data: { code: 201, message: 'New Admin has been successfully created' } }
        
         } catch ( err ) {
-            return { error: true, data: { code: 500, message: "Register failed" } }
+            return { error: true, data: false }
         }
     };
 
@@ -119,7 +119,7 @@ class AdminServices{
             return { error: false, data: adminInfo  }
 
         } catch ( err ) {
-            return { error: true, data: { code: 400, message: 'Something went wrong' } }
+            return { error: true, data: false }
         }
     };
 
@@ -133,7 +133,7 @@ class AdminServices{
 
         } catch {
             res.status(401).send('Unauthorized')
-            return { error: true, data: { code: 401, message: 'Unauthorized' } }
+            return { error: true, data: false }
         }
     };
 
@@ -148,7 +148,7 @@ class AdminServices{
             return { error: false, data: { code: 200, message: 'new password has been set correctly' } }
 
         } catch {
-            return { error: true, data: { code: 500, message: 'Something went wrong' } }
+            return { error: true, data: false }
         }
 
 
@@ -166,7 +166,7 @@ class AdminServices{
         return { error: false, data: {admins:admins, totalPages:totalPages} };
   
       } catch (error) {
-        return { error: true, data: {error:error} };
+        return { error: true, data: false };
       }
       static async getOne(id) {
           try {
@@ -174,7 +174,7 @@ class AdminServices{
             let {password,...employee} = admin.dataValues 
             if(admin) return { error: false, data: employee}
           } catch (error) {
-            return { error: true , data: {code:404}};
+            return { error: true , data: false};
           }
         }
         static async deleteOne(adminId) {
@@ -182,7 +182,7 @@ class AdminServices{
             await Admin.destroy({ where: { id: adminId } });
             return { error: false };
           } catch (error) {
-            return { error: true, data: error };
+            return { error: true, data: false };
           }
         }
         static async updateOne(body, adminId) {
@@ -191,7 +191,7 @@ class AdminServices{
               return { error: false};
           }
           catch(error){
-              return { error: true, data: error };
+              return { error: true, data: false };
           }
         }
      

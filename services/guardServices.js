@@ -19,7 +19,7 @@ class GuardServices {
       }
      if(guards[0]) {return { error: false, data: {guards:guards,totalPages:totalPages} }};
     } catch (error) {
-      return { error: true, data: error };
+      return { error: true, data: false };
     }
   }
   static async getOne(guardId) {
@@ -28,7 +28,7 @@ class GuardServices {
       let {password,...employee} = guard.dataValues 
       return { error: false, data: employee};
     } catch (error) {
-      return { error: true, data:{message: 'No guard found'} };
+      return { error: true, data:false };
     }
   }
 
@@ -73,7 +73,7 @@ class GuardServices {
 
       return { error: false };
     } catch (error) {
-      return { error: true, data: error };
+      return { error: true, data: false };
     }
   }
   static async getLicenses(guardId) {
@@ -82,7 +82,7 @@ class GuardServices {
       const licenses = await user.getProvinces();
       return { error: false, data: licenses };
     } catch (error) {
-      return { error: true, data: error };
+      return { error: true, data: false };
     }
   }
   static async getWorkedHours(guardId, month) {
@@ -103,7 +103,7 @@ class GuardServices {
 
       return { error: false, data: `${workedHours}` };
     } catch (error) {
-      return { error: true, data: error };
+      return { error: true, data: false };
     }
   }
   static async login(body){
@@ -123,7 +123,7 @@ class GuardServices {
 
     }
     catch(error){
-      return { error: true, data: {code:500 , message: 'Failed to login '} };
+      return { error: true, data: false };
     }
   };
 
@@ -194,7 +194,7 @@ static async register ( body ) {
       return { error: false, data: { code: 201, message: "New Guard Account has been successfully created"} }
 
     } catch ( err ) {
-      return { error: true, data: { code: 500, message: "Register failed" , error: err} }
+      return { error: true, data: false }
     };
    };
 
@@ -271,7 +271,7 @@ static async register ( body ) {
       return { error: false, data: { code: 200, message: 'new password has been set correctly' } }
 
     } catch {
-      return { error: true, data: { code: 401, message: 'Something went wrong' } }
+      return { error: true, data: false }
     }
   }
 }
