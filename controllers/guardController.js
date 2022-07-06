@@ -20,6 +20,7 @@ class GuardController {
 
   static async addOne(req, res) {
     const { error, data } = await GuardServices.addOne(req.body);
+    if(data.code){return res.status(400).send(data.message)}
     if (error) {
       return res.status(500).send(data);
     }

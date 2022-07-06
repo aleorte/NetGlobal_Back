@@ -26,6 +26,7 @@ class CompanyController {
       }
       static async addOne(req,res){
         const {error,data} = await CompanyServices.addOne(req.body)
+        if(data.code){return res.status(400).send(data.message)}
         if (error) {
             return res.status(500).send(data);
           }
@@ -55,6 +56,7 @@ class CompanyController {
       }
       static async addBranch(req,res){
         const {error,data} = await CompanyServices.addBranch(req.body, req.params.id)
+        if(data.code){return res.status(400).send(data.message)}
         if (error) {
           return res.status(500).send(data);
         }
