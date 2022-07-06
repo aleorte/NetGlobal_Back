@@ -91,22 +91,18 @@ class GuardController {
   };
 
   static async tokenVerification (req, res) {
-    try {
+  
       const { error, data } = await GuardServices.tokenVerification( req.body )
        if (data) res.status(202).send(data)
-
-    } catch (error) {
       res.status(500).send(error)
-    }
+    
   }
   static async  newPassword (req, res) {
-    try {
+ 
       const { error, data } = await GuardServices.newPassword( req.body )
         if (data) return res.status(200).send(data) 
-
-    } catch (error) {
         res.status(500).send(error)
-    }
+    
   }
 }
 
