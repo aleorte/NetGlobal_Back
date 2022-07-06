@@ -9,7 +9,7 @@
 Por otro lado encontramos una app que sera utilizada por los vigiladores donde estos deberan geolocalizarse una vez que ingresen a la sucursal donde desarrollan sus tareas , debiando realizar el mismo proceso luego de cumplir su horario laboral. 
 *INSTRUCCIONES: 
 0) Para incializar este proyecto corra el comando npm start.
-1) Para conocer que tablas e indices tenemos podemos realizar la siguiente query : 
+1) Para conocer que tablas e indices tenemos podemos realizar la siguiente query: 
  SELECT  
       tablename,  
       indexname  

@@ -17,10 +17,10 @@ class CompanyController {
       }
 
       static async updateOne(req,res){
-        const {error,data} = await CompanyServices.updateOne(req.body,
-            req.params.id)
+        const {error,data} = await CompanyServices.updateOne(req.body, req.params.id)
         if (error) {
-                return res.status(500).send(data);
+          if(data.code) { return res.status(400).send(data)}
+          return res.status(500).send(data);
               }
        return res.status(204).send(data);    
       }

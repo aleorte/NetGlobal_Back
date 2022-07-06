@@ -35,7 +35,18 @@ class GuardServices {
 
   static async updateOne(body, guardId) {
     try {
-
+      if(body.street && body.number && body.location){
+        let city; 
+        city = body.location.split(" ").join("+")
+        let geoloc = await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=Hi8xaDQPxjO4mTdYh4yk4sfa5ewyjKcd&street=${body.number}+${body.street}&city=${city}&country=AR`)
+        let coordinates = geoloc.data.results[0].locations[0].latLng
+        let reverseGeoloc = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${coordinates.lat}&lon=${coordinates.lng}&zoom=18&addressdetails=1`)
+        let street = geoloc.data.results[0].locations[0].street
+        let d = getDistanceInKM(Number(coordinates.lat), Number(coordinates.lng),Number(reverseGeoloc.data.lat),Number(reverseGeoloc.data.lon))
+        if (!(d<=0,1 && (street.length >= 2))){ return { error: true, data:{code:400, message:"Not a valid address"}};}
+        body.coordinateLatitude = Number(coordinates.lat)
+        body.coordinateLength = Number(coordinates.lng)
+      }
       await Guard.update(body, { where: { id: guardId } });
       const guard = await Guard.findByPk(guardId);
       if(guard.active ===false)

@@ -1,19 +1,19 @@
-# POST http://localhost:3001/register/guard  HTTP/1.1
-# Content-Type: application/json
+POST http://localhost:3001/register/guard  HTTP/1.1
+Content-Type: application/json
 
-# {
-#     "name": "Freddie",
-#     "lastName": "Mercury",
-#     "email": "freddy@mail.com",
-#     "password": "queen",
-#     "cuil": 12345678,
-#     "street": "Belgrano",
-#     "number": 3000,
-#     "location": "Mar del Plata",
-#     "province": "Buenos Aires",
-#     "licenses": [1,2,3],
-#     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU6A86TAZdCrAHAWYn_aFhsJlzga7pcRKa3XfSh8DQknt1LMBThWcnsa_WT__4MCrlpgo&usqp=CAU"
-# }
+{
+    "name": "Freddie",
+    "lastName": "Mercury",
+    "email": "freddy@mail.com",
+    "password": "queen",
+    "cuil": 12345678,
+    "street": "Belgrano",
+    "number": 3000,
+    "location": "Mar del Plata",
+    "province": "Buenos Aires",
+    "licenses": [1,2,3],
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU6A86TAZdCrAHAWYn_aFhsJlzga7pcRKa3XfSh8DQknt1LMBThWcnsa_WT__4MCrlpgo&usqp=CAU"
+}
 
 #  POST http://localhost:3001/register/guard HTTP/1.1
 #  Content-Type: application/json

@@ -19,8 +19,9 @@ class BranchController {
         const {error,data} = await BranchServices.updateOne(req.body,
             req.params.id)
         if (error) {
-                return res.status(500).send(data);
-              }
+          if(data.code) { return res.status(400).send(data)}
+          return res.status(500).send(data);
+               }
        return res.status(204).send(data);    
       }
       static async  getGuards(req,res){
