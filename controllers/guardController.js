@@ -25,8 +25,9 @@ class GuardController {
       req.params.id
     );
     if (error) {
+      if(data.code) { return res.status(400).send(data)}
       return res.status(500).send(data);
-    }
+          }
     return res.sendStatus(204);
   };
 
