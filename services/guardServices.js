@@ -196,7 +196,7 @@ static async register ( body ) {
       return { error: false, data: { code: 201, message: "New Guard Account has been successfully created"} }
 
     } catch ( err ) {
-      return { error: true, data: false }
+      return { error: true, data: "Failed to add guard" }
     };
    };
 

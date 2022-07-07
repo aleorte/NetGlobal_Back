@@ -70,14 +70,11 @@ class GuardController {
   };
 
   static async register (req, res) {
-    try{ 
       const { error,data } = await GuardServices.register( req.body )
-      if(data.code === 201) {res.status(201).send(data)}
-      if(data.code === 400) {res.status(400).send(data)}
-      if (data.code === 500) {res.status(500).send(data)}
-
-    } catch (error) {
-        res.status(500).send(error)
+      if(data.code === 201) {return res.status(201).send(data)}
+      if(data.code === 400) {return res.status(400).send(data)}
+       if (error) {
+       return  res.status(500).send(data)
     }
   };
   

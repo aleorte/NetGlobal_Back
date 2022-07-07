@@ -3,13 +3,11 @@ const AdminServices = require("../services/adminServices")
 class AdminController { 
 
     static async register (req, res) {       
-        try {
-            const { error, data } = await AdminServices.register( req.body )
+      const { error, data } = await AdminServices.register( req.body )
       if(data.code === 201) {return res.status(201).send(data)}
       if(data.code === 400) {return res.status(400).send(data)}
-      if (data.code === 500) {return res.status(500).send(data)}
-        } catch (error) {
-            res.status(500).send( 'Failed to create new admin')
+      if (error) {
+            return res.status(500).send( 'Failed to create new admin')
         }
     }  
 
