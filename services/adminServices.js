@@ -2,7 +2,8 @@ const { Admin } = require('../models')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
-
+const axios = require('axios')
+const getDistanceInKM  = require('../functions/getDistanceInKm')
 class AdminServices{
 
     static async login( body ){
@@ -44,6 +45,17 @@ class AdminServices{
         try {
             const password = passwordGenerator()
             body.password = password 
+      let city; 
+      city = body.location.split(" ").join("+")
+      let geoloc = await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=Hi8xaDQPxjO4mTdYh4yk4sfa5ewyjKcd&street=${body.number}+${body.street}&city=${city}&country=AR`)
+      let coordinates = geoloc.data.results[0].locations[0].latLng
+      let reverseGeoloc = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${coordinates.lat}&lon=${coordinates.lng}&zoom=18&addressdetails=1`)
+      let street = geoloc.data.results[0].locations[0].street
+      let d = getDistanceInKM(Number(coordinates.lat), Number(coordinates.lng),Number(reverseGeoloc.data.lat),Number(reverseGeoloc.data.lon))
+     if (!(d<=0,1 && (street.length >=2))) {return { error: true, data:{code:400, message:"Not a valid address"}}};  
+     if (d<=0,1 && (street.length >=2)){
+      body.coordinateLatitude = Number(coordinates.lat)
+      body.coordinateLength = Number(coordinates.lng)
             const newAdmin = await Admin.create( body )
             //  Nodemailer config:
             let transporter = nodemailer.createTransport({
@@ -71,7 +83,7 @@ class AdminServices{
               }); 
     
             return { error: false, data: { code: 201, message: 'New Admin has been successfully created' } }
-       
+            }
         } catch ( err ) {
             return { error: true, data: false }
         }
