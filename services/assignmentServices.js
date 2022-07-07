@@ -1,4 +1,4 @@
-const { Assignment } = require("../models");
+const { Assignment, Branch } = require("../models");
 
 class AssignmentServices {
   static async addOne(body) {
@@ -52,24 +52,36 @@ class AssignmentServices {
   static async getAll(query) {
     if (query.guard) {
       try {
-        let users;
+        let assignments;
+        let result = [];
         if(query.month){
-          users = await Assignment.findAll({
-            where: {
-              guardId: query.guard,
-              month: query.month
-            },
+          assignments = await Assignment.findAll({
+              where: {
+                guardId: query.guard,
+              },
           });
+          result = await Promise.all(assignments.map(async(assignment)=>{
+            const assignment2 = {...assignment.dataValues}
+            assignment2.branch = await assignment.getBranch()
+            return assignment2
+          }))
         }
         else
         {
-          users = await Assignment.findAll({
-            where: {
-              guardId: query.guard,
-            },
+          assignments = await Assignment.findAll({
+
+              where: {
+                guardId: query.guard,
+              }
+            
           });
+          result = await Promise.all(assignments.map(async(assignment)=>{
+            const assignment2 = {...assignment.dataValues}
+            assignment2.branch = await assignment.getBranch()
+            return assignment2
+          }))
         }
-        return { error: false, data: users };
+        return { error: false, data: result };
       } catch (error) {
         return { error: true, data: error };
       }
