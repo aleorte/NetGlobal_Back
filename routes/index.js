@@ -5,14 +5,14 @@ const authAdmin = require('../middleware/authAdmin')
 const guardRoutes = require("./guardRoutes")
 const assignmentRoutes = require("./assignmentRoutes");
 const branchesRouter = require('./branches');
-const inactiveRoutes = require("./inactiveRoutes")
+const inactiveRoutes = require("./inactiveRoutes");
 const GuardController = require("../controllers/guardController");
-const CompanyController = require('../controllers/companyController')
-const BranchController = require('../controllers/branchController')
-const AdminController = require('../controllers/AdminController')
-const adminRoutes = require('./adminRoutes')
-const multer = require('multer')
-const upload = require('../middleware/upload')
+const CompanyController = require('../controllers/companyController');
+const BranchController = require('../controllers/branchController');
+const AdminController = require('../controllers/AdminController');
+const adminRoutes = require('./adminRoutes');
+const multer = require('multer');
+const upload = require('../middleware/upload');
 
 router.use("/guards",guardRoutes)
 router.use("/assignments",assignmentRoutes)
@@ -38,11 +38,10 @@ router.post("/register/guard", GuardController.register)
 router.post('/forgot-password', GuardController.forgotPassword);//1° Send Email with recovery Token         
 router.post('/token', GuardController.tokenVerification);       //2° verify if token matches        
 router.put('/new-password', GuardController.newPassword);       //3° re-write User-password    
-router.put('/upload',upload,(req,res)=>{
-    console.log(req.file)
-    res.send('Uploaded')
-    
-})
+// router.put('/upload',upload,(req,res)=>{
+//     console.log(req.file)
+//     res.send('Uploaded')    
+// })
 
 module.exports = router
  

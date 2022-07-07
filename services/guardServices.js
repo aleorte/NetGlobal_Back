@@ -146,6 +146,7 @@ static async register ( body ) {
       body.password = password
       const licenses = body.licenses;
       delete body.licenses;
+      if(body.street && body.number && body.location){
       let city; 
       city = body.location.split(" ").join("+")
       let geoloc = await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=Hi8xaDQPxjO4mTdYh4yk4sfa5ewyjKcd&street=${body.number}+${body.street}&city=${city}&country=AR`)
@@ -156,7 +157,7 @@ static async register ( body ) {
       if (!(d<=0,1 && (street.length >=2))) {return { error: true, data:{code:400, message:"Not a valid address"}}};  
      if (d<=0,1 && (street.length >=2)){
       body.coordinateLatitude = Number(coordinates.lat)
-      body.coordinateLength = Number(coordinates.lng)
+      body.coordinateLength = Number(coordinates.lng)}
       const user = await Guard.create(body);
       const provinces = await Province.findAll({
         where: {
