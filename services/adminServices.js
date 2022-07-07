@@ -30,7 +30,8 @@ class AdminServices{
     };
 
     static async register ( body ) {
-         if (!body.email) return { error: true, data: { code: 400 , message: 'invalid email!' } };
+         const {email} = body 
+         if (!email) {return { error: true, data: { code:404, message: "Email not valid" }}}
 
         function passwordGenerator() {   // <==  this function generates a random Password
             const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -74,18 +75,19 @@ class AdminServices{
                 subject: 'New Admin Creation', 
                 text: 'New Admin has been successfully created',
                 html: `
-                <h1>   ¡Net Global New Admin Account! </h1>
-                <p> Hi! Net Global Staff has created for you a new Admin account. A Security password has been automatically set, however you are able to modify it to what you most prefer. Regardless you can change your password in case you forget it, we extremely recommend not to delete this massage unless you have already modified your password to another one</p> 
+                <h1>   ¡Net Global Nueva Cuenta de  Admin ! </h1>
+                <p> ¡Hola! Net Global ha generado para ti una nueva cuenta de administrador. Se ha generado una contraseña de seguridad de manera automática, sin embargo usted puede modificarla si asi lo desea. Recomendamos no borrar este mensaje hasta haber modificado la contraseña por una de su agrado.</p> 
                 <h2 >Admin Email: <span style="color: #B51313; font-size: 33px;"> ${ email }</span> </h2>
-                <h2> Password:  <span style="color: #B51313; font-size: 33px;"> ${ password }</span> </h2>
-                <h4> SHARING THIS INFORMATION IS COMPLETELY PROHIBITED. </h4>
-                <p> Cordially, Net Global. </p> `  
-              }); 
+                <h2> Contraseña:  <span style="color: #B51313; font-size: 33px;"> ${ password }</span> </h2>
+                <h4> Queda terminantemente prohibido compartir esta información. </h4>
+                <p> Atentamente, Net Global. </p> `  
+              })
     
-            return { error: false, data: { code: 201, message: 'New Admin has been successfully created' } }
+          if(newAdmin) {return { error: false, data: { code: 201, message: 'New Admin has been successfully created' } }}
             
-        } catch (err) {
-            return { error: true, data: { code: 500 , message: 'Failed to create new admin account' }}
+        } 
+        catch (err) {
+            return { error: true, data: { code: 500 , message: 'Failed to create new admin account' , error:err}}
         }
     };
 
@@ -120,10 +122,10 @@ class AdminServices{
             //  Mail sending here:
             let info = await transporter.sendMail({
               from: 'Net-Global@gmail.ar', 
-              to: 'javi11_97@hotmail.com',  //`${ email }`, 
-              subject: 'Generate New Password', 
-              text: 'This is your personal token so as to create your new password',
-              html: `<p> This is your personal token key which will allow yu to create a new password. Please, make sure you will not share it to anybody. </p> 
+              to: `${ email }`, 
+              subject: 'Generar nueva contraseña', 
+              text: 'Este es su token , lo necesitarás para generar una nueva contraseña.',
+              html: `<p>Este es su token de seguridad , el mismo le  permitirá generar una nueva contraseña.Por favor no comparta esta información con terceros. </p> 
               <h1> ${ token } </h1>`
             });   
 
