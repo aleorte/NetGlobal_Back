@@ -74,7 +74,7 @@ class GuardController {
       const { error,data } = await GuardServices.register( req.body )
       if(data.code === 201) {res.status(201).send(data)}
       if(data.code === 400) {res.status(400).send(data)}
-      if (data.code === 500) res.status(500).send(data)
+      if (data.code === 500) {res.status(500).send(data)}
 
     } catch (error) {
         res.status(500).send(error)
