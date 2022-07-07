@@ -17,7 +17,8 @@ class GuardServices {
       else{
         guards= await Guard.findAll({limit: 30});
       }
-     if(guards[0]) {return { error: false, data: {guards:guards,totalPages:totalPages} }};
+    return { error: false, data: {guards:guards,totalPages:totalPages} };
+    
     } catch (error) {
       return { error: true, data: false };
     }
