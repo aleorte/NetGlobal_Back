@@ -13,6 +13,7 @@ const AdminController = require('../controllers/AdminController');
 const adminRoutes = require('./adminRoutes');
 const multer = require('multer');
 const upload = require('../middleware/upload');
+const { Province } = require("../models");
 
 router.use("/guards",guardRoutes)
 router.use("/assignments",assignmentRoutes)
@@ -34,6 +35,11 @@ router.post("/search/branch", BranchController.search)
 //register routes
 router.post("/register/admin", AdminController.register)
 router.post("/register/guard", GuardController.register)
+router.get("/provinces",async (req,res)=>{
+ const provinces = await Province.findAll()
+ if(provinces) {return res.status(200).send(provinces)}
+ return res.status(500).send('Failed to load ')
+})
 //routes of "I Forgot my Password" for Guards                                            
 router.post('/forgot-password', GuardController.forgotPassword);//1° Send Email with recovery Token         
 router.post('/token', GuardController.tokenVerification);       //2° verify if token matches        
