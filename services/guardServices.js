@@ -143,7 +143,7 @@ static async register ( body ) {
     }   
 
   try {
-      const password = "123"  // passwordGenerator() should go here instead of "123"
+      const password = passwordGenerator() 
       body.password = password
       const licenses = body.licenses;
       delete body.licenses;
@@ -182,7 +182,7 @@ static async register ( body ) {
         from: 'Net-Global@gmail.ar', 
         to: `${ email }`, 
         subject: 'Nueva cuenta Net Global', 
-        text: 'New Guard has been successfully created',
+        text: 'Se ha creado un nuevo guardia. ',
         html: `
         <h1>   ¡Nueva cuenta Net Global! </h1>
         <p> ¡Hola! Net Global ha creado para ti una nueva cuenta de guardia. Se ha generado una contraseña de seguridad de manera automática, sin embargo usted puede modificarla si asi lo desea. Recomendamos no borrar este mensaje hasta haber modificado la contraseña por una de su agrado.</p> 
@@ -196,7 +196,7 @@ static async register ( body ) {
       return { error: false, data: { code: 201, message: "New Guard Account has been successfully created"} }
 
     } catch ( err ) {
-      return { error: true, data: "Failed to add guard" }
+      return { error: true, data: {message:"Failed to add guard", error:err} }
     };
    };
 

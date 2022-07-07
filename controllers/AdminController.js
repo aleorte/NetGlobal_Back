@@ -4,10 +4,10 @@ class AdminController {
 
     static async register (req, res) {       
       const { error, data } = await AdminServices.register( req.body )
-      if(data.code === 201) {return res.status(201).send(data)}
-      if(data.code === 400) {return res.status(400).send(data)}
-      if (error) {
-            return res.status(500).send( 'Failed to create new admin')
+       if(data.code === 201) {return res.status(201).send(data)}
+      if (error === true) {
+        if(data.code === 400) {return res.status(400).send(data)}
+        return res.status(500).send(data)
         }
     }  
 
