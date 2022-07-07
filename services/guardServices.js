@@ -253,7 +253,10 @@ static async register ( body ) {
     try {
       const guard = await Guard.findOne({ where: { email } });
       const isGuardValid = await bcrypt.compare(token , guard.recoveryKey)
-      return { error: false, data: { code: 202, message: "Authirized with Token Key" } }
+      if(isGuardValid)
+      return { error: false, data: {message: "Authirized with Token Key" } }
+      else
+      return { error: true, data: false}
 
     } catch {
       return { error: true, data: false }

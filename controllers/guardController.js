@@ -93,7 +93,7 @@ class GuardController {
   static async tokenVerification (req, res) {
   
       const { error, data } = await GuardServices.tokenVerification( req.body )
-       if (data) res.status(202).send(data)
+       if(data) return res.status(202).send(data)
       res.status(500).send(error)
     
   }
