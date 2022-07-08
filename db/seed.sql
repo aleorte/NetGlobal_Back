@@ -42,9 +42,9 @@ INSERT INTO branches (cuit,name, street, number, location,"coordinateLatitude", 
 
 
 
-INSERT INTO assignments (date, month,  "startTime",  "endTime", notes,"branchId", "adminId", "guardId") VALUES ('2022-07-21',07, '2022-07-21T18:27:50.000Z','2022-07-22T18:27:50.000Z', 'Abrir ventanas', 1, 1, 1);
-INSERT INTO assignments (date, month,  "startTime",  "endTime", notes,"branchId", "adminId", "guardId") VALUES ('2022-07-15',07, '2022-07-15T18:27:50.000Z','2022-07-16T16:27:50.000Z', 'Abrir ventanas', 1, 1, 1);
-INSERT INTO assignments (date, month,  "startTime",  "endTime", notes,"branchId", "adminId", "guardId") VALUES ('2022-07-10',07, '2022-07-10T18:27:50.000Z','2022-07-11T18:27:50.000Z', 'Abrir ventanas', 1, 1, 1);
+INSERT INTO assignments ("workedHours",date, month,  "startTime",  "endTime", notes,"branchId", "adminId", "guardId") VALUES (8.35,'2022-07-21',07, '2022-07-21T18:27:50.000Z','2022-07-22T18:27:50.000Z', 'Abrir ventanas', 1, 1, 1);
+INSERT INTO assignments ("workedHours",date, month,  "startTime",  "endTime", notes,"branchId", "adminId", "guardId") VALUES (8.35,'2022-07-15',07, '2022-07-15T18:27:50.000Z','2022-07-16T16:27:50.000Z', 'Abrir ventanas', 1, 1, 1);
+INSERT INTO assignments ("workedHours",date, month,  "startTime",  "endTime", notes,"branchId", "adminId", "guardId") VALUES (7.52,'2022-07-10',07, '2022-07-10T18:27:50.000Z','2022-07-11T18:27:50.000Z', 'Abrir ventanas', 1, 1, 2);
 
 
 INSERT INTO index_tables (tablename,indexname) VALUES ('admins','admins_email_key');

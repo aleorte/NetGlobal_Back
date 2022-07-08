@@ -22,13 +22,8 @@ router.post("/login", AdminController.login)
 router.use("/company", companyRouter)
 router.use("/branch", branchesRouter)
 router.use("/admin", adminRoutes)
-
 //ruta para testear autorizacion 
 router.post("/auth", authAdmin)
-//routes of "I Forgot my Password" for Admins                                     
-router.post('/admin/forgot-password', AdminController.forgotPassword);        
-router.post('/admin/token', AdminController.tokenVerification);         
-router.put('/admin/new-password', AdminController.newPassword); 
 //search routes 
 router.post("/search/company", CompanyController.search)
 router.post("/search/branch", BranchController.search)

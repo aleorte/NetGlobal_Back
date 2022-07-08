@@ -1,5 +1,6 @@
 const { Branch } = require("../models");
 const { Province } = require("../models");
+const { Guard } = require("../models");
 const { Op, Sequelize } = require("sequelize");
 const axios = require('axios');
 const getDistanceInKM  = require('../functions/getDistanceInKm')
@@ -92,9 +93,17 @@ class BranchServices {
   }
   static async getTasks(branchId){
     try{
+      let assignments=[]
       const branch = await Branch.findByPk(branchId)
       const tasks = await branch.getAssignments()
-      if(tasks[0]) return { error: false , data: tasks}
+      for(let i=0; i<tasks.length ; i++){
+          const guard = await Guard.findByPk(tasks[i]["guardId"])
+          let guardName = guard.dataValues.name + " " + guard.dataValues.lastName 
+          let task2={...tasks[i].dataValues}
+          task2.guardName=guardName
+          assignments.push(task2)
+      }
+      if(tasks[0]) return { error: false , data: assignments}
      return { error: true , data: 'No tasks found'}
     }
     catch(error){
