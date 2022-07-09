@@ -10,14 +10,26 @@ class GuardServices {
     try {
       let guards;
       let totalPages = Math.ceil(await Guard.count()/30);
-
+      let guards2=[]
       if(page>=2){
         guards = await Guard.findAll({ offset: (page-1)*30, limit: 30 });
       }
       else{
+        let assignments;
         guards= await Guard.findAll({limit: 30});
+        for (let i=0 ; i<guards.length ; i++){
+          assignments = await guards[i].getAssignments(); 
+          const workedHours = assignments.reduce((acc, assignment) => {
+            return assignment.dataValues.state === "COMPLETED"
+              ? acc + Number(assignment.dataValues.workedHours)
+              : acc;
+          }, 0);
+          let vigilador={...guards[i].dataValues}
+          vigilador["workedHours"] = workedHours
+          guards2.push(vigilador)
+        }
       }
-    return { error: false, data: {guards:guards,totalPages:totalPages} };
+    return { error: false, data: {guards:guards2,totalPages:totalPages} };
     
     } catch (error) {
       return { error: true, data: false };
