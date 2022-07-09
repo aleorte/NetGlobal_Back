@@ -50,6 +50,7 @@ class BranchServices {
   }
   static async getGuards(branchId) {
     try {
+      let guardsIn20Km= []
       const branch = await Branch.findByPk(branchId);
       const province = await Province.findByPk(branch.provinceId);
       const guards = await province.getGuards({
@@ -63,12 +64,13 @@ class BranchServices {
           "coordinateLength",
         ],
       });
-      let guardsIn20Km;
+      
       for (let i=0 ; i<guards.length ; i++){
-        if(getDistanceInKM (guards[i].coordinateLatitude, guards[i].coordinateLength, branch.coordinateLatitude, branch.coordinateLength)<= 20){
+        if(getDistanceInKM (guards[i].coordinateLatitude, guards[i].dataValues.coordinateLength, branch.coordinateLatitude, branch.coordinateLength)<= 20){
           guardsIn20Km.push(guards[i])
         }
       }
+      console.log(guardsIn20Km)
       return { error: false, data: guardsIn20Km };
     } catch (error) {
       return { error: true, data: { message: "No Guards " } };
