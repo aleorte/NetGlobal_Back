@@ -13,6 +13,9 @@ Inactive.init(
         type: Sequelize.DATEONLY,
         allowNull: false,
       },
+    detail:{
+      type:Sequelize.STRING
+    },
       state: {
         type: Sequelize.STRING,
         defaultValue: "PENDING APPROVAL",
