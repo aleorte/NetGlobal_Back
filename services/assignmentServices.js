@@ -1,4 +1,4 @@
-const { Assignment, Branch } = require("../models");
+const { Assignment, Branch, Guard } = require("../models");
 
 class AssignmentServices {
   static async addOne(body) {
@@ -11,6 +11,13 @@ class AssignmentServices {
       });
       await assignment.setBranch(body.branchId);
       await assignment.setAdmin(body.adminId);
+      const guard = await Guard.findByPk(body.guardId)
+      const assignments = await guard.getAssignments(); 
+      for (let i=0; i<assignments.length; i++ ){
+        if (assignments[i].date === body.date){
+          return { error: true, data: {message:'Guard is busy'} }
+        }
+      }
       await assignment.setGuard(body.guardId);
 
       return { error: false, data: assignment };

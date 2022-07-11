@@ -48,7 +48,7 @@ class BranchServices {
       return { error: true, data: { message: "Failed to update " } };
     }
   }
-  static async getGuards(branchId) {
+  static async getGuards(branchId,body) {
     try {
       let guardsIn20Km= []
       const branch = await Branch.findByPk(branchId);
@@ -64,13 +64,19 @@ class BranchServices {
           "coordinateLength",
         ],
       });
-      
+      let ids = []
       for (let i=0 ; i<guards.length ; i++){
-        if(getDistanceInKM (guards[i].coordinateLatitude, guards[i].dataValues.coordinateLength, branch.coordinateLatitude, branch.coordinateLength)<= 20){
+       const assignments = await guards[i].getAssignments(); 
+       for (let i=0; i<assignments.length; i++ ){
+        if (assignments[i].date === body.date){
+           ids.push(assignments[i].guardId)
+        }
+       }
+        if(getDistanceInKM (guards[i].coordinateLatitude, guards[i].dataValues.coordinateLength, branch.coordinateLatitude, branch.coordinateLength)<= 20 && !(ids.includes(guards[i].id))){
           guardsIn20Km.push(guards[i])
         }
       }
-      console.log(guardsIn20Km)
+      if(guardsIn20Km.length === 0 ) {return {error: true, data: { message: "No Guards " }  }}
       return { error: false, data: guardsIn20Km };
     } catch (error) {
       return { error: true, data: { message: "No Guards " } };
