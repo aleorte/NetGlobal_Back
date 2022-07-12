@@ -3,11 +3,13 @@ const { Assignment, Branch, Guard } = require("../models");
 class AssignmentServices {
   static async addOne(body) {
     try {
+      if(!body.guardId){return { error: true, data: 'Assign a guard' }}
       const assignment = await Assignment.create({
         date: body.date,
         month: body.month,
         startTime: body.startTime,
         endTime: body.endTime,
+        notes:body.notes
       });
       await assignment.setBranch(body.branchId);
       await assignment.setAdmin(body.adminId);
