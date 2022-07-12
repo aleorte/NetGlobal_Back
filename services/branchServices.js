@@ -66,14 +66,29 @@ class BranchServices {
       });
       let ids = []
       for (let i=0 ; i<guards.length ; i++){
+        let hsAssigned = 0
        const assignments = await guards[i].getAssignments(); 
+       const inactivities = await guards[i].getInactivities(); 
        for (let i=0; i<assignments.length; i++ ){
+        const start = assignments[i]["startTime"].getTime()
+        const end= assignments[i]["endTime"].getTime()
+        const restaEnHs = (end-start)/(60*60*1000)
+       if(assignments[i].month == body.date.split("-")[1]) {hsAssigned = hsAssigned + restaEnHs}
         if (assignments[i].date === body.date){
            ids.push(assignments[i].guardId)
         }
        }
+       for (let j=0; j<inactivities.length; j++ ){
+        const date = Number(body.date.split("-").join(""))
+        const start =Number(inactivities[j].startDate.split("-").join(""))
+        const end =Number(inactivities[j].endDate.split("-").join(""))
+        if ( date <= end && date >= start  ){
+           ids.push(inactivities[j]["guards_inactivities"].guardId)
+        }
+       }
         if(getDistanceInKM (guards[i].coordinateLatitude, guards[i].dataValues.coordinateLength, branch.coordinateLatitude, branch.coordinateLength)<= 20 && !(ids.includes(guards[i].id))){
-          guardsIn20Km.push(guards[i])
+          let guard2 = {...guards[i].dataValues , hs:hsAssigned}
+          guardsIn20Km.push(guard2)
         }
       }
       if(guardsIn20Km.length === 0 ) {return {error: true, data: { message: "No Guards " }  }}
@@ -100,18 +115,18 @@ class BranchServices {
     }
   }
   static async getTasks(branchId){
+    let assignments=[]
     try{
-      let assignments=[]
       const branch = await Branch.findByPk(branchId)
       const tasks = await branch.getAssignments()
-      for(let i=0; i<tasks.length ; i++){
+      for(let i=0; i< tasks.length ; i++){
           const guard = await Guard.findByPk(tasks[i]["guardId"])
-          let guardName = guard.dataValues.name + " " + guard.dataValues.lastName 
+          let guardName = guard.name + " " + guard.lastName 
           let task2={...tasks[i].dataValues}
-          task2.guardName=guardName
+          task2["guardName"]=guardName
           assignments.push(task2)
       }
-      if(tasks[0]) return { error: false , data: assignments}
+     if(assignments[0]){return { error: false , data: assignments}}
      return { error: true , data: 'No tasks found'}
     }
     catch(error){

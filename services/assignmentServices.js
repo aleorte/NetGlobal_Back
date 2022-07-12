@@ -2,8 +2,8 @@ const { Assignment, Branch, Guard } = require("../models");
 
 class AssignmentServices {
   static async addOne(body) {
+    if(!body.guardId){ return { error: true, data: 'Assign a guard' }}
     try {
-      if(!body.guardId){return { error: true, data: 'Assign a guard' }}
       const assignment = await Assignment.create({
         date: body.date,
         month: body.month,
