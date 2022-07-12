@@ -62,6 +62,8 @@ class AssignmentServices {
     if (query.guard) {
       try {
         let assignments;
+        const guard = await Guard.findByPk(query.guard)
+        const name = guard.lastName + " " +  guard.name
         let result = [];
         if(query.month){
           assignments = await Assignment.findAll({
@@ -72,6 +74,7 @@ class AssignmentServices {
           result = await Promise.all(assignments.map(async(assignment)=>{
             const assignment2 = {...assignment.dataValues}
             assignment2.branch = await assignment.getBranch()
+            assignment2.name = name
             return assignment2
           }))
         }
@@ -86,6 +89,7 @@ class AssignmentServices {
           });
           result = await Promise.all(assignments.map(async(assignment)=>{
             const assignment2 = {...assignment.dataValues}
+            assignment2.name = name
             assignment2.branch = await assignment.getBranch()
             return assignment2
           }))
