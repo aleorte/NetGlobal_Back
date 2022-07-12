@@ -29,6 +29,20 @@ class InactiveController {
     }
     res.status(201).send(data);
   }
+  static async getPending(req,res){
+    const { error, data } = await InactiveServices.getPending();
+    if (error) {
+      return res.status(500).send(data);
+    }
+    res.status(200).send(data);
+  }
+  static async getRejectedAndApproved(req,res){
+    const { error, data } = await InactiveServices.getRejectedAndApproved()
+    if (error) {
+      return res.status(500).send(data);
+    }
+    res.status(200).send(data);
+  }
 }
 
 module.exports = InactiveController;

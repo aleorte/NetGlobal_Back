@@ -69,6 +69,46 @@ class InactiveServices {
       }
     }
   }
+
+  static async getRejectedAndApproved(){
+    try{
+        const inactivitiesApproved = await Inactive.findAll({
+                  where:{state:"APPROVED"},
+                  include: {
+                    model: Guard,
+                  },
+              });
+              const inactivitiesRejected = await Inactive.findAll({
+                  where:{state:"REJECTED"},
+                  include: {
+                    model: Guard,
+                  },
+              });
+              return { error: false, data: {approved: inactivitiesApproved , rejected: inactivitiesRejected} };
+            }
+            catch (error) {
+              return { error: true, data: error };
+            }   
+          }
+          static async getPending(){
+            try {
+              const inactivitiesPending = await Inactive.findAll({
+                where:{state:"PENDING APPROVAL"},
+                include: {
+                  model: Guard,
+                },
+                
+              });
+              return { error: false, data:inactivitiesPending}
+            } 
+            
+            catch (error) {
+              return { error: true, data: error };
+            }   
+
+          }
+
+
 }
 
 module.exports = InactiveServices;
