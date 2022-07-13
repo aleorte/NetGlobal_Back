@@ -5,7 +5,30 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
 const axios = require('axios')
 const getDistanceInKM  = require('../functions/getDistanceInKm')
+const formatDate = require('../functions/formatDate')
+const moment = require('moment');
 class GuardServices {
+  static async getNextTasks(guardId){
+    try{
+    let result = []
+   const guard = await Guard.findByPk(guardId)
+   const assignments = await guard.getAssignments()
+    const today = moment().format("YYYY-MM-DD").split("-").join("")
+    const inTwoWeeks = moment().add( 14, 'days').toISOString().split("T")[0].split("-").join("")
+     assignments.map((assignment)=>{
+      let day = Number(assignment.endTime.toISOString().split("T")[0].split("-").join(""))
+      if(day >= Number(today) && day<= Number(inTwoWeeks) ){
+         result.push(assignment) }
+    })
+    const result2 = result.sort((a,b)=> Number(a.date.split("-").join("")) - Number(b.date.split("-").join("")))
+    return { error: false, data: result2 }
+  }
+ 
+    catch(error){
+      return { error: true, data: error };
+    }
+
+  }
   static async getAll(page) {
     try {
       let guards;

@@ -58,6 +58,7 @@ class AssignmentServices {
       return { error: true, data: error };
     }
   }
+  
   static async getAll(query) {
     if (query.guard) {
       try {
@@ -69,7 +70,7 @@ class AssignmentServices {
           assignments = await Assignment.findAll({
               where: {
                 guardId: query.guard,
-              },
+              }
           });
           result = await Promise.all(assignments.map(async(assignment)=>{
             const assignment2 = {...assignment.dataValues}
@@ -93,9 +94,12 @@ class AssignmentServices {
             assignment2.branch = await assignment.getBranch()
             return assignment2
           }))
+          
         }
-        return { error: false, data: result };
-      } catch (error) {
+        const result2 = result.sort((a,b)=> Number(a.date.split("-").join("")) - Number(b.date.split("-").join("")))
+        return { error: false, data: result2 };
+      } 
+      catch (error) {
         return { error: true, data: error };
       }
     } else if (query.branch) {
@@ -125,7 +129,8 @@ class AssignmentServices {
     } else {
       try {
         const assignments = await Assignment.findAll();
-        return { error: false, data: assignments };
+        const result2 = assignments.sort((a,b)=> Number(a.date.split("-").join("")) - Number(b.date.split("-").join("")))
+        return { error: false, data: result2 };
       } catch (error) {
         return { error: true, data: error };
       }
