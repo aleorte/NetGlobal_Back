@@ -2,7 +2,8 @@ const { Op, Sequelize } = require("sequelize")
 const {Branch,Guard,Company,Assignment,Province}= require ('../models');
 const axios = require('axios')
 const getDistanceInKM  = require('../functions/getDistanceInKm')
-const formatDate = require('../functions/formatDate')
+const formatDate = require('../functions/formatDate');
+const { assign } = require("nodemailer/lib/shared");
 
 class CompanyServices {
     static async getAll(page) {
@@ -165,7 +166,21 @@ class CompanyServices {
       }
       static async getBranches(companyId){
         try{const branches = await Branch.findAll({where:{companyId:companyId}})
-        return { error: false, data: branches };}
+        let branch2;
+        let final = []
+        for (let i=0 ; i<branches.length;i++){
+         let ids= []
+          const assignments= await branches[i].getAssignments()
+          for(let i =0 ; i<assignments.length; i++){
+            ids.push(assignments[i]["guardId"])
+          }
+          branch2 = {...branches[i].dataValues}
+          let uniq = [...new Set(ids)];
+          branch2.guards= uniq.length
+          final.push(branch2)
+        }
+        
+        return { error: false, data: final };}
         catch(error){
           return { error: true, data: {message:"Coudn't find any braches for the company"}};
         }
