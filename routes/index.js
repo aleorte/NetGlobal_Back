@@ -10,10 +10,10 @@ const GuardController = require("../controllers/guardController");
 const CompanyController = require('../controllers/companyController');
 const BranchController = require('../controllers/branchController');
 const AdminController = require('../controllers/AdminController');
+const ProvinceController = require('../controllers/ProvinceController')
 const adminRoutes = require('./adminRoutes');
 const multer = require('multer');
 const upload = require('../middleware/upload');
-const { Province } = require("../models");
 
 router.use("/guards",guardRoutes)
 router.use("/assignments",assignmentRoutes)
@@ -30,15 +30,15 @@ router.post("/search/branch", BranchController.search)
 //register routes
 router.post("/register/admin", AdminController.register)
 router.post("/register/guard", GuardController.register)
-router.get("/provinces",async (req,res)=>{
- const provinces = await Province.findAll()
- if(provinces) {return res.status(200).send(provinces)}
- return res.status(500).send('Failed to load ')
-})
+router.get("/provinces",ProvinceController.getAll)
+
+
 //routes of "I Forgot my Password" for Guards                                            
 router.post('/forgot-password', GuardController.forgotPassword);//1° Send Email with recovery Token         
 router.post('/token', GuardController.tokenVerification);       //2° verify if token matches        
 router.put('/new-password', GuardController.newPassword);       //3° re-write User-password    
+
+
 // router.put('/upload',upload,(req,res)=>{
 //     console.log(req.file)
 //     res.send('Uploaded')    

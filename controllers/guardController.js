@@ -77,7 +77,13 @@ class GuardController {
        return  res.status(500).send(data)
     }
   };
-  
+  static async getThem (req,res){
+    const {error,data} = await GuardServices.getThem(req.params.id)
+    if (error) {
+      return  res.status(500).send(data)
+   }
+   return res.status(200).send(data)
+  }
   static async forgotPassword (req, res) { // CHEQUEAR
 
       const { error,data } = await GuardServices.forgotPassword( req.body )

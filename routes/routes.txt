@@ -38,11 +38,14 @@ adminId (INTEGER)}
 --------------------xxxxx----------------------------xxxx------------------------
 
 Rutas de inactividades : Modelo INACTIVE
+
 *GET /inactivities : devuelve todas las solicitudes de inactividades históricas
 *GET /inactivities?guard=1: devuelve todas las solicitudes de inactividad históricas del guardia 1 
-*POST  /inactivities/guard/1 : debo pasarle en el body : {startDate (DATEONLY) y  endDate (DATEONLY)}. Añade una solicitud de inactividad del guardia 1.
+*POST  /inactivities/guard/1 : debo pasarle en el body : {startDate (DATEONLY), endDate (DATEONLY), detail(STRING)}. Añade una solicitud de inactividad del guardia 1.
 *PUT /inactivities/1 : actualiza la inactividad con id 1 en el campo que se quiera actualizar del modelo Inactive.
 *DELETE /inactivities/1: elimina la inactividad con id 1.
+* GET /inactivities/pending: devuelve todas las solicitudes pendientes de inactividades.
+* GET /inactivities/state : devuelve todas las solicitudes aprobadas y rechazadas de inactividades.
 
 --------------------xxxxx----------------------------xxxx------------------------
 
@@ -64,14 +67,14 @@ contractEndDate(DATEONLY)}
 *PUT /company/1: Cambia la informacion de la empresa con id 1 en el campo que enviamos en el body. 
 *GET /company/1/branches : Devuelve  solo las sucursales de la empresa con id 1.
 *POST /company/1: Agrega una sucursal a la empresa con id=1. Debo pasarle en el body:
-{
+{   cuit(BIGINT)
     name(STRING), 
     street(STRING),
     number(INTEGER), 
     location(ciudad)(STRING),
-    coordinateLatitude(DECIMAL),
-    coordinateLength(DECIMAL), 
-    provinceName (STRING)
+    provinceName (STRING),
+    logo (STRING), 
+    state(STRING) Nombre de la Provincia. 
 }
 
 --------------------xxxxx----------------------------xxxx------------------------
@@ -80,7 +83,7 @@ Rutas de sucursales: Modelo Branch.
 
 *GET /branch?page=3 : Muestra todas las sucursales de todas las empresas de la página 3 (pagination de a 30 sucursales). 
 *GET /branch/1 : Muestra los datos de la sucursal con id 1. 
-*GET /branch/1/guards : Muestra los datos de los guardias con licencia en la provincia de la sucursal.
+*POST/branch/1/guards : Envio como DATE la fecha en la que quiero crear el assignment. Muestra los datos de los guardias (incluidas las hs asignadas el mes de la fecha) a 20km de la sucursal, que no tienen tareas ese mismo dia ni estan de baja.
 *PUT /branch/1 : Modifica los datos de la sucursal con id 1. Debo pasarle en el body los campos a modificar. 
 *GET /branch/1/tasks : Muestra los datos de las tareas pertenecientes a la sucursal con el id 1. 
 --------------------xxxxx----------------------------xxxx------------------------
@@ -104,6 +107,11 @@ Rutas de admin : Modelo Admin.
 *POST /search/branch : Busca sucursales que coincidan con alguno de los criterios de busqueda.Enviar name: nombre a buscar(STRING) , province: nombre de la provincia(STRING) o location:nombre de la ciudad(STRING) en body del request.
 *POST /search/company : Muestra las empresas  que coincidan con alguno de los criterios de busqueda.Enviar nombre o similar o con ese cuit.Manadar cuit o palabra del nombre (legalName) (STRING) en body del request.
 
+--------------------xxxxx----------------------------xxxx------------------------
+
+Rutas de provincias : Modelo Province:
+
+*GET /provinces : Retorna todas las provincias.
 
 
 
