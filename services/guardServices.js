@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { Guard, Province, Assignment } = require("../models");
+const { Guard, Province, Assignment, Branch } = require("../models");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
@@ -289,6 +289,22 @@ static async register ( body ) {
 
     } catch {
       return { error: true, data: false }
+    }
+  }
+  static async getThem(guardId){
+    try{
+    const guard = await Guard.findByPk(guardId)
+    const branches = await Branch.findAll()
+    let availableBranches = []
+    for(let i=0 ; i< branches.length ; i++){
+     if(getDistanceInKM(branches[i].dataValues.coordinateLatitude,branches[i].dataValues.coordinateLength,guard.coordinateLatitude,guard.coordinateLength) <= 20){
+      availableBranches.push(branches[i])
+     }
+    }
+    return { error: false , data: availableBranches}
+  }
+    catch(error){
+      return {error:true, data:error}
     }
   }
 }
