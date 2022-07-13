@@ -24,6 +24,13 @@ class BranchController {
                }
        return res.status(204).send(data);    
       }
+      static async  get20kmGuards(req,res){
+        const {error,data} = await BranchServices.get20kmGuards(req.params.id)
+        if (error) {
+          return res.status(500).send(data);
+        }
+       return res.status(200).send(data);  
+      }
       static async  getGuards(req,res){
         const {error,data} = await BranchServices.getGuards(req.params.id,req.body)
         if (error) {

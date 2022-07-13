@@ -48,6 +48,35 @@ class BranchServices {
       return { error: true, data: { message: "Failed to update " } };
     }
   }
+  static async get20kmGuards(branchId){
+    try{
+      let guardsIn20Km= []
+      const branch = await Branch.findByPk(branchId)  
+      const province = await Province.findByPk(branch.provinceId);
+      const guards = await province.getGuards({
+        attributes: [
+          "id",
+          "name",
+          "lastName",
+          "street",
+          "location",
+          "coordinateLatitude",
+          "coordinateLength",
+          "image"
+        ],
+      })
+      for(let i=0 ; i<guards.length ;i++){
+        if(getDistanceInKM (guards[i].coordinateLatitude, guards[i].coordinateLength, branch.coordinateLatitude, branch.coordinateLength)<= 20){
+          guardsIn20Km.push(guards[i])
+        }
+      }
+      
+      return { error: false, data: guardsIn20Km };
+    }
+   catch(error){
+    return { error: true, data: error };
+   }
+  }
   static async getGuards(branchId,body) {
     try {
       let guardsIn20Km= []
