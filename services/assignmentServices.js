@@ -70,6 +70,7 @@ class AssignmentServices {
           assignments = await Assignment.findAll({
               where: {
                 guardId: query.guard,
+                month: query.month
               }
           });
           result = await Promise.all(assignments.map(async(assignment)=>{
