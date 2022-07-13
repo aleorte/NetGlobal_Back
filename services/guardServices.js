@@ -19,6 +19,11 @@ class GuardServices {
         guards= await Guard.findAll({limit: 30});
         for (let i=0 ; i<guards.length ; i++){
           assignments = await guards[i].getAssignments(); 
+          const tasks = assignments.reduce((acc, assignment) => {
+            return assignment.dataValues.state === "PENDING"
+              ? acc + 1
+              : acc;
+          }, 0);
           const workedHours = assignments.reduce((acc, assignment) => {
             return assignment.dataValues.state === "COMPLETED"
               ? acc + Number(assignment.dataValues.workedHours)
@@ -26,6 +31,7 @@ class GuardServices {
           }, 0);
           let vigilador={...guards[i].dataValues}
           vigilador["workedHours"] = workedHours
+          vigilador["tasks"]= tasks
           guards2.push(vigilador)
         }
       }
