@@ -51,8 +51,9 @@ class InactiveServices {
     if (query.guard) {
       try {
         const guard = await Guard.findByPk(query.guard);
+        const guard2 = `${guard.name}  ${guard.lastName}`
         const inactivities = await guard.getInactivities();
-        return { error: false, data: inactivities };
+        return { error: false, data: {inactivities:inactivities , guard:guard2}};
       } catch (error) {
         return { error: true, data: error };
       }

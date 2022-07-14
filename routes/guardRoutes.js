@@ -1,9 +1,9 @@
 const express = require ("express");
 const GuardController = require("../controllers/guardController");
 const router = express.Router()
-
-router.get("/",GuardController.getAll)
-router.get("/:id",GuardController.getOne)
+const authAdmin = require('../middleware/authAdmin')
+router.get("/", authAdmin, GuardController.getAll)
+router.get("/:id", authAdmin, GuardController.getOne)
 router.get("/:id/available",GuardController.getThem)
 router.get("/:id/nextTasks",GuardController.getNextTasks)
 router.put("/:id",GuardController.updateOne)
