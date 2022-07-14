@@ -133,7 +133,7 @@ Content-Type: application/json
 #     "location": "La Plata",
 #     "province": "Buenos Aires",
 #     "licenses": [1,2,3],
-#     "image": "https://media.lacapital.com.ar/p/e03d3410a56144d8edb9a396106968aa/adjuntos/203/imagenes/006/249/0006249"
+#     "image": "https://elultimodiezjr.files.wordpress.com/2010/08/facutopogigio.jpg?w=300"
 
 //datos Pappo 
  #     "name": "Norberto Aníbal",

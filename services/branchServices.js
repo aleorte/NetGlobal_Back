@@ -116,7 +116,7 @@ class BranchServices {
         }
        }
         if(getDistanceInKM (guards[i].coordinateLatitude, guards[i].dataValues.coordinateLength, branch.coordinateLatitude, branch.coordinateLength)<= 20 && !(ids.includes(guards[i].id))){
-          let guard2 = {...guards[i].dataValues , hs:hsAssigned}
+          let guard2 = {...guards[i].dataValues , hs:hsAssigned.toFixed(2)}
           guardsIn20Km.push(guard2)
         }
       }

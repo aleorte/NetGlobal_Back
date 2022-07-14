@@ -58,7 +58,7 @@ class GuardServices {
               : acc;
           }, 0);
           let vigilador={...guards[i].dataValues}
-          vigilador["workedHours"] = workedHours
+          vigilador["workedHours"] = workedHours.toFixed(2)
           vigilador["tasks"]= tasks
           guards2.push(vigilador)
         }
@@ -97,7 +97,7 @@ class GuardServices {
       await Guard.update(body, { where: { id: guardId } });
       const guard = await Guard.findByPk(guardId);
       if(guard.active ===false)
-      { console.log("entro")
+      { 
         const today = new Date();
         await Assignment.destroy({
             where: {
