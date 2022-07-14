@@ -49,6 +49,9 @@ INSERT INTO assignments ("workedHours",date, month,  "startTime",  "endTime", no
 INSERT INTO assignments ("workedHours",date, month,  "startTime",  "endTime", notes,"branchId", "adminId", "guardId") VALUES (8.35,'2022-07-30',07, '2022-07-21T18:27:50.000Z','2022-07-22T18:27:50.000Z', 'Abrir ventanas', 1, 1, 1);
 INSERT INTO assignments ("workedHours",date, month,  "startTime",  "endTime", notes,"branchId", "adminId", "guardId") VALUES (7.52,'2022-07-10',07, '2022-07-10T18:27:50.000Z','2022-07-11T18:27:50.000Z', 'Abrir ventanas', 1, 1, 2);
 INSERT INTO assignments ("workedHours",date, month,  "startTime",  "endTime", notes,"branchId", "adminId", "guardId") VALUES (7.52,'2022-07-12',07, '2022-07-12T18:27:50.000Z','2022-07-13T18:27:50.000Z', 'Abrir ventanas', 1, 1, 1);
+INSERT INTO assignments ("state","workedHours",date, month,  "startTime",  "endTime", notes,"branchId", "adminId", "guardId") VALUES ('COMPLETED',7.52,'2022-07-22',07, '2022-07-22T18:27:50.000Z','2022-07-13T18:27:50.000Z', 'Abrir ventanas', 1, 1, 1);
+INSERT INTO assignments ("state","workedHours",date, month,  "startTime",  "endTime", notes,"branchId", "adminId", "guardId") VALUES ('COMPLETED',10,'2022-07-23',07, '2022-07-23T18:27:50.000Z','2022-07-23T18:27:50.000Z', 'Abrir ventanas', 1, 1, 1);
+INSERT INTO assignments ("state","workedHours",date, month,  "startTime",  "endTime", notes,"branchId", "adminId", "guardId") VALUES ('COMPLETED',10,'2022-07-23',06, '2022-07-23T18:27:50.000Z','2022-07-23T18:27:50.000Z', 'Abrir ventanas', 1, 1, 1);
 
 
 INSERT INTO index_tables (tablename,indexname) VALUES ('admins','admins_email_key');

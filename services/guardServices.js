@@ -20,8 +20,13 @@ class GuardServices {
       if(day >= Number(today) && day<= Number(inTwoWeeks) ){
          result.push(assignment) }
     })
-    const result2 = result.sort((a,b)=> Number(a.date.split("-").join("")) - Number(b.date.split("-").join("")))
-    return { error: false, data: result2 }
+    const result2 = await Promise.all(result.map(async(assignment)=>{
+      const assignment2 = {...assignment.dataValues}
+      assignment2.branch = await assignment.getBranch()
+      return assignment2
+    }))
+    const result3 = result2.sort((a,b)=> Number(a.date.split("-").join("")) - Number(b.date.split("-").join("")))
+    return { error: false, data: result3 }
   }
  
     catch(error){
