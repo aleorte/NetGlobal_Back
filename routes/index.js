@@ -14,7 +14,7 @@ const ProvinceController = require('../controllers/ProvinceController')
 const adminRoutes = require('./adminRoutes');
 const multer = require('multer');
 const upload = require('../middleware/upload');
-
+const superAdminAuth = require('../middleware/superAdminAuth')
 router.use("/guards",guardRoutes)
 router.use("/assignments",assignmentRoutes)
 router.use("/inactivities",inactiveRoutes)
@@ -28,8 +28,8 @@ router.post("/auth", authAdmin)
 router.post("/search/company", CompanyController.search)
 router.post("/search/branch", BranchController.search)
 //register routes
-router.post("/register/admin", AdminController.register)
-router.post("/register/guard", GuardController.register)
+router.post("/register/admin",superAdminAuth , AdminController.register)
+router.post("/register/guard",  authAdmin,GuardController.register)
 router.get("/provinces",ProvinceController.getAll)
 
 
