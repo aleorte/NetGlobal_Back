@@ -45,7 +45,7 @@ class CompanyServices {
                company2.guards=uniq.length
                const province = await Province.findByPk(company2.provinceId)
                company2.state= province.name
-               company2.hours = hs
+               company2.hours = hs.toFixed(2)
                return company2
             }))
           }

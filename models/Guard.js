@@ -78,9 +78,6 @@ Guard.init(
     },
     image: { 
       type: Sequelize.STRING,
-      validate: {
-        isUrl: true
-      },
     } 
   },
   { sequelize: db, modelName: "guards" }

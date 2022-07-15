@@ -30,12 +30,11 @@ class AdminController {
     }
 
     static async tokenVerification (req, res) {
-        try {
+     
             const { error, data } = await AdminServices.tokenVerification( req.body )
-             if (data) res.status(202).send(data)
-        } catch (error) {
-            res.status(500).send(error)
-        }
+            if (error) return res.status(401).send(error)
+            else return res.status(202).send(data)
+        
     }
 
     static async newPassword (req, res) {

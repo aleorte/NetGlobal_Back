@@ -143,8 +143,9 @@ class AdminServices{
         try {
             const admin = await Admin.findOne({ where: { email } })
             const isAdminValid = await bcrypt.compare( token , admin.recoveryKey )
+            console.log(isAdminValid)
             if (isAdminValid) return { error: false, data: { code: 202, message: "Authirized with Token Key" } }
-             return { error: false, data: { code: 401, message: "Unauthorized" } }
+             return { error: true, data: "Unauthorized"  }
         } catch {
             res.status(401).send('Unauthorized')
             return { error: true, data: false }

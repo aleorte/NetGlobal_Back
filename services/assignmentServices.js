@@ -2,7 +2,7 @@ const { Assignment, Branch, Guard } = require("../models");
 const moment = require('moment');
 class AssignmentServices {
   static async addOne(body) {
-    if (body.endTime < new Date(Date.now()).toDateString()){ return {error:true , data:{message:"Cannot create an assignment that takes place during a  past date"}}}
+    // if (body.endTime < new Date(Date.now()).toDateString()){ return {error:true , data:{message:"Cannot create an assignment that takes place during a  past date"}}}
     if(!body.guardId){ return { error: true, data: 'Assign a guard' }}
     try {
       const assignment = await Assignment.create({
@@ -41,6 +41,7 @@ class AssignmentServices {
       const assignment = await Assignment.findByPk(assignmentId);
       if (assignment.endTime < new Date(Date.now())){ return {error:true , data:{message:"Cannot edit an assignment past it's date"}}}
       if( new Date(body.realEndTime) > new Date(assignment.endTime)){ body.realEndTime = assignment.endTime}
+      console.log(body)
       await Assignment.update(body, { where: { id: assignmentId } });
       if(assignment.realStartTime && !assignment.realEndTime){
         await Assignment.update(
@@ -48,7 +49,7 @@ class AssignmentServices {
           { where: { id: assignmentId } }
         );
       }
-     
+
       if (assignment.realStartTime && assignment.realEndTime) {
         let workedHours =
           (assignment.realEndTime - assignment.realStartTime) / 1000 / 60 / 60;
